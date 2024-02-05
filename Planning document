@@ -1,0 +1,58 @@
+First meeting notes for iteration 0: 
+Hospital application
+User login as doctor, nurse, volunteer
+Database for patients information and records
+Requesting tests
+Requesting medications
+Assigning patients to a doctor and a nurse
+Assigning volunteers to doctor
+Hiring physicians
+Extract patients’ details
+Discharge patients
+Hire/ reassign new volunteers
+
+Workout application
+Input user’s age, weight, and height. 
+3 levels of difficulty 
+Different timers for the exercise (
+A list of different exercises 
+GIFs to show how to do the exercise
+Workout remainders
+Workout report (past workout session)
+
+Parking app
+User booking code
+Parking spots 
+Booked spots and available spots
+Time when the spots are booked 
+
+Tools to implement the project 
+JavaFx (better for the workout app)
+JavaSwing
+JFrame (better for the hospital app)
+
+Second planning meeting for Iteration 1:
+
+ Front end: 
+Login page : as a doctor, nurse, volunteer, and administrator
+Doctor options: 
+Discharge patients
+Request tests
+Request medications
+Doctor notes (Maybe too hard)
+Hire volunteers
+Nurse options: 
+Access to doctor notes
+List of current medication 
+Add a patient
+
+Volunteer options: 
+Add patients’ requests
+Doctor and nurse assigned to each patient
+
+	Administrators: 
+Hire doctor, nurse, volunteer
+List of doctor, nurse and volunteer assigned to each patient
+Inpatient and outpatient profiles
+Note: we also added some modifications on meeting 1 notes for the specification of the hospital app. 
+

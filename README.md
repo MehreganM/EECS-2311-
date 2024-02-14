@@ -17,19 +17,30 @@ The HIS project aims to streamline hospital operations by providing specific fun
 
 ## Roadmap: Project Iterations
 - **Iteration 0:**
-  - Non-coding tasks (meeting customers, planning, vision, stories)
-  
+  - Initial non-coding tasks to lay the foundation of the project.
+  - Meeting with customers to understand requirements.
+  - Planning the project's scope, vision, and goals.
+  - Defining user stories and creating a backlog of features.
+
 - **Iteration 1:**
-  - Coding and unit testing
+  - Coding and unit testing phase where the initial features are implemented.
+  - Focus on implementing basic functionalities such as user authentication and role-based access control.
 
 - **Iteration 2:**
-  - More coding and unit testing
-  - Database setup, integration testing, simple design
-  
+  - Continuation of coding and unit testing with a focus on expanding functionality.
+  - Setup of the database to store patient information and other relevant data.
+  - Integration testing to ensure seamless interaction between different components.
+  - Implementation of a simple design for the user interface.
+
 - **Iteration 3:**
-  - More coding, unit testing, database implementation, integration testing, design improvements
-  - Refactoring, acceptance tests, final release
-    
+  - Further coding and unit testing to refine and enhance existing features.
+  - Complete implementation of the database including patient management, appointments, and staff information.
+  - Integration testing to ensure the entire system works as expected.
+  - Design improvements to enhance the user experience and interface.
+  - Refactoring of code to improve readability, maintainability, and performance.
+  - Creation of acceptance tests to validate the functionality against user requirements.
+  - Preparation for the final release of the project.
+
 ## Group Members
 - Mehregan Mesgari
 - Parmoun Khalkhali Sharifi

@@ -137,17 +137,3 @@ class Patient extends Person implements Comparable<Patient>{
 		}
 	}
 }
-/**
- * this Class is Administrator which extends SalariedEmployee
- * and stores the arrayList of physicianAdministrators
- * @author Kimia Rajaeifar
- *
- */
-abstract class Administrator extends SalariedEmployee{
-	protected ArrayList<PhysicianAdministrator> physicianAdministrator=new ArrayList<PhysicianAdministrator>(3);
-	/**
-	 * this default constructor makes an administrator
-	 */
-	public Administrator() {
-		super();
-	}

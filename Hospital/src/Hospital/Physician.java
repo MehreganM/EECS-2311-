@@ -1,7 +1,18 @@
 package Hospital;
 
 import java.util.ArrayList;
+
+
 import java.util.Objects;
+
+
+/**
+ * this class is Physician which extends SalariedEmployee and implements Comparable
+ * and stores the physician's specialty and an arrayList of their patients
+ * and the physician administrator that has their specialty and also a list of volunteers
+ * @author Amira
+ *
+ */
 
 public class Physician extends Employee {
 	

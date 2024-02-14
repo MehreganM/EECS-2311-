@@ -14,6 +14,8 @@ package Hospital;
  *
  */
 
+public 
+
 
 
 public class Hospital {

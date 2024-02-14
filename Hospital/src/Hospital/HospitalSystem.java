@@ -14,9 +14,6 @@ package Hospital;
  *
  */
 
-public 
-
-
 
 public class Hospital {
 	private Director director;

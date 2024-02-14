@@ -1,5 +1,7 @@
 package Hospital;
 
+
+//@author : Amira 
 public class Nurse extends Employee {
 	
 	protected ArrayList<Patient> patients= new ArrayList<Patient>();

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 /**
  * Encapsulates the main functionality of a hospital management application,
  * focusing on personnel management including physicians, administrators, patients, and volunteers.
+ * @author Parmoun Khalkhali Sharifi
  */
 public class HospitalApp {
     private ArrayList<Physician> physicianList = new ArrayList<>();

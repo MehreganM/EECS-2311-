@@ -29,7 +29,7 @@ The HIS project aims to streamline hospital operations by providing specific fun
 - **Iteration 3:**
   - More coding, unit testing, database implementation, integration testing, design improvements
   - Refactoring, acceptance tests, final release
-  - 
+    
 ## Group Members
 - Mehregan Mesgari
 - Parmoun Khalkhali Sharifi

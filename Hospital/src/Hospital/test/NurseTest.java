@@ -1,12 +1,10 @@
 package test;
 
-import Hospital.src;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import src;
 
+import Hospital.*;
 
 public class NurseTest {
     private Nurse nurse;
@@ -15,7 +13,7 @@ public class NurseTest {
 
     @BeforeEach
     public void setUp() {
-        nurse = new Nurse();
+        nurse = new Nurse("Mary", "Poppins", 137, "Fairy", "Your moms house");
         patient1 = new Patient("John", "Doe", 23, "Male", "12 Bobby Ave.");
         patient2 = new Patient("Jane", "Doe", 22, "Female", "13 Sissy St.");
         // Assuming Patient class has a comparable implemented based on a certain attribute, e.g., name
@@ -32,10 +30,10 @@ public class NurseTest {
     public void testAddPatientWhenFull() {
         // Fill the nurse's patient list
         for (int i = 0; i < 15; i++) {
-            nurse.addPatient(new Patient("Patient" + i, "Lastname",29,"Non-Binary","26 Lefty Sq.");
+            nurse.addPatient(new Patient("Patient" + i, "Lastname",29,"Non-Binary","26 Lefty Sq."));
         }
         
-        boolean result = nurse.addPatient(new Patient("Overflow", "Patient",32 , "Gay", "62 Righty Cres." );
+        boolean result = nurse.addPatient(new Patient("Overflow", "Patient",32 , "Guy", "62 Righty Cres." ));
         assertFalse(result, "Patient should not be added as the list is full");
         assertEquals(15, nurse.patients.size(), "Nurse's patient list should contain 15 patients");
     }
@@ -67,7 +65,7 @@ public class NurseTest {
 
     @Test
     public void testEquals() {
-        Nurse anotherNurse = new Nurse();
+        Nurse anotherNurse = new Nurse("Mary", "Poppins", 137, "Fairy", "Your moms house");
         // Assuming Nurse class has fields and setters for them (e.g., firstName, lastName, etc.)
         // Set up both nurses with identical information
         
@@ -76,7 +74,7 @@ public class NurseTest {
 
     @Test
     public void testCompareTo() {
-        Nurse anotherNurse = new Nurse();
+        Nurse anotherNurse = new Nurse("Cee", "Min", 123, "Demon", "Your dads house");
         // Set up the two nurses with different information
         
         assertNotEquals(0, nurse.compareTo(anotherNurse), "Comparison should not return 0 for nurses with different information");

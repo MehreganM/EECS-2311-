@@ -1,4 +1,8 @@
 package Hospital;
+/**
+ * @author Parmoun Khalkhali Sharifi
+*/
+
 //implemented for testing
 public class Physician {
     private String firstName;

@@ -129,7 +129,8 @@ public class HospitalTest {
       }
       
       /*
-       * testAdmitPatientFailureDueToCapacity tests the admitPatient method to ensure that no patient can be added over the limit of 500
+       * testAdmitPatientFailureDueToCapacity test admiting patient method and checks if the method throws NoSpaceException if the number of patients
+       * will go over ht elimit of 500 if a new one is added
        */
       
     @Test
@@ -147,7 +148,7 @@ public class HospitalTest {
     }
     
     /*
-     * this test 
+     * testDischargePatientSuccess checks the  dischargePatient method to ensure that a patient can be succesfully discharged
      */
 
     @Test
@@ -162,13 +163,22 @@ public class HospitalTest {
         hospital.admitPatient(patient);
         assertTrue(hospital.dischargePatient(patient), "Patient should be successfully discharged");
     }
-
+    
+    /*
+     * testDischargePatientFailure checks if a non existing patient can be dischaged
+     */
+    
+ 
     @Test
     public void testDischargePatientFailure() {
         Patient patient = new Patient("NonExistent", "Patient", 40, "Female", "Nonexistent Address");
         assertFalse(hospital.dischargePatient(patient), "Non-existent patient should not be discharged");
     }
-
+ 
+    /*
+     *testResignPhysicianSuccess checks if a physician can resign succesfully 
+     */
+    
     @Test
     public void testResignPhysicianSuccess() throws NoSpecialtyException {
         Physician physician1 = new Physician("Phys", "One", 35, "Male", "202 Oak St");
@@ -181,9 +191,13 @@ public class HospitalTest {
         hospital.resignPhysician(physician1);
         assertFalse(hospital.extractAllPhysicianDetails().contains(physician1), "Physician should be successfully resigned");
     }
-
+    
+    /*
+     *testResignPhysicianFailureDueToNoOtherPhysician checks if PhysicianAdministrator method fails when a doctor who is the only one in their speciality want to resign 
+     */
+    
     @Test
-    public void testResignPhysicianFailureDueToNoOtherPhysicianWithSameSpecialty() {
+    public void testResignPhysicianFailureDueToNoOtherPhysicia() {
         PhysicianAdministrator admin = new PhysicianAdministrator("Admin", "One", 40, "Non-Binary", "789 Pine St");
         admin.setAdminSpecialtyType("Immunology");
         hospital.addAdministrator(admin);

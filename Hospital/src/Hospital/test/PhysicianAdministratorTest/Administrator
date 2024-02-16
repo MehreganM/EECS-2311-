@@ -1,0 +1,20 @@
+package Hospital;
+
+public class Administrator {
+	// implemented for testing
+	public Administrator(String firstName2, String lastName2, int age2, String gender2, String address2) {
+		
+	}
+	// implemented for testing
+	public Administrator() {
+	
+	}
+
+	public String firstName;
+	public String lastName;
+	public String gender;
+	public String address;
+	public int employee;
+	public int age;
+
+}

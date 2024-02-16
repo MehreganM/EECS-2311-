@@ -1,31 +1,72 @@
-Meeting Notes 
+## Project Log File
 
-Meeting 1: (Monday Jan 15, 2024 - 2pm to 3pm)
+### Introduction
+This document captures the progression of our project through detailed meeting notes, decisions made, task assignments, and the development process, including both planned and actual timelines for each task.
 
-Discussed couple of potential ideas
-Brainstorming specifications for each idea
-Tools to implement the project 
+### Meeting Notes and Decisions
+
+#### Meeting 1: Monday, Jan 15, 2024 - 2 pm to 3pm
+- **Agenda:**
+  - Discussion of potential project ideas and brainstorming specifications for each.
+  - Determination of tools to implement the project.
+- **Ideas Discussed:**
+  - **Hospital Application** with functionalities for user login roles (doctor, nurse, volunteer), patient information and records database, test and medication requests, patient assignments, and administrative tasks.
+  - **Workout Application** featuring user profile inputs (age, weight, height), difficulty levels, exercise timers, a library of exercises with GIFs, workout reminders, and reports.
+  - **Parking App** for user booking codes, tracking of parking spot availability, and booking time slots.
+- **Tools Considered:** JavaFx, JavaSwing, JFrame; with preferences noted for specific applications.
+  
+#### Meeting 2: Wednesday, Jan 17, 2024 - 11:30 am to 12pm
+- **Agenda:**
+  - Discussion on project preferences.
+  - Drafting an email to the professor for confirmation.
+  
+#### Meeting 3: Wednesday, Jan 31, 2024 - 1:30 pm to 2:15pm
+- **Agenda:**
+  - Development of front-end features.
+  - Modifications to specifications for the hospital app as discussed in Meeting 1.
+- **Front-end Features Developed:**
+  - Detailed login page and user role options (doctor, nurse, volunteer, administrator) with specific functionalities for each role.
+  
+#### Meeting 4: Monday, Feb 5, 2024 - 3:30 pm to 4pm
+- **Task Assignments:**
+  - Harrish: Nurses
+  - Gaurav: Volunteers
+  - Megan: Hospital, Patient
+  - Parmoun: Admins
+  - Amira: Doctor
+- **Deadline:** Push the version by Wednesday, Feb 7.
+- **Note:** Client meeting scheduled for Tuesday, Feb 6.
+
+#### Meeting 5: Wednesday, Feb 8, 2024 - 7:45 pm to 8:15pm
+- **Agenda:**
+  - Writing down big user stories: Integrated Patient Information Sharing, Prescription Management System, and Sharing visit summaries with family doctors.
+  - Discussion on an additional 8 short user stories for the Planning Document.
+
+### Changes and Decisions
+- Decisions on project ideas and tools were based on the team’s expertise, project feasibility, and potential impact.
+- Modifications to the hospital app specifications were influenced by user role clarity and the need for comprehensive patient care features.
 
 
-Meeting 2: (Wednesday Jan 17, 2024 - 11:30am to 12pm)
-
-Short meeting to discuss preference
-Draft an email for the professor for confirmation 
-
-Meeting 3: (Wednesday Jan 31, 2024 - 1:30pm to 2:15 pm )
-
-We worked on front end features
-We also added some modifications on meeting 1 notes for the specification of the hospital app. 
+### Development Tasks per user stories and task assignments
+  - Harrish: Nurses, Nurses test cases, Stub database
+  - Parmoun: Admins, Admins test cases, Wiki, Log file
+  - Amira: Doctor, Doctor test cases, Business Objects, Log file
+  - Gaurav: Volunteers, test cases, Architectural sketch
+  - Megan: Hospital, Patient, Hospital and patient test cases, GUI
 
 
+### Time tracking (Planned time vs actual time)
+Title: Coding
+Assigned To: Whole team
+Original Time Allocated: 1 week for initial setup and basic functionality.
+Actual Time Spent: 1 week and 5 days due to the complexity in merging classes on Eclipse IDE and developing final test cases
 
-Meeting 5: (Wednesday, Feb 8, 2024 - 7:45 pm to 8:15 pm)
+Title: Interview Preparation
+Assigned To: Whole team
+Original Time Allocated: 2 days for interview preparation.
+Actual Time Spent day as the team was efficient in organizing and consolidating their work for the presentation.
 
-Writing down big user stories
-- Integrated Patient Information Sharing feature.
-- Prescription management system 
-- Sharing visit summaries and important notes with family doctors
 
-Discussing big stories and short stories
-- 8 short user stories were added to the Planning Document
+### Conclusion
+- This Log file serves as our group’s record of the project's development, decision-making process, task assignments, and the development of our ideas. It will be updated as the project makes progress.
 

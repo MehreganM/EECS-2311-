@@ -134,15 +134,15 @@ public class PatientInformationGUI extends JFrame {
         physician.setSpecialty("Immunology");
         hospital.hirePhysician(physician);
         
-        Patient patient = new Patient("John", "smith", 30, "Male", "123 Main St");
-        Patient patient2 = new Patient("ali", "bakhshi", 30, "Male", "123 Main St");
-        Patient patient3 = new Patient("Sarah", "lance", 30, "female", "123 Main St");
+        Patient patient = new Patient("John", "Smith", 30, "Male", "123 Main St");
+        Patient patient2 = new Patient("Ali", "Bakhshi", 30, "Male", "123 Main St");
+        Patient patient3 = new Patient("Sarah", "Lance", 30, "female", "123 Main St");
         Patient patient4 = new Patient("Kim", "k", 30, "Female", "123 Main St");
         try {
-        	  System.out.println(hospital.admitPatient(patient));
-        	  System.out.println(hospital.admitPatient(patient2));
-        	  System.out.println(hospital.admitPatient(patient3));
-        	  System.out.println(hospital.admitPatient(patient4));
+        	hospital.admitPatient(patient);
+        	hospital.admitPatient(patient2);
+        	hospital.admitPatient(patient3);
+        	hospital.admitPatient(patient4);
 		} catch (NoSpaceException e) {
 			e.printStackTrace();
 		}

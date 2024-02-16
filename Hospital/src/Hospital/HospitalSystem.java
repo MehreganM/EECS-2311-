@@ -1,15 +1,16 @@
 package Hospital;
 
+import hospital.Patient;
+
 */
 /**
  * this is a class that implements a virtual hospital scenario with 1 director
  * 3 administrators and up to a maximum of 25
  * physicians for each physician Administrator with a total of 70 with a maximum of . this hospital also accepts patients
  * to a maximum of 8 per physician and 500 in total. 
- * the assignment of physicians and physician administrator is based on specialty and the assignment of patients 
- * and volunteers is first come first serve.
+ * the assignment of physicians and physician administrator is based on specialty 
  * hospital has a director an arraylist for physicians an arraylist for
- * physician administrator and an arraylist for patients and an arraylist for volunteers
+ * physician administrator and an arraylist for patients 
  * @author mehregan Mesgari
  *
  */
@@ -20,7 +21,6 @@ public class Hospital {
 	private ArrayList<Physician> physicianList=new ArrayList<Physician>();
 	private ArrayList<PhysicianAdministrator> adminList=new ArrayList<PhysicianAdministrator>();
 	private ArrayList<Patient> patientList=new ArrayList<Patient>();
-	private ArrayList<Volunteer> volunteerList=new ArrayList<Volunteer>();
 	/**
 	 * this overloaded constructor that makes a hospital and assigns the director that it receives as an input
 	 * @pre only one director is accepted for the hospital.director is not null
@@ -194,7 +194,7 @@ public class Hospital {
 	/**
 	 * this method receives a physician that we want to resign but we can only resign it
 	 * if there is another physician with the same specialty.this method also 
-	 * reassigns all the patients and volunteers to the first available physician
+	 * reassigns all the patients to the first available physician
 	 * @pre physician is not null and exists in hospital
 	 * @param physician is an object of type Physician and is the physician that wants to resign
 	 * @throws NoSpecialtyException if there is not any other physician with the same
@@ -203,14 +203,12 @@ public class Hospital {
 
 	public void resignPhysician(Physician physician) throws NoSpecialtyException {
 		if(physicianList.contains(physician)!=false) {
-			//we store the physicians patients and volunteers before deleting them
 			ArrayList<Patient> tempArray= physician.patients;
 			PhysicianAdministrator admin= physician.admin;
-			ArrayList<Volunteer> tempVol= physician.volunteers;
 			//we have a method which checks if we can delete the physician and
 			//either throws an exception or returns true if it could
 			boolean flag= admin.deletePhysician(physician);
-			//if we could delete the physician we reassign the patients and volunteers
+			//if we could delete the physician we reassign the patients
 			//using methods that use a for loop to loop through other physicians
 			if(flag) {
 				physicianList.remove(physician);
@@ -228,23 +226,7 @@ public class Hospital {
 		}
 		
 	}
-	/**
-	 * this method receives a volunteer and adds this volunteer to the first
-	 * available physician with volunteers less than five
-	 * @pre volunteer is not null
-	 * @param volunteer is an object of type Volunteer and is the volunteer we want to reassign
-	 */
-	public void physicianGone(Volunteer volunteer) {
-		//we check wich physician has less than 5 volunteers to add this volunteer to
-		for(int i = 0; i<physicianList.size();i++) {
-			if(physicianList.get(i).volunteers.size()<5) {
-				physicianList.get(i).addVolunteer(volunteer);
-				
-				break;
-			}
-		
-		}
-	}
+
 	/**
 	 * this method receives a patient and adds this patient to the first
 	 * available physician with less than 8 patients
@@ -284,217 +266,40 @@ public class Hospital {
 		}
 		
 	}
-	/**
-	 * this method receives a volunteer and checks if the number of volunteers
-	 * is less than 150 and if there is any physician with less than 5 volunteers
-	 * and also checks if the volunteer is not a duplicate if these conditions pass
-	 * it adds the volunteer to the chosen physician and the volunteer list of the hospital
-	 * and returns true if it was possible and false otherwise 
-	 * @pre volunteer is not null
-	 * @param volunteer is an object of type Volunteer and is the volunteer we want to hire
-	 * @return returns true if it passed the conditions and we were able to add it
-	 * and false otherwise
+	
+	/*
+	 * this method recieves a patient ID and returns the patient if any match exists with their patient ID and returns null if doesnt 
+	 * @param patientID is an int and it is the ID of the patient we need to return 
+	 * @return returns the patient if it finds a match and returns null if there isnt any  
 	 */
-
-	public boolean hireVolunteer(Volunteer volunteer) {
-		//we check if we are not past the max number of volunteers
-		if(volunteerList.size()<150) {
-			//we check if the volunteer already exists
-			for(int i =0; i<volunteerList.size();i++) {
-				if (volunteer.equals(volunteerList.get(i))) {
-					return false;
-				}
-			}
-			boolean flag= false;
-			//we add the volunteer to whichever physician that has less than 5
-			for(int i = 0; i<physicianList.size();i++) {
-				if(physicianList.get(i).volunteers.size()<5) {
-					flag=physicianList.get(i).addVolunteer(volunteer);
-					
-					break;
-				}
-			//	adminList.get(i).addPhysician(physician);
-			}
-			//we add the volunteer to hospital's volunteer list
-			if(flag) {
-				volunteerList.add(volunteer);
-				return true;
-			}
-			else {
-				return false;
-			}
-			
-		}
-		else {
-			return false;
-		}
-		
-	}
-	/**
-	 *  this method deletes a received volunteer record from their assigned physician 
-	 *  and from the hospital but throws an exception if the physician has only one volunteer
-	 * @pre volunteer is not null,volunteer exists in hospital
-	 * @param volunteer is an object of type Volunteer and is the volunteer we want to resign
-	 * @throws NoVolunteersException if the assigned physician does not have any other
-	 * volunteer
-	 */
-
-	public void resignVolunteer(Volunteer volunteer) throws NoVolunteersException {
-		if(volunteerList.contains(volunteer)) {
-			//we remove the volunteer from hospital and physician if physician has any other
-			//volunteers
-			if(volunteer.getPhysician().volunteers.size()>1) {
-				volunteerList.remove(volunteer);
-				volunteer.getPhysician().volunteers.remove(volunteer);
-				volunteer=null;
-				
-			}
-			else {
-				throw new NoVolunteersException();
-			}
-		}
-		
-		
-		
-	}
-	/**
-	 * this method returns a list of all volunteers
-	 * @return a list of all volunteers
-	 */
-
-	public List<Volunteer> extractAllVolunteerDetails() {
-		ArrayList<Volunteer> temp = new ArrayList<Volunteer>();
-		temp.addAll(volunteerList);
-		return temp;
+	
+	public Patient searchPatient(int patientID) {
+	    if (this.patientList != null) { 
+	        for (Patient patient : this.patientList) { 
+	            if (patient.getPatientID() == patientID) {
+	                return patient; 
+	            }
+	        }
+	    }
+	    return null;
 	}
 	
-}
-/**
- * this class defines a person with firstName lastName age gender and address
- * and has methods that works on these attributes
- * @author Kimia Rajaeifar
- *
- */
-abstract class Person{
-	protected String firstName;
-	protected String lastName;
-	protected int age;
-	protected String gender;
-	protected String address;
-	/**
-	 * this default constructor initializes the instances of the person
+	
+	/*
+	 * this method recieves a patient name and returns the patient if any match exists with their first name and returns null if doesnt 
+	 * @param patient name is an String and it is the first name of the patient we need to return 
+	 * @return returns the patient if it finds a match and returns null if there isnt any  
 	 */
-	public Person() {
-		firstName="";
-		lastName="";
-		gender="";
-		address="";
-	}
-	/**
-	 * this overloaded constructor receives first name last name age gender and address
-	 * and assigns these value to the attributes
-	 * @pre none of the inputs are null
-	 * @param firstName is a String that is the person's first name
-	 * @param lastName is a String that is the person's last name
-	 * @param age is an int that is the person's age
-	 * @param gender is a String hat is the person's gender
-	 * @param address is a String that is the person's address
-	 */
-	public Person(String firstName,String lastName,int age, String gender,String address) {
-		this.firstName=firstName;
-		this.lastName=lastName;
-		this.age=age;
-		this.gender=gender;
-		this.address=address;
-	}
-	/**
-	 * this is a method that returns the fullname that is firstName, lastName
-	 * @return a String that is the full name
-	 */
-	public String getName() {
-		String name= firstName+", "+lastName;
-		return name;
-		
-	}
-	/**
-	 * this method sets the person's firstName
-	 * @pre input is not empty
-	 * @param firstName is a String the person's firstName
-	 */
-	public void setFirstName(String firstName) {
-		this.firstName=firstName;
-	}
-	/**
-	 * this method sets the person's lastName
-	 * @pre input is not empty
-	 * @param lastName is a String the person's lastName
-	 */
-	public void setLastName(String lastName) {
-		this.lastName=lastName;
-	}
-	/**
-	 * this method returns the person's age
-	 * @pre input is not empty
-	 * @return an int which is the person's age
-	 */
-	public int getAge() {
-		return this.age;
-	}
-	/**
-	 * this method sets the age attribute for the person
-	 * @pre input is not empty
-	 * @param age an int representing the person's age
-	 */
-	public void setAge(int age) {
-		this.age=age;
-	}
-	/**
-	 * this method returns the person's gender
-	 * 
-	 * @return a String representing the person's gender
-	 */
-	public String getGender() {
-		return this.gender;
-	}
-	/**
-	 * this method sets the person's gender
-	 * @pre input is not empty
-	 * @param gender
-	 */
-	public void setGender(String gender) {
-		this.gender=gender;
-	}
-	/**
-	 * this method gets the person's address
-	 * @return a String representation of the person's address
-	 */
-	public String getAddress() {
-		return this.address;
-	}
-	/**
-	 * this method sets the person's address and receives the address as an input
-	 * @pre input is not empty
-	 * @param address a String representation of the person's address
-	 */
-	public void setAddress(String address) {
-		this.address=address;
-	}
-	@Override
-	/** this method returns true if the objects are equal and false otherwise
-	 * @return true if the objects are equal and false otherwise
-	 */
-	public boolean equals(Object object) {
-		if(this==object) {
-			return true;
-		}
-		if(object==null) {
-			return false;
-		}
-		if(getClass()!=object.getClass()) {
-			return false;
-		}
-		SalariedEmployee other=(SalariedEmployee) object;
-		return(this.firstName.equals(other.firstName)&&this.lastName.equals(other.lastName)&&this.age==other.age&&this.gender.equals(other.gender)&&this.address.equals(other.address));
+
+	public Patient searchPatientByName(String name) {
+		 if (this.patientList != null) { 
+		        for (Patient patient : this.patientList) { 
+		            if (patient.getFirstName().equals(name)) {
+		                return patient; 
+		            }
+		        }
+		    }
+		    return null; 
 	}
 	
 	

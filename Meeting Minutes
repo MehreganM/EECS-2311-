@@ -1,3 +1,100 @@
-Meeting Minutes 
+Meeting Notes 
 
-https://docs.google.com/document/d/1J_YH-VN56lTENZVmx1ezc3AzZlHF9C_F_SrWRPQqT1Y/edit
+Meeting 1: (Monday Jan 15, 2024 - 2pm to 3pm)
+
+Discussed couple of potential ideas
+Brainstorming specifications for each idea
+Tools to implement the project 
+
+Hospital application
+User login as doctor, nurse, volunteer
+Database for patients information and records
+Requesting tests
+Requesting medications
+Assigning patients to a doctor and a nurse
+Assigning volunteers to doctor
+Hiring physicians
+Extract patients’ details
+Discharge patients
+Hire/ reassign new volunteers
+
+Workout application
+Input user’s age, weight, and height. 
+3 levels of difficulty 
+Different timers for the exercise (
+A list of different exercises 
+GIFs to show how to do the exercise
+Workout remainders
+Workout report (past workout session)
+
+Parking app
+User booking code
+Parking spots 
+Booked spots and available spots
+Time when the spots are booked 
+
+Tools to implement the project 
+JavaFx (better for the workout app)
+JavaSwing
+JFrame (better for the hospital app)
+
+
+
+
+Meeting 2: (Wednesday Jan 17, 2024 - 11:30am to 12pm)
+
+Short meeting to discuss preference
+Draft an email for the professor for confirmation 
+
+Meeting 3: (Wednesday Jan 31, 2024 - 1:30pm to 2:15 pm )
+
+Front end: 
+Login page : as a doctor, nurse, volunteer, and administrator
+Doctor options: 
+Discharge patients
+Request tests
+Request medications
+Doctor notes (Maybe too hard)
+Hire volunteers
+
+Nurse options: 
+Access to doctor notes
+List of current medication 
+Add a patient
+
+Volunteer options: 
+Add patients’ requests
+Doctor and nurse assigned to each patient
+
+	Administrators: 
+Hire doctor, nurse, volunteer
+List of doctor, nurse and volunteer assigned to each patient
+Inpatient and outpatient profiles
+Note: we also added some modifications on meeting 1 notes for the specification of the hospital app. 
+
+Meeting 4: (Monday Feb 5 31, 2024 -3:30 - 4 pm )
+Classes : doctor, nurse, volunteer, administrator , Hospital, Patient
+Harrish : Nurses
+Gaurav : volunteers
+Megan: Hospital, patient 
+Parmoun: Admins
+Amira: Doctor 
+When: push the version by Wednesday Feb 7
+
+The meeting for our client is planned for Tuesday the 6th and the video will be available after. 
+
+It0 file is gonna start after our interview with the client 
+
+Meeting 5: (Wednesday Feb 8, 2024 - 7:45 pm to 8:15pm)
+
+Writing down big user stories
+Integrated Patient Information Sharing feature.
+Prescription management system 
+Sharing visit summaries and important notes with family doctors
+
+Discussing big stories and short stories
+8 short user stories were added to the Planning Document
+
+
+
+

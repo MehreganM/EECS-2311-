@@ -1,0 +1,23 @@
+package Hospital;
+/**
+ * @author Parmoun Khalkhali Sharifi
+*/
+
+//implemented for testing
+public class Director {
+    private String name;
+
+    public Director(String name) {
+        this.name = name;
+    }
+ // implemented for testing
+    public Director() {
+    	
+	}
+
+ // implemented for testing
+    public String getName() {
+        return name;
+    }
+ 
+}

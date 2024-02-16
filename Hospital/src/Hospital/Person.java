@@ -39,6 +39,17 @@ abstract class Person{
 		return name;
 		
 	}
+	
+	/**
+	 * this is a method that returns the firstName
+	 * @return a String that is the first name
+	 */
+	
+	public String getFirstName() {
+		return firstName;
+		
+	}
+	
 	/**
 	 * this method sets the person's firstName
 	 * @pre input is not empty

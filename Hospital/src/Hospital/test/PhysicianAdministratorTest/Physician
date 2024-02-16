@@ -1,4 +1,4 @@
-package Hospitalapping;
+package Hospital;
 //implemented for testing
 public class Physician {
     private String firstName;
@@ -7,7 +7,7 @@ public class Physician {
     private String gender;
     private String address;
     private String specialty;
-    private PhysicianAdministrator admin; 
+    private Administrator admin; 
 
  // implemented for testing
     public Physician(String firstName, String lastName, int age, String gender, String address, String specialty) {
@@ -20,7 +20,7 @@ public class Physician {
     }
 
  // implemented for testing
-    public void setAdministrator(PhysicianAdministrator admin) {
+    public void setAdministrator(Administrator admin) {
         this.admin = admin;
     }
  // implemented for testing
@@ -31,5 +31,12 @@ public class Physician {
     public String getName() {
         return firstName + " " + lastName;
     }
+ // implemented for testing
+    public Administrator getAdministrator() {
+        return this.admin;
+    }
 
-}
+	}
+
+ 
+

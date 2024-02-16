@@ -1,4 +1,7 @@
 package Hospital;
+/**
+ * @author Parmoun Khalkhali Sharifi
+*/
 
 public class Administrator {
 	// implemented for testing

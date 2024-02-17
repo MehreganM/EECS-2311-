@@ -1,7 +1,5 @@
 package Hospital;
 
-package eecs2311;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;

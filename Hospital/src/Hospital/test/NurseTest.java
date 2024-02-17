@@ -54,13 +54,8 @@ public class NurseTest {
 
     @Test
     public void testCurrentMeds() {
-        // This test depends on the implementation of getMeds() method.
-        // Assuming getMeds method is properly defined and returns a String.
-     //   String expectedMeds = "Medication1, Medication2";
-        // Mock or stub getMeds to return expectedMeds for patient1
-        
-   //     String meds = nurse.currentMeds(patient1);
-     //   assertEquals(expectedMeds, meds, "Method should return correct medications");
+       String expectedMeds = "Medicine A, Medicine B"; // Expected result based on StubDB initialization
+    	    assertEquals(expectedMeds, nurse.currentMeds(patient1), "Medications should match expected list.");
     }
 
     @Test

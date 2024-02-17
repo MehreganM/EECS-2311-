@@ -8,8 +8,8 @@ import java.util.TreeSet;
 
 /**
  * This class is Physician which extends Employee and stores the physician's attributes
- * and their specialty. It also has an arrayList of the physician's patients, volunteers, 
- * and nurses and the physician administrator.
+ * and their specialty. It also has an arrayList of the physician's patients and nurses 
+ * and the physician administrator.
  * @author Amira Mohamed
  *
  */
@@ -17,7 +17,6 @@ public class Physician extends Employee {
 	
 	String specialty;
 	ArrayList<Patient> patients = new ArrayList<>();
-	ArrayList<Volunteer> volunteers = new ArrayList<Volunteer>();
 	ArrayList<Nurse> nurses = new ArrayList<Nurse>();
 	PhysicianAdminstrator admin;
 

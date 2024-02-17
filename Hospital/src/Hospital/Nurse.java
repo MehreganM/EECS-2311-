@@ -32,8 +32,7 @@ public class Nurse extends Employee {
 	}
 	
 	public String currentMeds(Patient patient) {
-		String meds = getMeds(patient); // no getMeds function but this may change if we are using a DB
-		return meds;
+		return stubDB.getMeds(patient);
 		//this is temporary as we may save it as a concatenated string or we might
 		//to pull this information from a database which will require the code to change
 	}

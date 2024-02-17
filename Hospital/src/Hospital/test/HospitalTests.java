@@ -16,7 +16,7 @@ public class HospitalTest {
 
     @BeforeEach
     public void setUp() {
-        director = new Director("Johnson", "Doe", 50, "Male", "123 Main St");
+        director = new Director("Johnson", "mark", 50, "Male", "123 Main St");
         hospital = new Hospital(director);
 
         

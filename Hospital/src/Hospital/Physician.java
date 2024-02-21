@@ -169,4 +169,17 @@ public class Physician extends Employee {
 		return "Physician [firstName=" + firstName + ", lastName=" + lastName + ", employeeID=" + employee + ", age=" + age + ", gender=" + gender + ","
 				+ " address=" + address + ", specialty=" + specialty + "]";
 	}
+	/**
+	 * 
+	 */
+	public boolean requestLabTest(Patient patient, String testType, String result) {
+	    labTest newTest = new labTest(patient, testType);
+	    newTest.addResult(result);
+	    return Hospital.laboratory.addTestRequest(newTest);
+	}
+
+	public String checkLabTestResults(Patient patient, String testType) {
+	    return Hospital.laboratory.testResults(patient, testType);
+	}
+
 }

@@ -21,6 +21,7 @@ public class Hospital {
 	private ArrayList<Physician> physicianList=new ArrayList<Physician>();
 	private ArrayList<PhysicianAdministrator> adminList=new ArrayList<PhysicianAdministrator>();
 	private ArrayList<Patient> patientList=new ArrayList<Patient>();
+	public static final Laboratory laboratory = new Laboratory();
 	/**
 	 * this overloaded constructor that makes a hospital and assigns the director that it receives as an input
 	 * @pre only one director is accepted for the hospital.director is not null

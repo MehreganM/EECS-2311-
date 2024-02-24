@@ -170,14 +170,19 @@ public class Physician extends Employee {
 				+ " address=" + address + ", specialty=" + specialty + "]";
 	}
 	/**
-	 * 
+	 * This is the requestLabTest method where the doctor can request a lab test for the patient and recieves a boolen if it went through 
+	 * @return boolean true if it went through and false if it didnt 
 	 */
-	public boolean requestLabTest(Patient patient, String testType, String result) {
+	public boolean requestLabTest(Patient patient, String testType) {
 	    labTest newTest = new labTest(patient, testType);
-	    newTest.addResult(result);
 	    return Hospital.laboratory.addTestRequest(newTest);
 	}
 
+	/*
+	 * checkLabTestResults method check the result of a lab rest based on the patient name 
+	 * @return String of result 
+	 * @param patient String testType
+	 */
 	public String checkLabTestResults(Patient patient, String testType) {
 	    return Hospital.laboratory.testResults(patient, testType);
 	}

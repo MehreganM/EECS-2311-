@@ -42,6 +42,16 @@ public class Nurse extends Employee {
 		//we will have to retrieve the information from said database
 	}
 	
+
+	/*
+	 * checkLabTestResults method check the result of a lab rest based on the patient name 
+	 * @return String of result 
+	 * @param patient String testType
+	 * @author : Mehregan
+	 */
+	public String checkLabTestResults(Patient patient, String testType) {
+	    return Hospital.laboratory.testResults(patient, testType);
+	}
 	
 	
 	public boolean equals(Object object) { // this way we can see if this nurse is the same as another

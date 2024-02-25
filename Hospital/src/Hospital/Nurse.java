@@ -5,6 +5,16 @@ package Hospital;
 public class Nurse extends Employee {
 	
 	protected ArrayList<Patient> patients= new ArrayList<Patient>();
+	private StubDB stubDB;
+
+	public Nurse(String firstName, String lastName, int age, String gender, String address) {
+		super(firstName, lastName, age, gender, address);
+		
+	}
+
+	public void setPatientDB(StubDB stub) {
+		this.stubDB = stub;
+	}
 	
 	public boolean addPatient(Patient patient) {
 		if(patients.size()<15) {

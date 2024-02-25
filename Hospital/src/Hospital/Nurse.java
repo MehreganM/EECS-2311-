@@ -1,7 +1,15 @@
 package Hospital;
 
 
-//@author : Amira 
+
+
+//@author : Harrish 
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
+
 public class Nurse extends Employee {
 	
 	protected ArrayList<Patient> patients= new ArrayList<Patient>();
@@ -19,7 +27,7 @@ public class Nurse extends Employee {
 	public boolean addPatient(Patient patient) {
 		if(patients.size()<15) {
 			patients.add(patient);
-			patient.setNurse(this);
+			patient.setAssignedNurse(this);
 			return true;
 		}
 		else {
@@ -47,7 +55,7 @@ public class Nurse extends Employee {
 		//to pull this information from a database which will require the code to change
 	}
 	
-	public String getMDNotes(Physician phys) {
+	public void getMDNotes(Physician phys) {
 		//this will have to be related to a database
 		//we will have to retrieve the information from said database
 	}
@@ -87,7 +95,8 @@ public class Nurse extends Employee {
 		//to hiring more nurses for the hospital or making sure that we don't have duplicates
 		
 		if(other!=null) {
-			if(this.firstName.equals(other.firstName)&&this.lastName.equals(other.lastName)&&this.age==other.age&&this.gender.equals(other.gender)&&this.address.equals(other.address)&&this.salary==other.salary&&this.specialty.equals(other.specialty)) {
+			if(this.firstName.equals(other.firstName)&&this.lastName.equals(other.lastName)&&this.age==other.age&&
+					this.gender.equals(other.gender)&&this.address.equals(other.address)) {
 				return 0;
 			}
 			else {

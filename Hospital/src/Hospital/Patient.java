@@ -1,5 +1,6 @@
 package Hospital;
 
+
 /**
  * this class is Physician which extends SalariedEmployee and implements Comparable
  * and stores the physician's specialty and an arrayList of their patients
@@ -11,6 +12,7 @@ package Hospital;
 class Patient extends Person implements Comparable<Patient>{
 	private static int patientId=999;
 	private Physician physician;
+	private Nurse nurse;
 	private int patient;
 	/**
 	 * this default constructor makes  patient and gives them their patientId;
@@ -96,7 +98,7 @@ class Patient extends Person implements Comparable<Patient>{
 		return(this.firstName.equals(other.firstName)&&this.lastName.equals(other.lastName)&&this.age==other.age&&this.gender.equals(other.gender)&&this.address.equals(other.address));
 	}
 	
-	@Override
+	//@Override
 	/** this method returns the string representation of the patient
 	 * @return a String representation of the patient
 	 */
@@ -122,6 +124,14 @@ class Patient extends Person implements Comparable<Patient>{
 		if(physician.patients.size()<8) {
 			this.physician=physician;
 			this.physician.patients.add(this);
+		}
+		
+	}
+	
+	public void setAssignedNurse(Nurse nurse) {
+		if(nurse.patients.size()<20) {
+			this.nurse=nurse;
+			this.nurse.patients.add(this);
 		}
 		
 	}

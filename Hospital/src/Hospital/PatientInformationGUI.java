@@ -1,3 +1,5 @@
+package Hospital;
+
 
 import javax.swing.*;
 import java.awt.*;

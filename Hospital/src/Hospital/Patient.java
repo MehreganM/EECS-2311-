@@ -1,6 +1,5 @@
 package Hospital;
 
-
 /**
  * this class is Physician which extends SalariedEmployee and implements Comparable
  * and stores the physician's specialty and an arrayList of their patients
@@ -12,8 +11,8 @@ package Hospital;
 class Patient extends Person implements Comparable<Patient>{
 	private static int patientId=999;
 	private Physician physician;
-	private Nurse nurse;
 	private int patient;
+	  private boolean consentFormSigned = false;
 	/**
 	 * this default constructor makes  patient and gives them their patientId;
 	 */
@@ -98,7 +97,7 @@ class Patient extends Person implements Comparable<Patient>{
 		return(this.firstName.equals(other.firstName)&&this.lastName.equals(other.lastName)&&this.age==other.age&&this.gender.equals(other.gender)&&this.address.equals(other.address));
 	}
 	
-	//@Override
+	@Override
 	/** this method returns the string representation of the patient
 	 * @return a String representation of the patient
 	 */
@@ -127,14 +126,21 @@ class Patient extends Person implements Comparable<Patient>{
 		}
 		
 	}
-	
-	public void setAssignedNurse(Nurse nurse) {
-		if(nurse.patients.size()<20) {
-			this.nurse=nurse;
-			this.nurse.patients.add(this);
-		}
-		
-	}
+	 /**
+     * This method sets the patient's consent form status 
+     * @param consentFormSigned a boolean representing whether the patient has signed the form
+     */
+    public void setConsentFormSigned(boolean consentFormSigned) {
+        this.consentFormSigned = consentFormSigned;
+    }
+
+    /**
+     * This method returns the consent form status of the patient
+     * @return true if the consent form is signed, false otherwise
+     */
+    public boolean isConsentFormSigned() {
+        return consentFormSigned;
+    }
 	/**
 	 * this method deletes the patients info if the patient isn't assigned a physician
 	 * and returns true if it isn't assigned a physician and false otherwise

@@ -16,9 +16,9 @@ import java.util.TreeSet;
 public class Physician extends Employee {
 	
 	private String specialty;
-	private ArrayList<Patient> patients = new ArrayList<>();
+	ArrayList<Patient> patients = new ArrayList<>();
 	private ArrayList<Nurse> nurses = new ArrayList<Nurse>();
-	private PhysicianAdminstrator admin;
+	private PhysicianAdministrator admin;
 
 	
 	/**
@@ -119,7 +119,7 @@ public class Physician extends Employee {
 	 * This method sets the physician administrator for the physician
 	 * @param admin is the the physician administrator that we want to set
 	 */
-	public void setAdmin(PhysicianAdminstrator admin) {
+	public void setAdmin(PhysicianAdministrator admin) {
 		this.admin = admin;
 	}
 	
@@ -128,7 +128,7 @@ public class Physician extends Employee {
 	 * @return it returns the admin of the physician
 	 */
 	
-	public PhysicianAdminstrator getAdmin() {
+	public PhysicianAdministrator getAdmin() {
 		return admin;
 	}
 

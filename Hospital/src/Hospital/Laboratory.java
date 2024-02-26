@@ -12,7 +12,7 @@ public class Laboratory {
 
 		    private List<labTest> testRequests;
 
-		    public Labratory() {
+		    public Laboratory() {
 		        this.testRequests = new ArrayList<>();
 		    }
 

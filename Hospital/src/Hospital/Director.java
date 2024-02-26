@@ -1,4 +1,5 @@
 package Hospital;
+import java.util.List;
 
 /**
  * this Class is Director which extends Administrator
@@ -6,7 +7,7 @@ package Hospital;
  *
  */
 
-class Director extends PhysicianAdministrator{
+class Director extends Administrator{
 	/**
 	 * this default constructor creates a director
 	 */

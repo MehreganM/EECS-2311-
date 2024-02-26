@@ -6,11 +6,14 @@ import java.sql.SQLException;
 import java.sql.*;
 
 public class DBSetup {
-    private static final String CHECK_TABLE_EXISTS_QUERY = "SELECT TO REGCLASS('public.patients');";
+   private static final String CHECK_TABLE_EXISTS_QUERY = "SELECT TO REGCLASS('public.patients');";
     private static final String CREATE_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS patients (" +
             "id SERIAL PRIMARY KEY," +
-            "name VARCHAR(255)," +
+    		"Fname VARCHAR(255)," +
+            "Lname VARCHAR(255)," +
+    		"age INT," +
             "address VARCHAR(255)," +
+    		"gender VARCHAR(255," +
             "doctor VARCHAR(255)," +
             "nurse VARCHAR(255)," +
             "family_doctor VARCHAR(255)" +
@@ -32,4 +35,5 @@ public class DBSetup {
         }
     }
 }
+
 

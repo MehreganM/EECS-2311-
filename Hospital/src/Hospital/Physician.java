@@ -166,7 +166,7 @@ public class Physician extends Employee {
 	 */
 	@Override
 	public String toString() {
-		return "Physician [firstName=" + firstName + ", lastName=" + lastName + ", employeeID=" + employee + ", age=" + age + ", gender=" + gender + ","
+		return "Physician [firstName=" + firstName + ", lastName=" + lastName + ", employeeID=" + employeeID + ", age=" + age + ", gender=" + gender + ","
 				+ " address=" + address + ", specialty=" + specialty + "]";
 	}
 	/**

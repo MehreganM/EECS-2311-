@@ -10,17 +10,19 @@ package Hospital;
  */
 
 class Patient extends Person implements Comparable<Patient>{
-	private static int patientId=999;
+	private static int Id=999;
 	private Physician physician;
-	private int patient;
+	private int patientID;
 	  private boolean consentFormSigned = false;
+	private Nurse nurse;
+	private FamilyDoctor FamMD;
 	/**
 	 * this default constructor makes  patient and gives them their patientId;
 	 */
 	public Patient() {
 		super();
-		patientId++;
-		patient=patientId;
+		Id++;
+		this.patientID=Id;
 	}
 	/**
 	 * this overloaded constructor initializes the given inputs to the appropriate
@@ -33,15 +35,15 @@ class Patient extends Person implements Comparable<Patient>{
 	 */
 	public Patient(String firstName,String lastName,int age, String gender,String address) {
 		super(firstName,lastName,age,gender,address);
-		patientId++;
-		patient=patientId;
+		Id++;
+		this.patientID=Id;
 	}
 	/**
 	 * this method returns the patientID of the patient
 	 * @return an integer representig the patient's patientID
 	 */
 	public int getPatientID() {
-		return patient;
+		return this.patientID;
 	}
 	/**
 	 * this method sets the patient's physician to the physician it receives
@@ -52,6 +54,11 @@ class Patient extends Person implements Comparable<Patient>{
 	public void setPhysician(Physician physician) {
 		this.physician=physician;
 	}
+
+	public void setNurse(Nurse nurse) {
+		this.nurse = nurse;		
+	}
+	
 	/**
 	 * this method returns the physician the patient is assigned to
 	 * @return an object of type Physician
@@ -59,6 +66,29 @@ class Patient extends Person implements Comparable<Patient>{
 	public Physician getPhysician() {
 		return this.physician;
 	}
+
+	//Needed more getters for database purposes:
+
+	public Nurse getNurse() {
+		return this.nurse;
+	}
+	
+	public String getFName() {
+		return this.firstName;
+	}
+	
+	public String getLName() {
+		return this.lastName;
+	}
+	
+	public int getAge() {
+		return this.age;
+	}
+	
+	public String getGender() {
+		return this.gender;
+	}
+	
 	@Override
 	/**
 	 * this methods compares two patients and returns an integer representing the differene between 

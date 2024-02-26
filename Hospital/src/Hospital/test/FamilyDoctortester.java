@@ -2,7 +2,7 @@ package Hospital;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import Hospital.labratory.Laboratory;
+import Hospital.laboratory.Laboratory;
 
 
 /**
@@ -12,7 +12,7 @@ import Hospital.labratory.Laboratory;
  */
 public class FamilyDoctortester {
 	 private FamilyDoctor familyDoctor;
-	    private Laboratory labratory;
+	    private Laboratory laboratory;
 	    private Patient sample1;
 	    private Patient sample2;
  
@@ -20,8 +20,8 @@ public class FamilyDoctortester {
     @BeforeEach
     void setUp() {
     	
-    	 labratory = new Laboratory();
-         familyDoctor = new FamilyDoctor("Dr. Han", "General physician", labratory);
+    	 laboratory = new Laboratory();
+         familyDoctor = new FamilyDoctor("Dr. Han", "General physician", laboratory);
          sample1 = new Patient("Emma", "Walter", 32, "Female", "15 Jain St");
          sample2 = new Patient("Curtis", "Dann", 15, "Male", "23 Oakland Blv");
     	    }
@@ -56,7 +56,7 @@ public class FamilyDoctortester {
     void getLabTestResultsForPatient() {
         labTest test = new labTest(sample1, "Blood");
         test.addResult("Normal");
-        labratory.addTestRequest(test);
+        laboratory.addTestRequest(test);
         assertEquals("Normal", familyDoctor.getLabTestResults(sample1, "Blood"));
     }
 

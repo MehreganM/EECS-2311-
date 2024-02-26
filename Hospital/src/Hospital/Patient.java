@@ -1,26 +1,28 @@
 package Hospital;
 
-
 /**
  * this class is Physician which extends SalariedEmployee and implements Comparable
  * and stores the physician's specialty and an arrayList of their patients
  * and the physician administrator that has their specialty and also a list of volunteers
+ * 
  * @author mehregan mesgari
  *
  */
 
 class Patient extends Person implements Comparable<Patient>{
-	private static int patientId=999;
+	private static int Id=999;
 	private Physician physician;
+	private int patientID;
+	  private boolean consentFormSigned = false;
 	private Nurse nurse;
-	private int patient;
+	private FamilyDoctor FamMD;
 	/**
 	 * this default constructor makes  patient and gives them their patientId;
 	 */
 	public Patient() {
 		super();
-		patientId++;
-		patient=patientId;
+		Id++;
+		this.patientID=Id;
 	}
 	/**
 	 * this overloaded constructor initializes the given inputs to the appropriate
@@ -33,15 +35,15 @@ class Patient extends Person implements Comparable<Patient>{
 	 */
 	public Patient(String firstName,String lastName,int age, String gender,String address) {
 		super(firstName,lastName,age,gender,address);
-		patientId++;
-		patient=patientId;
+		Id++;
+		this.patientID=Id;
 	}
 	/**
 	 * this method returns the patientID of the patient
 	 * @return an integer representig the patient's patientID
 	 */
 	public int getPatientID() {
-		return patient;
+		return this.patientID;
 	}
 	/**
 	 * this method sets the patient's physician to the physician it receives
@@ -52,6 +54,15 @@ class Patient extends Person implements Comparable<Patient>{
 	public void setPhysician(Physician physician) {
 		this.physician=physician;
 	}
+
+	public void setNurse(Nurse nurse) {
+		this.nurse = nurse;		
+	}
+
+	public void setFamilyDoctor(FamilyDoctor FamDoc){
+		this.FamMD = FamDoc;
+	}
+	
 	/**
 	 * this method returns the physician the patient is assigned to
 	 * @return an object of type Physician
@@ -59,6 +70,35 @@ class Patient extends Person implements Comparable<Patient>{
 	public Physician getPhysician() {
 		return this.physician;
 	}
+
+	//Needed more getters for database purposes:
+
+	public Nurse getNurse() {
+		return this.nurse;
+	}
+
+	
+	
+	public FamilyDoctor getFamDoc(){
+		return this.FamMD;
+	}
+	
+	public String getFName() {
+		return this.firstName;
+	}
+	
+	public String getLName() {
+		return this.lastName;
+	}
+	
+	public int getAge() {
+		return this.age;
+	}
+	
+	public String getGender() {
+		return this.gender;
+	}
+	
 	@Override
 	/**
 	 * this methods compares two patients and returns an integer representing the differene between 
@@ -98,7 +138,7 @@ class Patient extends Person implements Comparable<Patient>{
 		return(this.firstName.equals(other.firstName)&&this.lastName.equals(other.lastName)&&this.age==other.age&&this.gender.equals(other.gender)&&this.address.equals(other.address));
 	}
 	
-	//@Override
+	@Override
 	/** this method returns the string representation of the patient
 	 * @return a String representation of the patient
 	 */
@@ -127,14 +167,22 @@ class Patient extends Person implements Comparable<Patient>{
 		}
 		
 	}
-	
-	public void setAssignedNurse(Nurse nurse) {
-		if(nurse.patients.size()<20) {
-			this.nurse=nurse;
-			this.nurse.patients.add(this);
-		}
-		
-	}
+	 /**
+	  * @author Parmoun Khalkhali      --> Only consent form
+     * This method sets the patient's consent form status 
+     * @param consentFormSigned a boolean representing whether the patient has signed the form
+     */
+    public void setConsentFormSigned(boolean consentFormSigned) {
+        this.consentFormSigned = consentFormSigned;
+    }
+
+    /**
+     * This method returns the consent form status of the patient
+     * @return true if the consent form is signed, false otherwise
+     */
+    public boolean isConsentFormSigned() {
+        return consentFormSigned;
+    }
 	/**
 	 * this method deletes the patients info if the patient isn't assigned a physician
 	 * and returns true if it isn't assigned a physician and false otherwise

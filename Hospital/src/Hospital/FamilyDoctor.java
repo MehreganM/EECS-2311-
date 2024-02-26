@@ -1,6 +1,6 @@
 package Hospital;
 import java.util.*;
-import Hospital.labratory.Laboratory;
+import Hospital.laboratory.Laboratory;
 
 /**
  * @author Parmoun Khalkhali Sharifi
@@ -72,7 +72,7 @@ public class FamilyDoctor {
         this.specialty = specialty;
     }
 
-    // ToString representation of output
+   
     @Override
     public String toString() {
         return "FamilyDoctor{" +

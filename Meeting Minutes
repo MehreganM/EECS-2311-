@@ -76,7 +76,7 @@ Meeting 4: (Monday Feb 5 31, 2024 -3:30 - 4 pm )
 Classes : doctor, nurse, volunteer, administrator , Hospital, Patient
 Harrish : Nurses
 Gaurav : volunteers
-Megan: Hospital, patient 
+Mehregan: Hospital, patient 
 Parmoun: Admins
 Amira: Doctor 
 When: push the version by Wednesday Feb 7
@@ -101,14 +101,30 @@ Attendance: Parmoun and Mehregan
 
 During this meeting, ITR1 and Del1 were discussed and the task appointment is as below: 
 
-Task list: 
-1. Stub data base : @Harrish 
-2. Business Objects: @Amira
-3. Unit test : everyone do their own part 
-4. GUI : @mehregan 
-5. Wiki: @parmoun
-6. Architectural sketch: @gaurav
+Task list:  
+- Harrish: Stub data base
+- Amira: Business Objects
+- Everyone: Unit testing 
+- Mehregan: GUI
+- Parmoun: Wiki
+- Gaurav: Architectural sketch
 
-These taska are due on Friday before 10 pm
+These tasks are due on Friday before 10 pm
+
+
+
+### Meeting 7: Monday, Feb 19, 2024 - 7 pm to 7:30 pm
+Attendance: Mehregan, Amira, Parmoun, Gaurav
+
+During this meeting, Del1 was discussed and the task division is as below: 
+
+ Task Assignments:
+- Harrish: Extend database  - patient information class tester
+- Parmoun: Add family doctor class and connect it to the patient - Add consent form to Patient class
+- Mehregan: Add laboratory class - Add functionality to Nurse and physician classes
+- Amira: Create UML class diagram for Hospital App
+- Gaurav: Add login page GUI to hospital App
+
+These tasks are due on Sunday at 10 pm
 
 

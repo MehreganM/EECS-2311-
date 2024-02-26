@@ -36,7 +36,7 @@ This document captures the progression of our project through detailed meeting n
 - **Task Assignments:**
   - Harrish: Nurses
   - Gaurav: Volunteers
-  - Megan: Hospital, Patient
+  - Mehregan: Hospital, Patient
   - Parmoun: Admins
   - Amira: Doctor
 - **Deadline:** Push the version by Wednesday, Feb 7.
@@ -48,6 +48,32 @@ This document captures the progression of our project through detailed meeting n
   - Writing down big user stories: Integrated Patient Information Sharing, Prescription Management System, and Sharing visit summaries with family doctors.
   - Discussion on an additional 8 short user stories for the Planning Document.
 
+### Meeting 6: Wednesday,  Feb 14, 2024 - 7 pm to 7:20 pm
+
+- **Agenda:**
+- During this meeting, ITR1 and Del1 were discussed and the task appointment is as below: 
+
+- **Task Assignments:**: 
+- Harrish: Stub data base
+- Amira: Business Objects
+- Everyone: Unit testing 
+- Mehregan: GUI
+- Parmoun: Wiki
+- Gaurav: Architectural sketch
+
+### Meeting 7: Monday, Feb 19, 2024 - 7 pm to 7:30 pm
+
+- **Agenda:**
+-During this meeting, Del1 was discussed and the task division is as below: 
+
+- **Task Assignments:**: 
+- Harrish: Extend database  - patient information class tester
+- Parmoun: Add family doctor class and connect it to the patient - Add consent form to Patient class
+- Mehregan: Add laboratory class - Add functionality to Nurse and physician classes
+- Amira: Create UML class diagram for Hospital App
+- Gaurav: Add login page GUI to hospital App
+
+
 ## Changes and Decisions
 
 - Decisions on project ideas and tools were based on the team’s expertise, project feasibility, and potential impact.
@@ -55,11 +81,11 @@ This document captures the progression of our project through detailed meeting n
 
 ## Development Tasks per User Stories and Task Assignments
 
-- Harrish: Nurses, Nurses test cases, Stub database
-- Parmoun: Admins, Admins test cases, Wiki, Log file
-- Amira: Doctor, Doctor test cases, Business Objects, Log file
-- Gaurav: Volunteers, test cases, Architectural sketch
-- Megan: Hospital, Patient, Hospital and patient test cases, GUI
+- Harrish: Nurses class, Nurses class test cases, Stub database Implementation, Patient information Testing
+- Parmoun: PhysicianAdministrator, PhysicianAdministrator test cases, Wiki, Log file, Consent form, FamilyDoctor class
+- Amira: Physician class, Physician class test cases, Business Objects, Meeting minutes file, UML class Diagram
+- Gaurav: Volunteers class, Volunteers class test cases, Architectural sketch, Log-in page GUI implementation
+- Mehregan: Hospital, Patient, Hospital and patient test cases, GUI, Laboratory class, Nurse and Physician functionality
 
 ## Time Tracking (Planned Time vs Actual Time)
 

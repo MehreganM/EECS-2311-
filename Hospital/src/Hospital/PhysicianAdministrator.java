@@ -11,11 +11,12 @@ import java.util.List;
  * @author Parmoun Khalkhali Sharifi
  */
 
-public class PhysicianAdministrator extends Administrator {
+public class PhysicianAdministrator {
     // Specialty of the PhysicianAdministrator, such as Immunology, Dermatology, or Neurology.
-    private String specialty = "";
+    private String specialty;
+    List<String> Specialties = List.of("Radiology", "Dermatology", "Neurology", "Cardiology", "Immunology", "Gynecology", "Ophthalmology","Pathology", "Urology","Hematology");
     
-    // List of physicians managed by the PhysicianAdministrator.
+    // List of physicians managed by the PhysicianAdministrator
     private ArrayList<Physician> physicians = new ArrayList<Physician>();
 
     
@@ -27,8 +28,7 @@ public class PhysicianAdministrator extends Administrator {
     public PhysicianAdministrator() {
         super();
     }
-
-    
+  
     
     /**
      * Overloaded constructor for PhysicianAdministrator that sets the administrator's details.
@@ -41,28 +41,28 @@ public class PhysicianAdministrator extends Administrator {
      */
     
     public PhysicianAdministrator(String firstName, String lastName, int age, String gender, String address) {
-        super(firstName, lastName, age, gender, address);
+    	 super(); 
     }
-
+  
     
     
     /**
      * Sets the specialty type for the administrator if it is valid.
-     * Valid specialties are Immunology, Dermatology, or Neurology.
+     * Specialties are "Radiology", Dermatology, "Neurology", "Cardiology", "Immunology", "Gynecology", "Ophthalmology","Pathology", "Urology","Hematology".
      *
      * @param specialty The specialty to be set for the administrator.
      * @throws IllegalArgumentException if the provided specialty is not valid.
      */
     
-    public void setAdminSpecialtyType(String specialty) {
-        if (specialty.equals("Immunology") || specialty.equals("Dermatology") || specialty.equals("Neurology")) {
+
+    public void setAdminSpecialtyType(String specialty) throws IllegalArgumentException {
+       if (Specialties.contains(specialty)) {
             this.specialty = specialty;
-        } else {
-            throw new IllegalArgumentException("Specialty must be either Immunology, Dermatology, or Neurology.");
+        } 
+        else {
+            throw new IllegalArgumentException("Invalid specialty");
         }
     }
-
-    
     
     /**
      * Retrieves the specialty type of the administrator.
@@ -70,12 +70,9 @@ public class PhysicianAdministrator extends Administrator {
      * @return The specialty type of the administrator.
      */
     public String getAdminSpecialtyType() {
-        return this.specialty;
+        return specialty;
     }
 
-    
-    
-    
     /**
      * Attempts to add a physician to the list of managed physicians. A physician can only be
      * added if their specialty matches the administrator's, they are not already managed by
@@ -86,14 +83,14 @@ public class PhysicianAdministrator extends Administrator {
      */
      
     public boolean addPhysician(Physician physician) {
-        if (!physicians.contains(physician) && physicians.size() < 25 && physician.getSpecialty().equals(this.specialty)) {
-            physicians.add(physician);
-            physician.setAdministrator(this);
+    	
+    	 if (physician.getSpecialty().equals(this.specialty) && !physicians.contains(physician) && physicians.size() < 25) {
+             physicians.add(physician);
+            physician.setAdmin(this);
             return true;
         }
         return false;
     }
-
     
     
     /**
@@ -104,7 +101,13 @@ public class PhysicianAdministrator extends Administrator {
      */
     
     public boolean deletePhysician(Physician physician) {
-        return physicians.remove(physician);
+    	
+    	if (physicians.contains(physician)) {
+            physicians.remove(physician);
+            physician.setAdmin(null);
+            return true;
+        }
+        return false;
     }
 
     

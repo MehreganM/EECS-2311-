@@ -1,4 +1,6 @@
-abstract class Person{
+package Hospital;
+
+public abstract class Person{
 	protected String firstName;
 	protected String lastName;
 	protected int age;

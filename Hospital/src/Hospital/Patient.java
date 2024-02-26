@@ -58,6 +58,10 @@ class Patient extends Person implements Comparable<Patient>{
 	public void setNurse(Nurse nurse) {
 		this.nurse = nurse;		
 	}
+
+	public void setFamilyDoctor(FamilyDoctor FamDoc){
+		this.FamMD = FamDoc;
+	}
 	
 	/**
 	 * this method returns the physician the patient is assigned to
@@ -71,6 +75,12 @@ class Patient extends Person implements Comparable<Patient>{
 
 	public Nurse getNurse() {
 		return this.nurse;
+	}
+
+	
+	
+	public FamilyDoctor getFamDoc(){
+		return this.FamMD;
 	}
 	
 	public String getFName() {

@@ -1,15 +1,16 @@
 package Hospital;
-<<<<<<< Updated upstream
+
 
 public abstract class Person{
-=======
-abstract class Person{
->>>>>>> Stashed changes
+
 	protected String firstName;
 	protected String lastName;
 	protected int age;
 	protected String gender;
 	protected String address;
+	String user;
+	String pass;
+
 	/**
 	 * this default constructor initializes the instances of the person
 	 */
@@ -18,6 +19,9 @@ abstract class Person{
 		lastName="";
 		gender="";
 		address="";
+		user="";
+		pass="";
+
 	}
 	/**
 	 * this overloaded constructor receives first name last name age gender and address

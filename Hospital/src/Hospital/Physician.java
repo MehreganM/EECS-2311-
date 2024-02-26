@@ -16,7 +16,7 @@ import java.util.TreeSet;
 public class Physician extends Employee {
 	
 	private String specialty;
-	ArrayList<Patient> patients = new ArrayList<>();
+	protected ArrayList<Patient> patients = new ArrayList<>();
 	private ArrayList<Nurse> nurses = new ArrayList<Nurse>();
 	private PhysicianAdministrator admin;
 

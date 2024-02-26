@@ -10,6 +10,8 @@ abstract class Person{
 	protected int age;
 	protected String gender;
 	protected String address;
+	String user;
+	String pass;
 	/**
 	 * this default constructor initializes the instances of the person
 	 */
@@ -18,6 +20,8 @@ abstract class Person{
 		lastName="";
 		gender="";
 		address="";
+		user = "";
+		pass="";
 	}
 	/**
 	 * this overloaded constructor receives first name last name age gender and address

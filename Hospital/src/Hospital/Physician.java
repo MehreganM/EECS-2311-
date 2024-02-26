@@ -15,10 +15,10 @@ import java.util.TreeSet;
  */
 public class Physician extends Employee {
 	
-	String specialty;
-	ArrayList<Patient> patients = new ArrayList<>();
-	ArrayList<Nurse> nurses = new ArrayList<Nurse>();
-	PhysicianAdminstrator admin;
+	private String specialty;
+	private ArrayList<Patient> patients = new ArrayList<>();
+	private ArrayList<Nurse> nurses = new ArrayList<Nurse>();
+	private PhysicianAdminstrator admin;
 
 	
 	/**

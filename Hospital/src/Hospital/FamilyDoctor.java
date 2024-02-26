@@ -1,6 +1,6 @@
 package Hospital;
 import java.util.*;
-import Hospital.labratory.Laboratory;
+import Hospital.laboratory.Laboratory;
 
 /**
  * @author Parmoun Khalkhali Sharifi

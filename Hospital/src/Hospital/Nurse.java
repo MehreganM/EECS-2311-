@@ -27,7 +27,7 @@ public class Nurse extends Employee {
 	public boolean addPatient(Patient patient) {
 		if(patients.size()<15) {
 			patients.add(patient);
-			patient.setAssignedNurse(this);
+			patient.setNurse(this);
 			return true;
 		}
 		else {

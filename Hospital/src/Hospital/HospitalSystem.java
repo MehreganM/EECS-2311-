@@ -262,7 +262,7 @@ public class Hospital {
 	public boolean dischargePatient(Patient patient) {
 		if(patientList.contains(patient)) {
 			//we remove the patient from hospital and physicians'patient list
-			patient.getPhysician().patients.remove(patient);
+			patient.getAssignedPhysician().patients.remove(patient);
 			boolean flag= patientList.remove(patient);
 			patient=null;
 			return flag;
@@ -300,7 +300,7 @@ public class Hospital {
 	public Patient searchPatientByName(String name) {
 		 if (this.patientList != null) { 
 		        for (Patient patient : this.patientList) { 
-		            if (patient.getFirstName().equals(name)) {
+		            if (patient.getFName().equals(name)) {
 		                return patient; 
 		            }
 		        }

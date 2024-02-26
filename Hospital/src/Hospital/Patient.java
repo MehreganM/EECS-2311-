@@ -9,7 +9,7 @@ package Hospital;
  *
  */
 
-class Patient extends Person implements Comparable<Patient>{
+public class Patient extends Person implements Comparable<Patient>{
 	private static int Id=999;
 	private Physician physician;
 	private int patientID;

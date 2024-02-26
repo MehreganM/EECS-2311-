@@ -18,7 +18,7 @@ public class DatabaseOps {
             pstmt.setString(5, patient.getGender());
             pstmt.setString(6, patient.getAssignedPhysician().toString());
             pstmt.setString(7, patient.getNurse().toString());
-          //  pstmt.setString(8, patient.getFamilyDoctor()); don't have this method yet
+            pstmt.setString(8, patient.getFamDoc().toString()); 
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -122,9 +122,7 @@ public class DatabaseOps {
         	pstmt.setString(5, patient.getGender());
             pstmt.setString(6, patient.getAssignedPhysician().toString());
             pstmt.setString(7, patient.getNurse().toString());
-            
-        //    pstmt.setString(8, patient.getFamilyDoctor());  need functionality to get Family MD
-            
+            pstmt.setString(8, patient.getFamDoc().toString());              
             
             // Execute the update
             int affectedRows = pstmt.executeUpdate();

@@ -1,10 +1,6 @@
 package Hospital;
-<<<<<<< Updated upstream
 
 public abstract class Person{
-=======
-abstract class Person{
->>>>>>> Stashed changes
 	protected String firstName;
 	protected String lastName;
 	protected int age;

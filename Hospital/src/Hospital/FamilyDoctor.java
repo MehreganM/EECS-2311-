@@ -72,7 +72,7 @@ public class FamilyDoctor {
         this.specialty = specialty;
     }
 
-    // ToString representation of output
+   
     @Override
     public String toString() {
         return "FamilyDoctor{" +

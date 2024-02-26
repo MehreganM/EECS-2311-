@@ -1,14 +1,14 @@
 package Hospital;
 
+/
+
 /**
  * this class is Physician which extends SalariedEmployee and implements Comparable
  * and stores the physician's specialty and an arrayList of their patients
  * and the physician administrator that has their specialty and also a list of volunteers
- * 
  * @author mehregan mesgari
  *
  */
-
 
 class Patient extends Person implements Comparable<Patient>{
 	private static int patientId=999;

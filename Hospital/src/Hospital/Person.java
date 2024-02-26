@@ -1,6 +1,5 @@
+
 package Hospital;
-
-
 public abstract class Person{
 
 	protected String firstName;
@@ -9,7 +8,7 @@ public abstract class Person{
 	protected String gender;
 	protected String address;
 	String user;
-	String pass;
+	  String pass;
 
 	/**
 	 * this default constructor initializes the instances of the person

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Labratory {
+public class Laboratory {
 
 	 
 
@@ -12,7 +12,7 @@ public class Labratory {
 
 		    private List<labTest> testRequests;
 
-		    public Labratory() {
+		    public Laboratory() {
 		        this.testRequests = new ArrayList<>();
 		    }
 

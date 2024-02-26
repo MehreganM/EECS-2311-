@@ -18,7 +18,7 @@ public class Physician extends Employee {
 	private String specialty;
 	protected ArrayList<Patient> patients = new ArrayList<>();
 	private ArrayList<Nurse> nurses = new ArrayList<Nurse>();
-	private PhysicianAdministrator admin;
+	PhysicianAdministrator admin;
 
 	
 	/**

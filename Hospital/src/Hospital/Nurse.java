@@ -108,4 +108,9 @@ public class Nurse extends Employee {
 		}
 	}
 
+	public String toString() {
+		return "Nurse [firstName=" + firstName + ", lastName=" + lastName + ", age=" + age + ", gender=" + gender + ","
+				+ " address=" + address + "]";
+	}
+
 }

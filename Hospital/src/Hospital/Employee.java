@@ -1,12 +1,12 @@
 abstract class Employee extends Person{
-	protected static int employeeID=99;
-	protected int employee;
+	protected static int ID=99;
+	protected int employeeID;
 	/**
 	 * this default constructor assigns the employee with an employeeID
 	 */
 	public Employee() {
-		employeeID++;
-		employee=employeeID;
+		ID++;
+		this.employeeID=ID;
 	}
 	/**
 	 * this overloaded constructor initializes the given inputs to the appropriate
@@ -20,15 +20,15 @@ abstract class Employee extends Person{
 	
 	public Employee(String firstName,String lastName,int age, String gender,String address) {
 		super(firstName,lastName,age,gender,address);
-		employeeID++;
-		employee=employeeID;
+		ID++;
+		this.employeeID=ID;
 	}
 	/**
 	 * this method returns the employeeId of the employee
 	 * @return an int representing the employeeID
 	 */
 	public int getEmployeeID() {
-		return employee;
+		return this.employeeID;
 	}
 	@Override
 	/** this method returns true if the objects are equal and false otherwise

@@ -6,7 +6,7 @@ package Hospital;
  *
  */
 
-class Director extends Administrator{
+class Director extends PhysicianAdministrator{
 	/**
 	 * this default constructor creates a director
 	 */

@@ -55,11 +55,11 @@ This document captures the progression of our project through detailed meeting n
 
 ## Development Tasks per User Stories and Task Assignments
 
-- Harrish: Nurses, Nurses test cases, Stub database
-- Parmoun: Admins, Admins test cases, Wiki, Log file
-- Amira: Doctor, Doctor test cases, Business Objects, Log file
-- Gaurav: Volunteers, test cases, Architectural sketch
-- Megan: Hospital, Patient, Hospital and patient test cases, GUI
+- Harrish: Nurses class, Nurses class test cases, Stub database Implementation, Patient information Testing
+- Parmoun: PhysicianAdministrator, PhysicianAdministrator test cases, Wiki, Log file, Consent form, FamilyDoctor class
+- Amira: Physician class, Physician class test cases, Business Objects, Meeting minutes file, UML class Diagram
+- Gaurav: Volunteers class, Volunteers class test cases, Architectural sketch, Log-in page GUI implementation
+- Megan: Hospital, Patient, Hospital and patient test cases, GUI, Laboratory class, Nurse and Physician functionality
 
 ## Time Tracking (Planned Time vs Actual Time)
 

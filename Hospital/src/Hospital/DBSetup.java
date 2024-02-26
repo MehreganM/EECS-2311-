@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.*;
 
+//Need to run the function: DBSetup.ensureTableExists(); in the application to create the database, not sure how to access if already present
+
 public class DBSetup {
    private static final String CHECK_TABLE_EXISTS_QUERY = "SELECT TO REGCLASS('public.patients');";
     private static final String CREATE_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS patients (" +

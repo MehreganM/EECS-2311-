@@ -2,7 +2,14 @@ package Hospital;
 
 import hospital.Patient;
 
-*/
+
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+
+
 /**
  * this is a class that implements a virtual hospital scenario with 1 director
  * 3 administrators and up to a maximum of 25
@@ -21,7 +28,8 @@ public class Hospital {
 	private ArrayList<Physician> physicianList=new ArrayList<Physician>();
 	private ArrayList<PhysicianAdministrator> adminList=new ArrayList<PhysicianAdministrator>();
 	private ArrayList<Patient> patientList=new ArrayList<Patient>();
-	public static final Laboratory laboratory = new Laboratory();
+	public  final static Labratory laboratory = new Labratory();
+
 	/**
 	 * this overloaded constructor that makes a hospital and assigns the director that it receives as an input
 	 * @pre only one director is accepted for the hospital.director is not null
@@ -129,7 +137,6 @@ public class Hospital {
 		
 		List<Physician> physicianSort = new ArrayList<Physician>();
 		physicianSort.addAll(physicianList);
-		Collections.sort(physicianSort);
 		return physicianSort;
 	}
 	/**
@@ -204,20 +211,18 @@ public class Hospital {
 
 	public void resignPhysician(Physician physician) throws NoSpecialtyException {
 		if(physicianList.contains(physician)!=false) {
+			//we store the physicians patients and volunteers before deleting them
 			ArrayList<Patient> tempArray= physician.patients;
 			PhysicianAdministrator admin= physician.admin;
 			//we have a method which checks if we can delete the physician and
 			//either throws an exception or returns true if it could
 			boolean flag= admin.deletePhysician(physician);
-			//if we could delete the physician we reassign the patients
+			//if we could delete the physician we reassign the patients and volunteers
 			//using methods that use a for loop to loop through other physicians
 			if(flag) {
 				physicianList.remove(physician);
 				for(int i=0;i<tempArray.size();i++) {
 					physicianGone(tempArray.get(i));
-				}
-				for(int i=0;i<tempVol.size();i++) {
-					physicianGone(tempVol.get(i));
 				}
 			}
 			physician=null;
@@ -304,4 +309,57 @@ public class Hospital {
 	}
 	
 	
+}
+
+/**
+ * this class is an exception that is thrown if there is no more space left 
+ * for admiting patients either because the number of patients is at 500 
+ * or because there are not any physicians available
+ * extends Exception
+ *
+ */
+class NoSpaceException extends Exception{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
+	 * this default constructor calls the superClass of Exception
+	 */
+	public NoSpaceException(){
+		super();
+	}
+	/**
+	 * this overloaded constructor calls the overloaded constructor of Exception
+	 * and sends a message as a String
+	 * @param message a String that explains something about the Exception
+	 */
+	public NoSpaceException(String message){
+		super(message);
+	}
+}
+/**
+ * this Class extends Exception and is used if a physician wants to resign but 
+ * there is no other physician with the same specialty
+ *
+ */
+class NoSpecialtyException extends Exception{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
+	 * this default constructor calls the superClass of Exception
+	 */
+	public NoSpecialtyException(){
+		super();
+	}
+	/**
+	 * this overloaded constructor calls the overloaded constructor of Exception
+	 * and sends a message as a String
+	 * @param message a String that explains something about the Exception
+	 */
+	public NoSpecialtyException(String message){
+		super(message);
+	}
 }

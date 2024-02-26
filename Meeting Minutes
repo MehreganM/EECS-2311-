@@ -76,7 +76,7 @@ Meeting 4: (Monday Feb 5 31, 2024 -3:30 - 4 pm )
 Classes : doctor, nurse, volunteer, administrator , Hospital, Patient
 Harrish : Nurses
 Gaurav : volunteers
-Megan: Hospital, patient 
+Mehregan: Hospital, patient 
 Parmoun: Admins
 Amira: Doctor 
 When: push the version by Wednesday Feb 7
@@ -101,13 +101,13 @@ Attendance: Parmoun and Mehregan
 
 During this meeting, ITR1 and Del1 were discussed and the task appointment is as below: 
 
-Task list: 
-1. Stub data base : @Harrish 
-2. Business Objects: @Amira
-3. Unit test : everyone do their own part 
-4. GUI : @mehregan 
-5. Wiki: @parmoun
-6. Architectural sketch: @gaurav
+Task list:  
+- Harrish: Stub data base
+- Amira: Business Objects
+- Everyone: Unit testing 
+- Mehregan: GUI
+- Parmoun: Wiki
+- Gaurav: Architectural sketch
 
 These tasks are due on Friday before 10 pm
 

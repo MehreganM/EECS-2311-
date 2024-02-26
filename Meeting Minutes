@@ -121,7 +121,7 @@ During this meeting, Del1 was discussed and the task division is as below:
  Task Assignments:
 - Harrish: Extend database  - patient information class tester
 - Parmoun: Add family doctor class and connect it to the patient - Add consent form to Patient class
-- Megan: Add laboratory class - Add functionality to Nurse and physician classes
+- Mehregan: Add laboratory class - Add functionality to Nurse and physician classes
 - Amira: Create UML class diagram for Hospital App
 - Gaurav: Add login page GUI to hospital App
 

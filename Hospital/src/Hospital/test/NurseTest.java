@@ -1,26 +1,36 @@
 package test;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.util.List;
+import Hospital.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import Hospital.Nurse;
+import Hospital.Patient;
+import Hospital.StubDB;
+
+import static org.junit.jupiter.api.Assertions.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class NurseTest {
     private Nurse nurse;
     private Patient patient1;
     private Patient patient2;
+    private StubDB stub;
 
     @BeforeEach
     public void setUp() {
-        nurse = new Nurse("Mary", "Poppins",121,"Fairy", "Your moms house");
+        
+    	nurse = new Nurse("Mary", "Poppins",121,"Fairy", "Your moms house");
+        
         patient1 = new Patient("John", "Doe", 23, "Male", "12 Bobby Ave.");
         patient2 = new Patient("Jane", "Doe", 22, "Female", "13 Sissy St.");
+        stub = new StubDB();
+        nurse.setPatientDB(stub);
+        stub.addMedicationsForPatient(patient1.getPatientID(), List.of("Medicine A", "Medicine B"));
         // Assuming Patient class has a comparable implemented based on a certain attribute, e.g., name
     }
 
@@ -59,9 +69,11 @@ public class NurseTest {
 
     @Test
     public void testCurrentMeds() {
-       String expectedMeds = "Medicine A, Medicine B"; // Expected result based on StubDB initialization
+    	 //   Patient patient = new Patient("John", "Doe", 23, "Male", "12 Bobby Ave."); // Ensure patient ID matches StubDB
+    	    String expectedMeds = "Medicine A, Medicine B"; // Expected result based on StubDB initialization
     	    assertEquals(expectedMeds, nurse.currentMeds(patient1), "Medications should match expected list.");
-    }
+    	}
+
 
     @Test
     public void testEquals() {

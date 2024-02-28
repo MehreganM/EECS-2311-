@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+
 /**
  * The PhysicianAdministrator class extends the Administrator class and is responsible for
  * managing a list of physicians with a specific specialty. It allows for adding and removing
@@ -12,7 +13,7 @@ import java.util.TreeSet;
  * @author Parmoun Khalkhali Sharifi
  */
 
-class PhysicianAdministrator extends Administrator{
+public class PhysicianAdministrator extends Administrator{
 	private String specialty="";
 	private ArrayList<Physician> physicians=new ArrayList<Physician>();
 	/**

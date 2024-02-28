@@ -1,5 +1,7 @@
 package test;
 
+import Hospital.*;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -9,9 +11,7 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import eecs2311.Patient;
-import eecs2311.Physician;
-import eecs2311.PhysicianAdminstrator;
+
 
 /**
  * This class is designed to test the Physician class. 
@@ -26,7 +26,7 @@ class PhysicianTest {
 	static Patient patient1, patient2, patient3, patient4, patient5, patient6, 
 	patient7,patient8, patient9, patient10; 
 	static ArrayList<Patient> patients, patients2;
-	PhysicianAdminstrator admin;
+	PhysicianAdministrator admin;
 	static int employee;
 
 	/*
@@ -140,7 +140,7 @@ class PhysicianTest {
 	@Test
 	void setAdminTest() {
 		physician.setAdmin(admin);
-		PhysicianAdminstrator expected = admin;
+		PhysicianAdministrator expected = admin;
 		assertEquals(expected, physician.getAdmin());
 	}
 

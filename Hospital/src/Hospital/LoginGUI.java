@@ -31,7 +31,7 @@ public class LoginGUI extends JFrame implements ActionListener {
 
         loginButton = new JButton("Login");
         loginButton.addActionListener(this);
-        add(new JLabel("")); // Empty label for alignment
+        add(new JLabel("")); 
         add(loginButton);
     }
 
@@ -58,25 +58,30 @@ public class LoginGUI extends JFrame implements ActionListener {
             JOptionPane.showMessageDialog(this, "Invalid username or password", "Login Failed", JOptionPane.ERROR_MESSAGE);
         }
     }
+    
+
 
     public static void main(String[] args) {
-        Hospital hospital = new Hospital(new Director("John", "Smith", 58, "Male", "123 Main St"));
-
+    Hospital hospital = new Hospital(new Director("John", "Smith", 58, "Male", "123 Main St"));
+        
+        
         PhysicianAdministrator admin = new PhysicianAdministrator("Meg", "Mes", 40, "Female", "789 Pine St");
         admin.setAdminSpecialtyType("Immunology");
         hospital.addAdministrator(admin);
-
+        
         Physician physician = new Physician("DR.AL", "kp", 35, "Male", "202 Oak St");
         physician.setSpecialty("Immunology");
+        hospital.hirePhysician(physician);
+        
         physician.user=("AL");
         physician.pass=("123");
-        hospital.hirePhysician(physician);
-
         
         Patient patient = new Patient("John", "Smith", 30, "Male", "123 Main St");
         Patient patient2 = new Patient("Ali", "Bakhshi", 30, "Male", "123 Main St");
         Patient patient3 = new Patient("Sarah", "Lance", 30, "female", "123 Main St");
         Patient patient4 = new Patient("Kim", "k", 30, "Female", "123 Main St");
+  
+        
         try {
         	hospital.admitPatient(patient);
         	hospital.admitPatient(patient2);
@@ -85,6 +90,18 @@ public class LoginGUI extends JFrame implements ActionListener {
 		} catch (NoSpaceException e) {
 			e.printStackTrace();
 		}
+       
+        
+        Laboratory lab = new Laboratory();
+        labTest test1 = new labTest(patient,"blood");
+        physician.LabReq(lab, test1);
+        test1.addResult("good");
+        
+        
+        physician.prescripe(patient, "advil");
+        physician.prescripe(patient, "codeine");
+        physician.updateLab(patient, lab);
+        
         
         EventQueue.invokeLater(() -> {
             new LoginGUI(hospital).setVisible(true);

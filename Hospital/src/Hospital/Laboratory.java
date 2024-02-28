@@ -6,8 +6,6 @@ import java.util.List;
 
 public class Laboratory {
 
-	 
-
 
 
 		    private List<labTest> testRequests;
@@ -19,6 +17,19 @@ public class Laboratory {
 		    public boolean addTestRequest(labTest request) {
 		        return testRequests.add(request);
 		    }
+		    
+		    public String getAllTestsForPatientAsString(Patient patient) {
+		        StringBuilder allTestsResults = new StringBuilder();
+		        for (labTest request : testRequests) {
+		            if (request.getPatient().equals(patient)) {
+		                allTestsResults.append(request.getType())
+		                               .append(": ")
+		                               .append(request.getResults())
+		                               .append("\n"); 
+		            }
+		        }
+		        return allTestsResults.toString();}
+	
 
 		    public String testResults(Patient patient, String type) {
 		        for (labTest request : testRequests) {
@@ -29,8 +40,7 @@ public class Laboratory {
 		        return null; 
 		    
 		}
-
-
+		    
 
 	}
 
@@ -58,5 +68,4 @@ public class Laboratory {
 		}
 		
 	}
-
 

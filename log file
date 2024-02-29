@@ -83,7 +83,7 @@ This document captures the progression of our project through detailed meeting n
 
 - Harrish: Nurses class, Nurses class test cases, Stub database Implementation, Patient information Testing
 - Parmoun: PhysicianAdministrator, PhysicianAdministrator test cases, Wiki, Log file, Consent form, FamilyDoctor class
-- Amira: Physician class, Physician class test cases, Business Objects, Meeting minutes file, UML class Diagram
+- Amira: Physician class, Physician class test cases, Log file, Business Objects, Meeting minutes file, UML class Diagram
 - Gaurav: Volunteers class, Volunteers class test cases, Architectural sketch, Log-in page GUI implementation
 - Mehregan: Hospital, Patient, Hospital and patient test cases, GUI, Laboratory class, Nurse and Physician functionality
 

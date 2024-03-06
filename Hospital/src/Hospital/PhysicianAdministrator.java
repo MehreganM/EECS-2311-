@@ -16,6 +16,7 @@ import java.util.TreeSet;
 public class PhysicianAdministrator extends Administrator{
 	private String specialty="";
 	private ArrayList<Physician> physicians=new ArrayList<Physician>();
+	ArrayList<Nurse> nurses = new ArrayList<Nurse>();
 	/**
 	 * this default constructor makes a PhysicianAdministrator 
 	 */
@@ -113,6 +114,20 @@ public class PhysicianAdministrator extends Administrator{
 		}
 		
 	}
+	
+	public boolean addNurse(Nurse nurse) {
+		
+		if(nurses.size()<25) {
+			
+				nurses.add(nurse);
+				return true;
+			}
+			else {
+				return false;
+			}
+		
+		
+	}
 	/**
 	 * this method receives a physician that we want to delete.
 	 * checks if the physician exists in the administrator's list it throws an exception
@@ -158,5 +173,6 @@ public class PhysicianAdministrator extends Administrator{
 		extracted.addAll(physicianTree);
 		return extracted;
 	}
+	
 	
 }

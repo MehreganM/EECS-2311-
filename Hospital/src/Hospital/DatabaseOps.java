@@ -1,6 +1,5 @@
 package Hospital;
 
-
 import java.sql.*;
 
 public class DatabaseOps {
@@ -10,15 +9,24 @@ public class DatabaseOps {
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-        	pstmt.setInt(0, patient.getPatientID());
-        	pstmt.setString(1, patient.getFName());
-        	pstmt.setString(2, patient.getLName());
-        	pstmt.setInt(3, patient.getAge());
-            pstmt.setString(4, patient.getAddress());
-            pstmt.setString(5, patient.getGender());
-            pstmt.setString(6, patient.getAssignedPhysician().toString());
-            pstmt.setString(7, patient.getNurse().toString());
-            pstmt.setString(8, patient.getFamDoc().toString()); 
+        	pstmt.setInt(1, patient.getPatientID());
+        	pstmt.setString(2, patient.getFName());
+        	pstmt.setString(3, patient.getLName());
+        	pstmt.setInt(4, patient.getAge());
+            pstmt.setString(5, patient.getAddress());
+            pstmt.setString(6, patient.getGender());
+           
+            String physician = patient.getAssignedPhysician() != null ? patient.getAssignedPhysician().toString() : "[None]";
+            pstmt.setString(7, physician);
+            
+            String nurse = patient.getNurse() != null ? patient.getNurse().toString() : "[None]";
+            pstmt.setString(8, physician);
+            
+            String famdr = patient.getFamDoc() != null ? patient.getFamDoc().toString() : "[None]";
+            pstmt.setString(9, physician);
+
+         //   pstmt.setString(8, patient.getNurse().toString());
+         //   pstmt.setString(9, patient.getFamDoc().toString());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -114,15 +122,16 @@ public class DatabaseOps {
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             
             // Set parameters for the prepared statement based on the patient object
-        	// pstmt.setInt(0, patient.getPatientID());
-        	pstmt.setString(1, patient.getFName());
-        	pstmt.setString(2, patient.getLName());
-        	pstmt.setInt(3, patient.getAge());
-        	pstmt.setString(4, patient.getAddress());
-        	pstmt.setString(5, patient.getGender());
-            pstmt.setString(6, patient.getAssignedPhysician().toString());
-            pstmt.setString(7, patient.getNurse().toString());
-            pstmt.setString(8, patient.getFamDoc().toString());              
+        	// pstmt.setInt(0, patient.getPatientID()); should not really be able to change this tbh
+        	pstmt.setString(2, patient.getFName());
+        	pstmt.setString(3, patient.getLName());
+        	pstmt.setInt(4, patient.getAge());
+        	pstmt.setString(5, patient.getAddress());
+        	pstmt.setString(6, patient.getGender());
+            pstmt.setString(7, patient.getAssignedPhysician().toString());
+            pstmt.setString(8, patient.getNurse().toString());
+            pstmt.setString(9, patient.getFamDoc().toString());  
+            
             
             // Execute the update
             int affectedRows = pstmt.executeUpdate();
@@ -151,6 +160,8 @@ public class DatabaseOps {
             e.printStackTrace();
         }
     }
+
+
 
 
 }

@@ -14,19 +14,16 @@ public class DatabaseOps {
         	pstmt.setString(3, patient.getLName());
         	pstmt.setInt(4, patient.getAge());
             pstmt.setString(5, patient.getAddress());
-            pstmt.setString(6, patient.getGender());
-           
+            pstmt.setString(6, patient.getGender());           
             String physician = patient.getAssignedPhysician() != null ? patient.getAssignedPhysician().toString() : "[None]";
-            pstmt.setString(7, physician);
+            pstmt.setString(7, physician);           
             
             String nurse = patient.getNurse() != null ? patient.getNurse().toString() : "[None]";
-            pstmt.setString(8, physician);
+            pstmt.setString(8, physician);            
             
             String famdr = patient.getFamDoc() != null ? patient.getFamDoc().toString() : "[None]";
             pstmt.setString(9, physician);
-
-         //   pstmt.setString(8, patient.getNurse().toString());
-         //   pstmt.setString(9, patient.getFamDoc().toString());
+            
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

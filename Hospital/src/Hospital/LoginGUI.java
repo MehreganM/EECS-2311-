@@ -11,6 +11,8 @@ public class LoginGUI extends JFrame implements ActionListener {
     private JPasswordField passField;
     private JButton loginButton;
     private Hospital hospital;
+	private Nurse loggedInNurse;
+	private Physician loggedInPhysician;
 
     public LoginGUI(Hospital hospital) {
         this.hospital = hospital;
@@ -39,21 +41,42 @@ public class LoginGUI extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String user = userField.getText();
         String pass = new String(passField.getPassword());
-        boolean isValidUser = false;
+      /*  Object loggedInUser = null; // To store the logged-in user, either Physician or Nurse
+        Physician loggedInPhysician = null;
+        Nurse loggedInNurse = null; */
 
+        // Check for Physician
         for (Physician physician : hospital.extractAllPhysicianDetails()) {
             if (user.equals(physician.user) && pass.equals(physician.pass)) {
-                isValidUser = true;
+                loggedInPhysician = physician;
                 break;
             }
         }
 
-        if (isValidUser) {
+        // Check for Nurse if no Physician found
+        
+            for (Nurse nurse : hospital.extractAllNurseDetails()) { // Assuming a method to get all nurses
+                if (user.equals(nurse.user) && pass.equals(nurse.pass)) {
+                    loggedInNurse = nurse;
+                    break;
+                }
+            }
+        
+
+        // Decide what to do based on the type of user logged in
+        if (loggedInPhysician != null ) {
             EventQueue.invokeLater(() -> {
                 PatientInformationGUI patientInfoGUI = new PatientInformationGUI(hospital);
                 patientInfoGUI.setVisible(true);
             });
             this.setVisible(false);
+        } else if (loggedInNurse != null) {
+        	EventQueue.invokeLater(() -> {
+        		Nurse loggedInNurse = this.loggedInNurse;
+        	    NurseGUI nurseDashboard = new NurseGUI(loggedInNurse); // loggedInNurse is the Nurse object that logged in
+        	    nurseDashboard.setVisible(true);
+        	});
+        	this.setVisible(false);
         } else {
             JOptionPane.showMessageDialog(this, "Invalid username or password", "Login Failed", JOptionPane.ERROR_MESSAGE);
         }
@@ -75,6 +98,13 @@ public class LoginGUI extends JFrame implements ActionListener {
         
         physician.user=("AL");
         physician.pass=("123");
+        
+        Nurse nurse = new Nurse("Mary", "Poppins",121,"Fairy", "Your moms house");
+        hospital.hireNurse(nurse);
+        nurse.user=("Nur");
+        nurse.pass=("123");
+        
+        
         
         Patient patient = new Patient("John", "Smith", 30, "Male", "123 Main St");
         Patient patient2 = new Patient("Ali", "Bakhshi", 30, "Male", "123 Main St");

@@ -13,10 +13,10 @@ import java.util.ArrayList;
 
 public class Patient extends Person implements Comparable<Patient>{
 	private static int Id=999;
-	private Physician physician;
+	private Physician physician = null;
 	private int patientID;
 	private boolean consentFormSigned = false;
-	private Nurse nurse;
+	private Nurse nurse = null;
 	private FamilyDoctor FamMD;
 	ArrayList<String> medications = new ArrayList<String>();
 	public String labs;

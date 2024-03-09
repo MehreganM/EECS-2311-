@@ -15,7 +15,7 @@ public class DBSetup {
             "Lname VARCHAR(255)," +
     		"age INT," +
             "address VARCHAR(255)," +
-    		"gender VARCHAR(255," +
+    		"gender VARCHAR(255)," +
             "doctor VARCHAR(255)," +
             "nurse VARCHAR(255)," +
             "family_doctor VARCHAR(255)" +

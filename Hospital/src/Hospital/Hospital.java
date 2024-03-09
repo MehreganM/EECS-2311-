@@ -1,3 +1,10 @@
+<<<<<<< HEAD
+=======
+package Hospital;
+
+import Hospital.Patient;
+
+>>>>>>> d6167dc2a3a7d2ed8d26456e3833a33aef5ea12c
 
 
 import java.util.ArrayList;
@@ -27,6 +34,7 @@ import javax.mail.internet.*;
 public class Hospital {
 	private Director director;
 	private ArrayList<Physician> physicianList=new ArrayList<Physician>();
+	private ArrayList<Nurse> nurseList=new ArrayList<Nurse>();
 	private ArrayList<PhysicianAdministrator> adminList=new ArrayList<PhysicianAdministrator>();
 	private ArrayList<Patient> patientList=new ArrayList<Patient>();
 	public  final static Labratory laboratory = new Labratory();
@@ -126,8 +134,45 @@ public class Hospital {
 		
 	}
 	
+<<<<<<< HEAD
 	public ArrayList<Physician> getPhysList(){
 		return this.physicianList;
+=======
+	public boolean hireNurse(Nurse nurse) {
+		//we make sure we don't already have 70 nurses 
+		
+		if(nurseList.size()<70) {
+			//we make sure the nurse does not already exist
+			for(int i =0; i<nurseList.size();i++) {
+				if (nurse.equals(nurseList.get(i))) {
+					return false;
+				}
+			}
+			boolean flag=false;
+			//we try to add the nurse to each administrator using a method
+			//which returns true if it was able to add the nurse and false
+			//otherwise.(if nurses were more than 25 or if specialty didn't match)
+			for(int i = 0; i<adminList.size();i++) {
+				flag=adminList.get(i).addNurse(nurse);
+				if(flag) {
+					break;
+				}
+			}
+			//if we were able to add we add it to the hospital nurse list
+			if(flag) {
+				nurseList.add(nurse);
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+		else {
+			return false;
+		}
+		
+		
+>>>>>>> d6167dc2a3a7d2ed8d26456e3833a33aef5ea12c
 	}
 	/**
 	 * this method returns a sorted list of the physicians based on their full name
@@ -143,6 +188,15 @@ public class Hospital {
 		List<Physician> physicianSort = new ArrayList<Physician>();
 		physicianSort.addAll(physicianList);
 		return physicianSort;
+	}
+	
+	public List<Nurse> extractAllNurseDetails() {
+		//we make a copy list to sort
+		//we have already defined compareTo
+		
+		List<Nurse> nurseSort = new ArrayList<Nurse>();
+		nurseSort.addAll(nurseList);
+		return nurseSort;
 	}
 	/**
 	 * this method returns a sorted list of the patients based on their full name
@@ -350,6 +404,8 @@ public class Hospital {
         }
     }
 
+	
+	
 	
 	
 }

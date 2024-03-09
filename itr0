@@ -1,3 +1,95 @@
-Project Topic: Hospital Information System
-Scope of project: 
-Project description: (vision statement and user stories)
+EECS 2311: Software Development Project – Itr0 
+Planning Document
+
+Team Information: 
+•	Team Number: Section Z – Team 2 
+•	Team Members: Mehregan Mesgari (217692617) 
+•	Project Name: Hospital System
+
+Vision Statement: 
+•	Title: Revolutionizing patient care with integrated health solutions
+
+•	Summary: Our goal is to transform the patient care system to a user-friendly and integrated hospital management system that fills the gap between departments, enhances the communication and medical processes in a hospital, resulting in a faster experience for patients and a more efficient environment for health care professionals. 
+
+Detailed Description: 
+•	In the demanding environment of healthcare, the ability to access and share patient information seamlessly across hospital departments is an important part to achieve efficiency and effective patient care. Recognizing the challenges faces by healthcare staff, including the time-consuming manual data entry, gap between departments in terms of information sharing, and the need for a more user-friendly system, we are committed to develop a solution that not only addresses these issues, but also add new standards to improve the healthcare system and eventually help solve the biggest hospital issue, long wait times. 
+•	Our system introduces an integrated patient information sharing feature are eliminates the time-consuming processes currently used and ensures that patient information flows easily between departments. This innovation will significantly reduce wait times between different departments, minimize the risk of errors and eventually provide a smoother and more cohesive care journey for the patients. 
+•	Another feature that this hospital system will have is the prescription management system with intelligent reminders for nurses to ensure timely medication administration and prioritizing urgent medications. This ensures that patient care protocols are followed and enhances the safety and effectiveness of treatment plans.
+•	Furthermore, recognizing the inefficiencies in the communication with primary health care providers such as family doctors or family nurses post discharge, this system implements a feature for sharing visit summaries and important notes with family doctors office with after getting a consent from the patient. This will reduce unnecessary repeat in tests and make the follow up process much faster for both the patient and their provider. 
+
+
+Big User Storis: 
+Story 1: Integrated Patient Information Sharing feature.
+•	Summary: Implement a real time information sharing system across all departments within the hospital
+•	Priority: High
+•	Story points: 8 
+
+Story 2: Prescription Management System
+•	Summary: Enhance the medication administration process with an integrated medication management system featuring intelligent reminders and periodization for nurses. 
+•	Priority: Medium 
+•	Story points: 5
+
+Story 3: Sharing visit summaries and important notes with family doctors.
+•	Summary: Facilitate better post discharge care and continuity by sharing patient visit summaries and relevant information such as lab results with their family doctors,
+•	Priority: Medium 
+•	Story points: 6
+
+User Stories: 
+User Story 1: Implement a real time patient record updates accessible by all departments
+•	Priority: High
+•	Story points: 3 
+
+User Story 2: Create a login system for providers to access patient information
+•	Priority: Hight
+•	Story points: 2
+
+User Story 3: Integrate a feature to share lab results from the lab to all the departments
+•	Priority: Medium
+•	Story points: 2
+
+User Story 4: Design a reminder system for all the nurses for patient medications 
+•	Priority: High
+•	Story points:4 
+
+User Story 5: Implement a feature to prioritize urgent medications. 
+•	Priority: Medium
+•	Story points: 4
+
+User Story 6: Create a consent management system from the patients
+•	Priority: Medium
+•	Story points: 3
+
+User Story 7: Create a system for emailing the summary of patients visit to the doctor
+•	Priority: 
+•	Story points: 
+
+User Story 8: Design an interface for the Volunteers to fulfil patient requests
+•	Priority: Medium
+•	Story points: 3
+
+User Story 9: 
+•	Priority: 
+•	Story points: 
+
+User Story 10: 
+•	Priority: 
+•	Story points: 
+
+User Story 11: 
+•	Priority: 
+•	Story points: 
+
+User Story 12: 
+•	Priority: 
+•	Story points: 
+
+
+ITR1 Detailed User Stories: 
+User Story1: 
+•	Detail: 
+•	Priority: 
+•	Use Points: 
+Planning Map: 
+•	Iteration Mapping: 
+•	Responsibility Assignment: 
+

@@ -1,7 +1,7 @@
 package Hospital;
 import java.util.ArrayList;
 
-abstract class Administrator extends SalariedEmployee{
+class Administrator extends SalariedEmployee{
 	protected ArrayList<PhysicianAdministrator> physicianAdministrator=new ArrayList<PhysicianAdministrator>(3);
 	/**
 	 * this default constructor makes an administrator
@@ -38,4 +38,10 @@ abstract class Administrator extends SalariedEmployee{
 		Administrator other=(Administrator) object;
 		return(this.firstName.equals(other.firstName)&&this.lastName.equals(other.lastName)&&this.age==other.age&&this.gender.equals(other.gender)&&this.address.equals(other.address)&&this.salary==other.salary);
 	}
+	
+	public String getAllPatientData() {
+		DatabaseOps databaseOps = new DatabaseOps();
+		return databaseOps.getAllPatients();
+	}
+	
 }

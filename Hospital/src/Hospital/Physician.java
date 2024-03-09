@@ -15,10 +15,10 @@ import java.util.TreeSet;
  */
 public class Physician extends Employee {
 	
-	private String specialty;
-	protected ArrayList<Patient> patients = new ArrayList<>();
-	private ArrayList<Nurse> nurses = new ArrayList<Nurse>();
-	PhysicianAdministrator admin;
+	String specialty;
+	ArrayList<Patient> patients = new ArrayList<>();
+	ArrayList<Nurse> nurses = new ArrayList<Nurse>();
+	PhysicianAdministrator admin = new PhysicianAdministrator();
 
 	
 	/**
@@ -174,8 +174,9 @@ public class Physician extends Employee {
 	 * @return boolean true if it went through and false if it didnt 
 	 * @author : Mehregan
 	 */
-	public boolean requestLabTest(Patient patient, String testType) {
+	public boolean requestLabTest(Patient patient, String testType, String result) {
 	    labTest newTest = new labTest(patient, testType);
+	    newTest.addResult(result);
 	    return Hospital.laboratory.addTestRequest(newTest);
 	}
 
@@ -187,6 +188,16 @@ public class Physician extends Employee {
 	 */
 	public String checkLabTestResults(Patient patient, String testType) {
 	    return Hospital.laboratory.testResults(patient, testType);
+	}
+	
+	public void prescripe (Patient patient, String med) {
+		patient.medications.add(med);
+	}
+	public void LabReq(Laboratory lab, labTest labtest) {
+		lab.addTestRequest(labtest);
+	}
+	public void updateLab (Patient patient, Laboratory lab) {
+		patient.labs = lab.getAllTestsForPatientAsString(patient);
 	}
 
 }

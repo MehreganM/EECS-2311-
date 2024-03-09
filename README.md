@@ -14,6 +14,8 @@ The HIS project aims to streamline hospital operations by providing specific fun
 
 ## Tools Used
 - **JavaSwing** : Utilized for developing the hospital application.
+- **PSQL** : Utilized as the database service for this application.
+- **JBDC** : Utilized to connect program to PSQL database.
 
 ## Roadmap: Project Iterations
 - **Iteration 0:**

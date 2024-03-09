@@ -12,7 +12,7 @@ import java.util.TreeSet;
 
 public class Nurse extends Employee {
 	
-	protected ArrayList<Patient> patients= new ArrayList<Patient>();
+	public ArrayList<Patient> patients= new ArrayList<Patient>();
 	private StubDB stubDB;
 
 	public Nurse(String firstName, String lastName, int age, String gender, String address) {
@@ -111,6 +111,10 @@ public class Nurse extends Employee {
 	public String toString() {
 		return "Nurse [firstName=" + firstName + ", lastName=" + lastName + ", age=" + age + ", gender=" + gender + ","
 				+ " address=" + address + ", employeeID=" + employeeID + "]";
+	}
+	
+	public void fulfilMed (Patient patient, String med) {
+		patient.medications.remove(med);
 	}
 
 }

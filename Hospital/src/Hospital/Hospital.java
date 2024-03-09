@@ -1,12 +1,13 @@
-package Hospital;
-
-import hospital.Patient;
-
 
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Properties;
+
+import java.util.Properties;
+import javax.mail.*;
+import javax.mail.internet.*;
 
 
 
@@ -28,7 +29,7 @@ public class Hospital {
 	private ArrayList<Physician> physicianList=new ArrayList<Physician>();
 	private ArrayList<PhysicianAdministrator> adminList=new ArrayList<PhysicianAdministrator>();
 	private ArrayList<Patient> patientList=new ArrayList<Patient>();
-	public  final static Laboratory laboratory = new Laboratory();
+	public  final static Labratory laboratory = new Labratory();
 
 	/**
 	 * this overloaded constructor that makes a hospital and assigns the director that it receives as an input
@@ -123,6 +124,10 @@ public class Hospital {
 		}
 		
 		
+	}
+	
+	public ArrayList<Physician> getPhysList(){
+		return this.physicianList;
 	}
 	/**
 	 * this method returns a sorted list of the physicians based on their full name
@@ -262,7 +267,10 @@ public class Hospital {
 	public boolean dischargePatient(Patient patient) {
 		if(patientList.contains(patient)) {
 			//we remove the patient from hospital and physicians'patient list
-			patient.getAssignedPhysician().patients.remove(patient);
+			patient.getPhysician().patients.remove(patient);
+			FamilyDoctor famdoctor = patient.getFamDoc();
+			sendEmail(famdoctor.email,patient.getName(),patient.medicationsToString());
+			
 			boolean flag= patientList.remove(patient);
 			patient=null;
 			return flag;
@@ -300,13 +308,48 @@ public class Hospital {
 	public Patient searchPatientByName(String name) {
 		 if (this.patientList != null) { 
 		        for (Patient patient : this.patientList) { 
-		            if (patient.getFName().equals(name)) {
+		            if (patient.getFirstName().equals(name)) {
 		                return patient; 
 		            }
 		        }
 		    }
 		    return null; 
 	}
+	
+	public static void sendEmail(String recipientEmail, String subject, String body) {
+		 String username = "50tW1tcjvD6M";
+	     String password = "fxJCwpafJjP3"; 
+	     String senderEmail = "eecshospital@gmail.com";
+
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", "smtp.mailsnag.com"); 
+        props.put("mail.smtp.port", "2525"); 
+
+        Session session = Session.getInstance(props,
+                new javax.mail.Authenticator() {
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(username, password);
+                    }
+                });
+
+        try {
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(senderEmail));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipientEmail));
+            message.setSubject(subject);
+            message.setText(body);
+
+            Transport.send(message);
+
+            System.out.println("Email sent successfully!");
+
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 	
 	
 }

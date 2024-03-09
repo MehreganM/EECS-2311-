@@ -128,3 +128,14 @@ During this meeting, Del1 was discussed and the task division is as below:
 These tasks are due on Sunday at 10 pm
 
 
+### Meeting 8: Thursday, March 7, 2024 - 7:30 pm to 8:00 pm
+Attendance: All members
+
+ Task Assignments:
+- Gaurav: Add a page before logging in to the GUI so the person who logs in can choose their role and add a checkpoint to make sure the person who logs in has the same role as they want to log in as 
+- Harrish: Connect the triage to the DB, use the admit patient feature to add a patient and ensure the doctor is assigned to the admitted patient .Family doctor to be added to the DB @~Harrish Elango 
+- Parmoun:  Add a new option for the nurse to add a family doctor. Family doctor should have doctor's name, email, and telephone number. Add a pop-up as a consent form and have the patient consented as the confirm option.
+- Amira and Megan:  Work on the discharge button for DR. Use the discharge patient in hospital class and send the patient visit information to their family doctor via email 
+- Megan: Fix the admitpatient in hospital
+
+These tasks are due on Sunday at 11:59

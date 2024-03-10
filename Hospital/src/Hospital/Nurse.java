@@ -1,8 +1,5 @@
 package Hospital;
 
-
-
-
 //@author : Harrish 
 
 import java.util.ArrayList;
@@ -34,6 +31,11 @@ public class Nurse extends Employee {
 			return false;
 		}
 	}
+	
+	public void assignFamilyDoctorToPatient(Patient patient, FamilyDoctor FamMD) {
+	    patient.setFamilyDoctor(FamMD);
+	}
+
 	
 	public List<Patient> extractPatientDetail() {
 		//we make a tree set to sort the patients because it uses compareTo

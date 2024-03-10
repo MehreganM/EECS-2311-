@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 
 public class Nurse extends Employee {
@@ -17,6 +18,14 @@ public class Nurse extends Employee {
 		super(firstName, lastName, age, gender, address);
 		
 	}
+	 public List<FamilyDoctor> searchFamilyDoctors(String searchQuery) {
+	        List<FamilyDoctor> allDoctors = stubDB.getAllFamilyDoctors(); 
+	        return allDoctors.stream().filter(doctor ->
+	                doctor.getName().toLowerCase().contains(searchQuery.toLowerCase()) ||
+	                doctor.getEmail().toLowerCase().contains(searchQuery.toLowerCase()) ||
+	                doctor.getTelephoneNumber().contains(searchQuery)
+	        ).collect(Collectors.toList());
+	    }
 
 	public void setPatientDB(StubDB stub) {
 		this.stubDB = stub;
@@ -50,6 +59,7 @@ public class Nurse extends Employee {
 	    return null; // No patient found with the given name
 	}
 
+	 
 
 	public void assignFamilyDoctorToPatient(Patient patient, FamilyDoctor FamMD) {
 	    if (patient != null && FamMD != null) {

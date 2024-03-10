@@ -68,6 +68,12 @@ public class Patient extends Person implements Comparable<Patient>{
 		this.FamMD = FamDoc;
 	}
 	
+
+	public FamilyDoctor getFamilyDoctor() {
+	    return this.FamMD;
+	}
+
+	
 	/**
 	 * this method returns the physician the patient is assigned to
 	 * @return an object of type Physician

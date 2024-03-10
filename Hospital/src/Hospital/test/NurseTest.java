@@ -1,19 +1,10 @@
-package test;
-
-import Hospital.*;
+package Hospital;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import Hospital.Nurse;
-import Hospital.Patient;
-import Hospital.StubDB;
-
 import static org.junit.jupiter.api.Assertions.*;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
+
 
 public class NurseTest {
     private Nurse nurse;
@@ -91,6 +82,33 @@ public class NurseTest {
         
         assertNotEquals(0, nurse.compareTo(anotherNurse), "Comparison should not return 0 for nurses with different information");
     }
-    
-    // Additional tests might be necessary for other methods not fully implemented or dependent on external systems, such as databases.
-}
+    @Test
+    public void testAssignFamilyDoctorToPatient() {
+        FamilyDoctor familyDoctor = new FamilyDoctor("Dr. Smith", "Cardiology", null, null, null);
+        nurse.assignFamilyDoctorToPatient(patient1, familyDoctor);
+        assertEquals(familyDoctor, patient1.getFamilyDoctor(), "Family doctor should be assigned to patient");
+    }
+
+    @Test
+    public void testGetPatientByNameFound() {
+        nurse.addPatient(patient1);
+        Patient found = nurse.getPatientByName("John", "Doe");
+        assertNotNull(found, "Patient should be found");
+        assertEquals("John", found.getFName(), "First name should match");
+        assertEquals("Doe", found.getLName(), "Last name should match");
+    }
+
+    @Test
+    public void testGetPatientByNameNotFound() {
+        nurse.addPatient(patient1);
+        Patient notFound = nurse.getPatientByName("Nonexistent", "Patient");
+        assertNull(notFound, "Nonexistent patient should not be found");
+    }
+
+    @Test
+    public void testFulfilMedicationRemoval() {
+        patient1.medications.add("Medicine C");
+        nurse.fulfilMed(patient1, "Medicine C");
+        assertFalse(patient1.medications.contains("Medicine C"), "Medication should be removed from patient's list");
+    }
+    }

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+
 public class Nurse extends Employee {
 	
 	public ArrayList<Patient> patients= new ArrayList<Patient>();
@@ -22,21 +23,50 @@ public class Nurse extends Employee {
 	}
 	
 	public boolean addPatient(Patient patient) {
-		if(patients.size()<15) {
-			patients.add(patient);
-			patient.setNurse(this);
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-	
-	public void assignFamilyDoctorToPatient(Patient patient, FamilyDoctor FamMD) {
-	    patient.setFamilyDoctor(FamMD);
+		        if (patients.size() < 15) {
+		            patients.add(patient);
+		            patient.setNurse(this);
+		            // Automatically assign a default family doctor if none is present
+		            if (patient.getFamilyDoctor() == null) {
+		                patient.setFamilyDoctor(createOrGetDefaultFamilyDoctor());
+		            }
+		            return true;
+		        } else {
+		            return false;
+		        }
+		    }
+	/**
+	 * @author Parmoun
+	 * @param firstName
+	 * @param lastName
+	 * @return patient's information
+	 */
+	public Patient getPatientByName(String firstName, String lastName) {
+	    for (Patient patient : patients) {
+	        if (patient.getFName().equalsIgnoreCase(firstName) && patient.getLName().equalsIgnoreCase(lastName)) {
+	            return patient;
+	        }
+	    }
+	    return null; // No patient found with the given name
 	}
 
+
+	public void assignFamilyDoctorToPatient(Patient patient, FamilyDoctor FamMD) {
+	    if (patient != null && FamMD != null) {
+	        patient.setFamilyDoctor(FamMD);
+	      
+	    }
+	}
+	 private FamilyDoctor createOrGetDefaultFamilyDoctor() {
+	        return new FamilyDoctor("Default Doctor", "General", null, "default@hospital.com", "000-000-0000");
+	    }
+
+	private Patient getSelectedPatient() {
 	
+	    return null; 
+	}
+
+
 	public List<Patient> extractPatientDetail() {
 		//we make a tree set to sort the patients because it uses compareTo
 		//we have already defined compareTo

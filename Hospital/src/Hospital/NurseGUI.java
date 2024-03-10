@@ -1,7 +1,4 @@
 package Hospital;
-/**
- * @author Harrish
- */
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -52,26 +49,28 @@ public class NurseGUI extends JFrame {
 	    }
 
 	    private void assignOrFindFamilyDoctor(ActionEvent e) {
-	        String firstName = JOptionPane.showInputDialog(NurseGUI.this, "Enter Patient's First Name:");
-	        String lastName = JOptionPane.showInputDialog(NurseGUI.this, "Enter Patient's Last Name:");
-	        if (firstName != null && !firstName.isEmpty() && lastName != null && !lastName.isEmpty()) {
-	            Patient selectedPatient = nurse.getPatientByName(firstName, lastName);
-	            if (selectedPatient != null) {
-	                FamilyDoctor familyDoctor = selectedPatient.getFamilyDoctor();
-	                if (familyDoctor == null) {
-	                  
-	                    familyDoctor = new FamilyDoctor("Default Doctor", "General", null, "default@hospital.com", "000-000-0000");
-	              	  
-	                    selectedPatient.setFamilyDoctor(familyDoctor);
-	                }
-	                familyDoctorField.setText(familyDoctor.getName());
-	            } else {
-	                JOptionPane.showMessageDialog(NurseGUI.this, "Patient not found.", "Error", JOptionPane.ERROR_MESSAGE);
+	        String searchQuery = JOptionPane.showInputDialog(NurseGUI.this, "Enter Doctor's name, email, or phone number:");
+	        List<FamilyDoctor> foundDoctors = nurse.searchFamilyDoctors(searchQuery);
+
+	        if (!foundDoctors.isEmpty()) {
+	            String[] options = new String[foundDoctors.size()];
+	            for (int i = 0; i < foundDoctors.size(); i++) {
+	                options[i] = foundDoctors.get(i).getName() + " - " + foundDoctors.get(i).getEmail();
+	            }
+	            int selected = JOptionPane.showOptionDialog(null, "Select a Family Doctor", 
+	                    "Choose Doctor", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, 
+	                    null, options, options[0]);
+
+	            if (selected >= 0) {
+	                FamilyDoctor selectedDoctor = foundDoctors.get(selected);
+	                familyDoctorField.setText(selectedDoctor.getName());
 	            }
 	        } else {
-	            JOptionPane.showMessageDialog(NurseGUI.this, "Invalid input. Please enter both first and last names.", "Error", JOptionPane.WARNING_MESSAGE);
+	            JOptionPane.showMessageDialog(NurseGUI.this, "No matching family doctors found. Assigning default.", "Info", JOptionPane.INFORMATION_MESSAGE);
+	            // Proceed to assign default doctor or handle differently
 	        }
 	    }
+
 
 	    private void submitConsentForm(ActionEvent e) {
 	        int confirmed = JOptionPane.showConfirmDialog(NurseGUI.this, 

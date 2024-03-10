@@ -2,7 +2,7 @@ package Hospital;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import Hospital.laboratory.Laboratory;
+
 
 
 /**
@@ -21,7 +21,7 @@ public class FamilyDoctortester {
     void setUp() {
     	
     	 laboratory = new Laboratory();
-         familyDoctor = new FamilyDoctor("Dr. Han", "General physician", laboratory);
+         familyDoctor = new FamilyDoctor("Dr. Han", "General physician", laboratory, null, null);
          sample1 = new Patient("Emma", "Walter", 32, "Female", "15 Jain St");
          sample2 = new Patient("Curtis", "Dann", 15, "Male", "23 Oakland Blv");
     	    }
@@ -79,6 +79,28 @@ public class FamilyDoctortester {
         assertEquals(familyDoctor.getPatientSummaries(sample1.getPatientID()).get(0),
                      familyDoctor.getPatientSummaries(sample1.getPatientID()).get(1),
                      "Expected duplicate summaries to be equal."); }
+    @Test
+    public void setEmailAndGetEmail() {
+        familyDoctor.setEmail("dr.han@example.com");
+        assertEquals("dr.han@example.com", familyDoctor.getEmail(), "Email should be set and retrieved correctly");
+    }
 
+    @Test
+    public void setTelephoneNumberAndGetTelephoneNumber() {
+        familyDoctor.setTelephoneNumber("1234567890");
+        assertEquals("1234567890", familyDoctor.getTelephoneNumber(), "Telephone number should be set and retrieved correctly");
+    }
+
+    @Test
+    public void setNameAndGetName() {
+        familyDoctor.setName("Dr. Jane");
+        assertEquals("Dr. Jane", familyDoctor.getName(), "Name should be set and retrieved correctly");
+    }
+
+    @Test
+    public void setSpecialtyAndGetSpecialty() {
+        familyDoctor.setSpecialty("Pediatrics");
+        assertEquals("Pediatrics", familyDoctor.getSpecialty(), "Specialty should be set and retrieved correctly");
+    }
  
 }

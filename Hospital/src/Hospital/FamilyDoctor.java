@@ -1,6 +1,6 @@
 package Hospital;
 import java.util.*;
-import Hospital.laboratory.Laboratory;
+import Hospital.Laboratory;
 
 /**
  * @author Parmoun Khalkhali Sharifi
@@ -14,10 +14,14 @@ public class FamilyDoctor {
     private String specialty;
     private Map<Integer, List<String>> patientSummaries;
     private Laboratory laboratory; 
+    private String email; 
+    private String telephoneNumber;
 
     // Argument constructor
     public FamilyDoctor(String name, String DoctorSpecialty, Laboratory laboratory) {
         this.name = name;
+        this.email = email;
+        this.telephoneNumber = telephoneNumber;
         this.laboratory = laboratory;
         this.specialty = DoctorSpecialty;
         this.patientSummaries = new HashMap<>();
@@ -62,6 +66,22 @@ public class FamilyDoctor {
 
     public void setName(String name) {
         this.name = name;
+    }
+    
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getTelephoneNumber() {
+        return telephoneNumber;
+    }
+
+    public void setTelephoneNumber(String telephoneNumber) {
+        this.telephoneNumber = telephoneNumber;
     }
 
     public String getSpecialty() {

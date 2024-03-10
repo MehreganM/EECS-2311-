@@ -16,13 +16,38 @@ public class NurseTest {
     public void setUp() {
         
     	nurse = new Nurse("Mary", "Poppins",121,"Fairy", "Your moms house");
-        
         patient1 = new Patient("John", "Doe", 23, "Male", "12 Bobby Ave.");
         patient2 = new Patient("Jane", "Doe", 22, "Female", "13 Sissy St.");
         stub = new StubDB();
         nurse.setPatientDB(stub);
         stub.addMedicationsForPatient(patient1.getPatientID(), List.of("Medicine A", "Medicine B"));
         // Assuming Patient class has a comparable implemented based on a certain attribute, e.g., name
+    }
+    @Test
+    public void searchFamilyDoctorsByNameFound() {
+        List<FamilyDoctor> results = nurse.searchFamilyDoctors("Anna");
+        assertFalse(results.isEmpty(), "Should find at least one doctor by name");
+        assertTrue(results.stream().anyMatch(doc -> doc.getName().contains("Anna")), "Doctor named Anna should be found");
+    }
+
+    @Test
+    public void searchFamilyDoctorsByEmailFound() {
+        List<FamilyDoctor> results = nurse.searchFamilyDoctors("marklo@gmail.com");
+        assertFalse(results.isEmpty(), "Should find at least one doctor by email");
+        assertTrue(results.stream().anyMatch(doc -> doc.getEmail().equals("marklo@gmail.com")), "Doctor with email marklo@gmail.com should be found");
+    }
+
+    @Test
+    public void searchFamilyDoctorsByPhoneNumberFound() {
+        List<FamilyDoctor> results = nurse.searchFamilyDoctors("555-5678");
+        assertFalse(results.isEmpty(), "Should find at least one doctor by phone number");
+        assertTrue(results.stream().anyMatch(doc -> doc.getTelephoneNumber().equals("555-5678")), "Doctor with phone number 555-5678 should be found");
+    }
+
+    @Test
+    public void searchFamilyDoctorsByNonexistentCriteria() {
+        List<FamilyDoctor> results = nurse.searchFamilyDoctors("nonexistent");
+        assertTrue(results.isEmpty(), "Should not find any doctors with nonexistent search criteria");
     }
 
     @Test

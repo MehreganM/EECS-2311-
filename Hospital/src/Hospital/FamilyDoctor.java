@@ -1,6 +1,6 @@
 package Hospital;
 import java.util.*;
-import Hospital.Laboratory;
+
 
 /**
  * @author Parmoun Khalkhali Sharifi
@@ -17,13 +17,13 @@ public class FamilyDoctor {
     private String email; 
     private String telephoneNumber;
 
-    // Argument constructor
-    public FamilyDoctor(String name, String DoctorSpecialty, Laboratory laboratory) {
+    // Updated constructor to include email and telephoneNumber
+    public FamilyDoctor(String name, String specialty, Laboratory laboratory, String email, String telephoneNumber) {
         this.name = name;
         this.email = email;
         this.telephoneNumber = telephoneNumber;
+        this.specialty = specialty;
         this.laboratory = laboratory;
-        this.specialty = DoctorSpecialty;
         this.patientSummaries = new HashMap<>();
       
     }

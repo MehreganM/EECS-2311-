@@ -1,4 +1,4 @@
-package eecs2311;
+package Hospital;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,12 +8,26 @@ public class StubDB {
 	
 	    // Map to hold patient ID and their medications
 	    private Map<Integer, List<String>> patientMedications;
+	    private List<FamilyDoctor> familyDoctors;
+	    private Laboratory laboratory;
 
 	    public StubDB() {
 	        this.patientMedications = new HashMap<>();
 	        initializeStubData();
+	        this.familyDoctors = new ArrayList<>(); 
+	        this.laboratory = new Laboratory();
+	        initializeFamilyDoctors();
+	    }
+	    private void initializeFamilyDoctors() {
+	        familyDoctors.add(new FamilyDoctor("Anna", "Lee", laboratory, "Anna80.gmail.com", "555-1234"));
+	        familyDoctors.add(new FamilyDoctor("Mark", "Lopez",laboratory, "marklo@gmail.com", "555-5678"));
+	        
 	    }
 
+	    public List<FamilyDoctor> getAllFamilyDoctors() {
+	        return new ArrayList<>(familyDoctors); 
+	    }
+	    
 	    // Method to initialize the database with some stub data
 	    private void initializeStubData() {
 	        // Example patient IDs

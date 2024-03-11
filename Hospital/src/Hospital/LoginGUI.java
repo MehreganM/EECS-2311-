@@ -72,8 +72,7 @@ public class LoginGUI extends JFrame implements ActionListener {
             this.setVisible(false);
         } else if (loggedInNurse != null) {
         	EventQueue.invokeLater(() -> {
-        		Nurse loggedInNurse = this.loggedInNurse;
-        	    NurseGUI nurseDashboard = new NurseGUI(loggedInNurse); // loggedInNurse is the Nurse object that logged in
+        	    NurseGUI nurseDashboard = new NurseGUI(loggedInNurse,hospital); // loggedInNurse is the Nurse object that logged in
         	    nurseDashboard.setVisible(true);
         	});
         	this.setVisible(false);

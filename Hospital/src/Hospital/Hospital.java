@@ -1,10 +1,8 @@
-<<<<<<< HEAD
-=======
+
 package Hospital;
 
 import Hospital.Patient;
 
->>>>>>> d6167dc2a3a7d2ed8d26456e3833a33aef5ea12c
 
 
 import java.util.ArrayList;

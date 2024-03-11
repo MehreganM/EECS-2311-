@@ -7,7 +7,6 @@ import java.util.List;
 public class Laboratory {
 
 
-
 		    private List<labTest> testRequests;
 
 		    public Laboratory() {

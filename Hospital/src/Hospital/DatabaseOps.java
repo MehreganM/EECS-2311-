@@ -19,10 +19,10 @@ public class DatabaseOps {
             pstmt.setString(7, physician);           
             
             String nurse = patient.getNurse() != null ? patient.getNurse().toString() : "[None]";
-            pstmt.setString(8, physician);            
+            pstmt.setString(8, nurse);            
             
             String famdr = patient.getFamDoc() != null ? patient.getFamDoc().toString() : "[None]";
-            pstmt.setString(9, physician);
+            pstmt.setString(9, famdr);
             
             pstmt.executeUpdate();
         } catch (SQLException e) {

@@ -12,9 +12,11 @@ public class NurseGUI extends JFrame {
 	    private JTextField familyDoctorField;
 	    private JButton assignFamilyDoctorButton;
 	    Nurse nurse; // Nurse who logged in
+	    Hospital hospital;
 	    
-	    public NurseGUI(Nurse nurse) {
+	    public NurseGUI(Nurse nurse, Hospital hospital) {
 	        this.nurse = nurse;
+		this.hospital - hospital;
 	        initializeUI();
 	    }
 
@@ -83,7 +85,7 @@ public class NurseGUI extends JFrame {
 	    }
 
 	    private void openNursePatientFrame(ActionEvent e) {
-	        NursePatientAddFrame addPatientFrame = new NursePatientAddFrame(nurse);
+	        NursePatientAddFrame addPatientFrame = new NursePatientAddFrame(nurse, hospital);
 	        addPatientFrame.setVisible(true);
 	        NurseGUI.this.setVisible(false);
 	    }

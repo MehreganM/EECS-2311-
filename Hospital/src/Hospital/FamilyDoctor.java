@@ -1,7 +1,6 @@
 package Hospital;
 import java.util.*;
 
-
 /**
  * @author Parmoun Khalkhali Sharifi
  * 

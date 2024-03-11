@@ -16,7 +16,7 @@ public class NurseGUI extends JFrame {
 	    
 	    public NurseGUI(Nurse nurse, Hospital hospital) {
 	        this.nurse = nurse;
-		this.hospital - hospital;
+		this.hospital = hospital;
 	        initializeUI();
 	    }
 

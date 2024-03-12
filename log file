@@ -93,6 +93,7 @@ These tasks are due on Sunday at 11:59
 
 - Decisions on project ideas and tools were based on the team’s expertise, project feasibility, and potential impact.
 - Modifications to the hospital app specifications were influenced by user role clarity and the need for comprehensive patient care features.
+- On ITR2, as the third user story was more complicated and needed more coding, we decided to skip the user story 2 and implement the user story 3 instead
 
 ## Development Tasks per User Stories and Task Assignments
 
@@ -114,6 +115,10 @@ These tasks are due on Sunday at 11:59
   **Original Time Allocated:** 2 days for interview preparation.  
   **Actual Time Spent:** 1 day as the team was efficient in organizing and consolidating their work for the presentation.
 
+- **Title:** Coding for ITR 2
+  **Assigned To:** Whole team  
+  **Original Time Allocated:** 1 week until the next deadline on March 10th
+  **Actual Time Spent:** 1 week and one day to March 1th due to database issue and merging problem
 ## Conclusion
 
 This Log file serves as our group’s record of the project's development, decision-making process, task assignments, and the development of our ideas. It will be updated as the project makes progress.

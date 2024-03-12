@@ -1,3 +1,4 @@
+package Hospital.src.Hospital;
 import java.util.ArrayList;
 
 /**
@@ -8,7 +9,7 @@ import java.util.ArrayList;
  *
  */
 
-class Patient extends Person implements Comparable<Patient>{
+public class Patient extends Person implements Comparable<Patient>{
 	private static int patientId=999;
 	private Physician physician;
 	private Nurse nurse;
@@ -162,6 +163,9 @@ class Patient extends Person implements Comparable<Patient>{
 	public Nurse getNurse() {
 		return this.nurse;
 	}
+	public void setNurse(Nurse nurse) {
+		this.nurse = nurse;
+	}
 	public FamilyDoctor getFamDoc() {
 		return this.famdr;
 	}
@@ -185,5 +189,6 @@ class Patient extends Person implements Comparable<Patient>{
 	 public void addMedication(String medication) {
 	        this.medications.add(medication);
 	    }
+
 	
 }

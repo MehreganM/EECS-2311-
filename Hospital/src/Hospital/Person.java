@@ -1,12 +1,12 @@
 
-package Hospital;
+package Hospital.src.Hospital;
 public abstract class Person{
 
-	protected String firstName;
-	protected String lastName;
-	protected int age;
-	protected String gender;
-	protected String address;
+	public String firstName;
+	public String lastName;
+	public int age;
+	public String gender;
+	public String address;
 	String user;
 	  String pass;
 

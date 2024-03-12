@@ -1,4 +1,4 @@
-package Hospital;
+package Hospital.src.Hospital;
 import java.util.*;
 
 /**

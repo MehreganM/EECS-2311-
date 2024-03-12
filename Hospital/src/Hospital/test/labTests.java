@@ -1,5 +1,5 @@
 
-package test;
+package Hospital.src.Hospital.test;
 
 //author: Mehregan Mesgari
 
@@ -11,9 +11,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import Hospital.src.Hospital.Laboratory;
+import Hospital.src.Hospital.Patient;
+
 public class labTests {
 	    
-	    private Labratory laboratory;
+	    private Laboratory laboratory;
 	    private Patient patient;
 	    private labTest testRequest1;
 	    private labTest testRequest2;
@@ -26,7 +29,7 @@ public class labTests {
 	
 		@BeforeEach
 	    void setUp() {
-	        this.laboratory = new Labratory();
+	        this.laboratory = new Laboratory();
 	        this.patient = new Patient("John Doe", null, 30, "Male", "123 Main St"); 
 	        this.testRequest1 = new labTest(patient, "COVID-19");
 	        this.testRequest2 = new labTest(patient, "Flu");

@@ -1,4 +1,4 @@
-package Hospital;
+package Hospital.src.Hospital;
 abstract class Employee extends Person{
 	protected static int ID=99;
 	protected int employeeID;

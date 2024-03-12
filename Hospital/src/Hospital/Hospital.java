@@ -1,7 +1,5 @@
 
-package Hospital;
-
-import Hospital.Patient;
+package Hospital.src.Hospital;
 
 
 
@@ -35,7 +33,7 @@ public class Hospital {
 	private ArrayList<Nurse> nurseList=new ArrayList<Nurse>();
 	private ArrayList<PhysicianAdministrator> adminList=new ArrayList<PhysicianAdministrator>();
 	private ArrayList<Patient> patientList=new ArrayList<Patient>();
-	public  final static Labratory laboratory = new Labratory();
+	public  final static Laboratory laboratory = new Laboratory();
 
 	/**
 	 * this overloaded constructor that makes a hospital and assigns the director that it receives as an input
@@ -132,10 +130,10 @@ public class Hospital {
 		
 	}
 	
-<<<<<<< HEAD
+
 	public ArrayList<Physician> getPhysList(){
 		return this.physicianList;
-=======
+	}
 	public boolean hireNurse(Nurse nurse) {
 		//we make sure we don't already have 70 nurses 
 		
@@ -169,8 +167,6 @@ public class Hospital {
 			return false;
 		}
 		
-		
->>>>>>> d6167dc2a3a7d2ed8d26456e3833a33aef5ea12c
 	}
 	/**
 	 * this method returns a sorted list of the physicians based on their full name
@@ -321,7 +317,7 @@ public class Hospital {
 			//we remove the patient from hospital and physicians'patient list
 			patient.getPhysician().patients.remove(patient);
 			FamilyDoctor famdoctor = patient.getFamDoc();
-			sendEmail(famdoctor.email,patient.getName(),patient.medicationsToString());
+			sendEmail(famdoctor.getEmail(),patient.getName(),patient.medicationsToString());
 			
 			boolean flag= patientList.remove(patient);
 			patient=null;

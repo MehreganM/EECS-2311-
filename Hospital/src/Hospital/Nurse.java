@@ -1,4 +1,4 @@
-package Hospital;
+package Hospital.src.Hospital;
 
 //@author : Harrish 
 
@@ -36,8 +36,8 @@ public class Nurse extends Employee {
 		            patients.add(patient);
 		            patient.setNurse(this);
 		            // Automatically assign a default family doctor if none is present
-		            if (patient.getFamilyDoctor() == null) {
-		                patient.setFamilyDoctor(createOrGetDefaultFamilyDoctor());
+		            if (patient.getFamDoc() == null) {
+		                patient.setFamDoc(createOrGetDefaultFamilyDoctor());
 		            }
 		            return true;
 		        } else {
@@ -52,7 +52,7 @@ public class Nurse extends Employee {
 	 */
 	public Patient getPatientByName(String firstName, String lastName) {
 	    for (Patient patient : patients) {
-	        if (patient.getFName().equalsIgnoreCase(firstName) && patient.getLName().equalsIgnoreCase(lastName)) {
+	        if (patient.getName().equalsIgnoreCase(firstName) && patient.getLName().equalsIgnoreCase(lastName)) {
 	            return patient;
 	        }
 	    }
@@ -63,7 +63,7 @@ public class Nurse extends Employee {
 
 	public void assignFamilyDoctorToPatient(Patient patient, FamilyDoctor FamMD) {
 	    if (patient != null && FamMD != null) {
-	        patient.setFamilyDoctor(FamMD);
+	        patient.setFamDoc(FamMD);
 	      
 	    }
 	}

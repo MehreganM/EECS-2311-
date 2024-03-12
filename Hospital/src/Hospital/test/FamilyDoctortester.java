@@ -1,7 +1,11 @@
-package Hospital;
+package Hospital.src.Hospital.test;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import Hospital.src.Hospital.FamilyDoctor;
+import Hospital.src.Hospital.Laboratory;
+import Hospital.src.Hospital.Patient;
 
 
 

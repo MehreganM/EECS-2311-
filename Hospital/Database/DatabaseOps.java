@@ -1,6 +1,6 @@
-package Database;
-
+package Hospital.Database;
 import java.sql.*;
+import Hospital.src.Hospital.Patient;
 
 public class DatabaseOps {
     public void addPatient(Patient patient) {
@@ -10,7 +10,7 @@ public class DatabaseOps {
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
         	pstmt.setInt(1, patient.getPatientID());
-        	pstmt.setString(2, patient.getFName());
+        	pstmt.setString(2, patient.getName());
         	pstmt.setString(3, patient.getLName());
         	pstmt.setInt(4, patient.getAge());
             pstmt.setString(5, patient.getAddress());
@@ -120,7 +120,7 @@ public class DatabaseOps {
             
             // Set parameters for the prepared statement based on the patient object
         	// pstmt.setInt(0, patient.getPatientID()); should not really be able to change this tbh
-        	pstmt.setString(2, patient.getFName());
+        	pstmt.setString(2, patient.getName());
         	pstmt.setString(3, patient.getLName());
         	pstmt.setInt(4, patient.getAge());
         	pstmt.setString(5, patient.getAddress());

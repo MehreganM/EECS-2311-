@@ -1,4 +1,4 @@
-package Hospital;
+package Hospital.src.Hospital;
 
 public class LoginValidator {
     public boolean validateCredentials(String username, char[] password) {

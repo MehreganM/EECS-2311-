@@ -1,4 +1,4 @@
-package Hospital;
+package Hospital.src.Hospital;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

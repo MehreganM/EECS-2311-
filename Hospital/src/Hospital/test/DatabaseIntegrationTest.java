@@ -1,4 +1,4 @@
-package test;
+package Hospital.src.Hospital.test;
 
 import Hospital.*;
 import Hospital.DBSetup;

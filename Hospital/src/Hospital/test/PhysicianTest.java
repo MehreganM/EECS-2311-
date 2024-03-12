@@ -1,6 +1,9 @@
-package test;
+package Hospital.src.Hospital.test;
 
 import Hospital.*;
+import Hospital.src.Hospital.Patient;
+import Hospital.src.Hospital.Physician;
+import Hospital.src.Hospital.PhysicianAdministrator;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;

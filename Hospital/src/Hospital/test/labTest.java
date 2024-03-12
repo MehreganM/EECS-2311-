@@ -2,6 +2,9 @@ package hospital;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import Hospital.src.Hospital.Patient;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 //author: Mehregan Mesgari
@@ -18,7 +21,11 @@ public class labTest {
 	     * two tests for the patient and their results  
 	     */
 
-	    @BeforeEach
+	    public labTest(Patient patient2, String string) {
+			// TODO Auto-generated constructor stub
+		}
+
+		@BeforeEach
 	    void setUp() {
 	        this.laboratory = new Laboratory();
 	        this.patient = new Patient("John Doe", null, 30, "Male", "123 Main St"); 

@@ -1,4 +1,4 @@
-package Hospital;
+package Hospital.src.Hospital;
 
 //Author: Harrish Elango
 
@@ -101,8 +101,8 @@ public class NursePatientAddFrame extends JFrame {
             String docName = familyDoctorNameField.getText();
             String docSpecialty = familyDoctorSpecialtyField.getText();
             // Method to set family doctor information on newPatient
-            FamilyDoctor famdr = new FamilyDoctor(docName, docSpecialty, null);
-            newPatient.setFamilyDoctor(famdr);
+            FamilyDoctor famdr = new FamilyDoctor(docName, docSpecialty, null, docSpecialty, docSpecialty);
+            newPatient.setFamDoc(famdr);
             // newPatient.setFamilyDoctor(new Doctor(docName, docSpecialty));
         }
 

@@ -1,4 +1,5 @@
-package Hospital;
+package Hospital.src.Hospital;
+
 
 /**
  * this Class is called Salaried employee which extends Employee but also

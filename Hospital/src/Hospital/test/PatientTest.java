@@ -1,9 +1,12 @@
-package hospital;
+package Hospital.src.Hospital.test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import Hospital.src.Hospital.Patient;
+import Hospital.src.Hospital.Physician;
 
 ///author: Mehregan Mesgari
 public class PatientTest {
@@ -44,8 +47,8 @@ public class PatientTest {
     public void testSetName() {
         patient.setFirstName("Jane");
         patient.setLastName("Smith");
-        assertEquals("Jane", patient.firstName, "First name should be updated to Jane");
-        assertEquals("Smith", patient.lastName, "Last name should be updated to Smith");
+        assertEquals("Jane", patient.getFirstName(), "First name should be updated to Jane");
+        assertEquals("Smith", patient.getName(), "Last name should be updated to Smith");
     }
 
     /*
@@ -96,7 +99,7 @@ public class PatientTest {
 
     @Test
     public void testToString() {
-        String expectedString = "Patient [" + patient.getPatientID() + ", [" + patient.firstName + ", " + patient.lastName + ", " + patient.age + ", " + patient.gender + ", " + patient.address + "]]";
+        String expectedString = "Patient [" + patient.getPatientID() + ", [" + patient.getFirstName() + ", " + patient.getName() + ", " + patient.age + ", " + patient.gender + ", " + patient.address + "]]";
         assertEquals(expectedString, patient.toString(), "toString should return the correct patient representation");
     }
     

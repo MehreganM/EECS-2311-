@@ -32,7 +32,7 @@ The HIS project aims to streamline hospital operations by providing specific fun
   - Continuation of coding and unit testing with a focus on expanding functionality.
   - Setup of the database to store patient information and other relevant data.
   - Integration testing to ensure seamless interaction between different components.
-  - Implementation of a simple design for the user interface.
+  - Implementation of a simple design for the user interface and full implementation of the third user story.
 
 - **Iteration 3:**
   - Further coding and unit testing to refine and enhance existing features.

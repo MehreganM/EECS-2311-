@@ -17,6 +17,8 @@ public class Patient extends Person implements Comparable<Patient>{
 	private FamilyDoctor famdr; 
 	ArrayList<String> medications = new ArrayList<String>();
 	public String labs; 
+	private VitalSigns vitalSigns;
+
 	/**
 	 * this default constructor makes  patient and gives them their patientId;
 	 */
@@ -189,6 +191,24 @@ public class Patient extends Person implements Comparable<Patient>{
 	 public void addMedication(String medication) {
 	        this.medications.add(medication);
 	    }
+
+		/**
+	 * This method is to get the Vital Signs of the patient
+	 * @return the vital sign of the patient
+	 * @author Amira Mohamed
+	 */
+	public VitalSigns getVitalSigns() {
+        return vitalSigns;
+    }
+
+	/**
+	 * This method is to set the Vital Signs of the patient
+	 * @param It takes vitalSigns as an input and set it to vitalSigns of the patient
+	 * @author Amira Mohamed
+	 */
+    public void setVitalSigns(VitalSigns vitalSigns) {
+        this.vitalSigns = vitalSigns;
+    }
 
 	
 }

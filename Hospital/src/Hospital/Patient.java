@@ -243,7 +243,7 @@ public class Patient extends Person implements Comparable<Patient>{
  * @author Amira Mohamed
  */
 public VitalSigns getVitalSigns() {
-    return vitalSigns;
+    return vitalsigns;
 }
 
 /**
@@ -252,7 +252,7 @@ public VitalSigns getVitalSigns() {
  * @author Amira Mohamed
  */
 public void setVitalSigns(VitalSigns vitalSigns) {
-    this.vitalSigns = vitalSigns;
+    this.vitalsigns = vitalSigns;
 }
 	
 	

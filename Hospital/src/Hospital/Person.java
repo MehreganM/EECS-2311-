@@ -1,7 +1,7 @@
 package Hospital.src.Hospital;
 
 
-package Hospital;
+// package Hospital;
 
 public abstract class Person{
 	public String firstName;

@@ -2,7 +2,9 @@
 package Hospital.src.Hospital;
 
 
-
+import Hospital.DatabaseOps;
+import Hospital.Nurse;
+import Hospital.Patient;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -34,6 +36,10 @@ public class Hospital {
 	private ArrayList<PhysicianAdministrator> adminList=new ArrayList<PhysicianAdministrator>();
 	private ArrayList<Patient> patientList=new ArrayList<Patient>();
 	public  final static Laboratory laboratory = new Laboratory();
+	static DatabaseOps dbOps = new DatabaseOps();
+	
+	String user = "admin";
+	String pass = "pass";
 
 	/**
 	 * this overloaded constructor that makes a hospital and assigns the director that it receives as an input
@@ -300,6 +306,18 @@ public class Hospital {
 		}
 		
 	}
+	
+	public void resignNurse(Nurse nurse ) {
+		if(nurseList.contains(nurse)!=false) {
+			//we store the physicians patients and volunteers before deleting them
+			ArrayList<Patient> tempArray= nurse.patients;
+			nurseList.remove(nurse);
+				for(int i=0;i<tempArray.size();i++) {
+					nurseGone(tempArray.get(i));
+				}
+			}
+			nurse=null;
+	}
 
 	/**
 	 * this method receives a patient and adds this patient to the first
@@ -318,6 +336,18 @@ public class Hospital {
 		
 		}
 	}
+	
+	public void nurseGone(Patient patient) {
+		//we check which physician has less than 8 patients to add this patient to
+		for(int i = 0; i<nurseList.size();i++) {
+			if(nurseList.get(i).patients.size()<8) {
+				nurseList.get(i).addPatient(patient);
+				
+				break;
+			}
+		
+		}
+	}
 	/**
 	 * this method receives a patient we want to discharge and deletes their records from the
 	 * hospital records and patient records.returns true if it was able to discharge
@@ -330,7 +360,7 @@ public class Hospital {
 	public boolean dischargePatient(Patient patient) {
 		if(patientList.contains(patient)) {
 			//we remove the patient from hospital and physicians'patient list
-			patient.getPhysician().patients.remove(patient);
+			patient.getAssignedPhysician().patients.remove(patient);
 			FamilyDoctor famdoctor = patient.getFamDoc();
 			sendEmail(famdoctor.getEmail(),patient.getName(),patient.medicationsToString());
 			
@@ -359,6 +389,10 @@ public class Hospital {
 	        }
 	    }
 	    return null;
+	}
+	
+	public int getNumberOfPatients() {
+		return patientList.size();
 	}
 	
 	

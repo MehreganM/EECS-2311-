@@ -1,4 +1,4 @@
-package Hospital;
+package Hospital.scr.Hospital;
 
 /**
  * The class is vitalSigns class that is responsible for storing and retrieving the vital signs of the 

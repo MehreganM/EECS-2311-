@@ -2,6 +2,11 @@ package Hospital.src.Hospital.test;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import Hospital.src.Hospital.Nurse;
+import Hospital.src.Hospital.Patient;
+import Hospital.src.Hospital.StubDB;
+
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.List;
 

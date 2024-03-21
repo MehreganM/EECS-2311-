@@ -8,6 +8,7 @@ import Hospital.Laboratory;
 import Hospital.Nurse;
 import Hospital.Patient;
 import Hospital.Physician;
+import Hospital.src.Hospital.PhysicianAdministrator;
 
 public class DatabaseIntegrationTest {
 	

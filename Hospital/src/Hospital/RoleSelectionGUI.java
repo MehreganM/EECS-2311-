@@ -1,4 +1,5 @@
-package Hospital;
+package Hospital.src.Hospital;
+
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,6 +9,7 @@ import java.awt.event.ActionListener;
 public class RoleSelectionGUI extends JFrame {
     private JButton nurseButton;
     private JButton doctorButton;
+    private JButton adminRole;
     private Hospital hospital;
 
     public RoleSelectionGUI(Hospital hospital) {
@@ -20,6 +22,7 @@ public class RoleSelectionGUI extends JFrame {
 
         nurseButton = new JButton("Login as Nurse");
         doctorButton = new JButton("Login as Doctor");
+        adminRole = new JButton("Admin Login");
 
         nurseButton.addActionListener(new ActionListener() {
             @Override
@@ -40,9 +43,22 @@ public class RoleSelectionGUI extends JFrame {
                 dispose(); // Close role selection window
             }
         });
+        
+        adminRole.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                EventQueue.invokeLater(() -> {
+                    new LoginGUI(hospital).setVisible(true);
+                });
+                dispose(); // Close role selection window
+            }
+        });
+        
+        
 
         add(nurseButton);
         add(doctorButton);
+        add(adminRole);
     }
 
     public static void main(String[] args) {

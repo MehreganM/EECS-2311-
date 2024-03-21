@@ -13,8 +13,8 @@ public class FamilyDoctor {
     private String specialty;
     private Map<Integer, List<String>> patientSummaries;
     private Laboratory laboratory; 
-    private String email; 
-    private String telephoneNumber;
+    String email; 
+    String telephoneNumber;
 
     // Updated constructor to include email and telephoneNumber
     public FamilyDoctor(String name, String specialty, Laboratory laboratory, String email, String telephoneNumber) {

@@ -1,15 +1,17 @@
-
 package Hospital.src.Hospital;
-public abstract class Person{
 
+
+package Hospital;
+
+public abstract class Person{
 	public String firstName;
 	public String lastName;
 	public int age;
 	public String gender;
 	public String address;
+	
 	String user;
-	  String pass;
-
+	String pass;
 	/**
 	 * this default constructor initializes the instances of the person
 	 */
@@ -18,9 +20,8 @@ public abstract class Person{
 		lastName="";
 		gender="";
 		address="";
-		user="";
-		pass="";
-
+		user = "";
+		pass = "";
 	}
 	/**
 	 * this overloaded constructor receives first name last name age gender and address
@@ -55,7 +56,12 @@ public abstract class Person{
 	 */
 	
 	public String getFirstName() {
-		return firstName;
+		return this.firstName;
+		
+	}
+	
+	public String getLastName() {
+		return this.lastName;
 		
 	}
 	
@@ -122,6 +128,23 @@ public abstract class Person{
 	public void setAddress(String address) {
 		this.address=address;
 	}
+	
+	public void setUser(String user) {
+		this.user = user;
+	}
+	
+	public void setPass(String pass) {
+		this.pass = pass;
+	}
+	
+	public String getPass() {
+		return this.pass;
+	}
+	
+	public String getUser() {
+		return this.user;
+	}
+	
 	@Override
 	/** this method returns true if the objects are equal and false otherwise
 	 * @return true if the objects are equal and false otherwise
@@ -139,6 +162,5 @@ public abstract class Person{
 		Employee other=(Employee) object;
 		return(this.firstName.equals(other.firstName)&&this.lastName.equals(other.lastName)&&this.age==other.age&&this.gender.equals(other.gender)&&this.address.equals(other.address));
 	}
-	
 	
 }

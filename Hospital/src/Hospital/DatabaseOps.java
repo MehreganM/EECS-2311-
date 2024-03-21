@@ -1,6 +1,8 @@
 package Hospital.src.Hospital;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseOps {
     public void addPatient(Patient patient) {
@@ -10,21 +12,22 @@ public class DatabaseOps {
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
         	pstmt.setInt(1, patient.getPatientID());
-        	pstmt.setString(2, patient.getName());
+        	pstmt.setString(2, patient.getFName());
         	pstmt.setString(3, patient.getLName());
         	pstmt.setInt(4, patient.getAge());
             pstmt.setString(5, patient.getAddress());
-            pstmt.setString(6, patient.getGender());           
-            String physician = patient.getAssignedPhysician() != null ? patient.getAssignedPhysician().toString() : "[None]";
-            pstmt.setString(7, physician);           
+            pstmt.setString(6, patient.getGender());
+           
+            int physician = patient.getAssignedPhysician() != null ? patient.getAssignedPhysician().getEmployeeID() : 0;
+            pstmt.setInt(7, physician);
             
-            String nurse = patient.getNurse() != null ? patient.getNurse().toString() : "[None]";
-            pstmt.setString(8, nurse);            
+            int nurse = patient.getNurse() != null ? patient.getNurse().getEmployeeID() : 0;
+            pstmt.setInt(8, nurse);
             
             String famdr = patient.getFamDoc() != null ? patient.getFamDoc().toString() : "[None]";
             pstmt.setString(9, famdr);
             
-            pstmt.executeUpdate();
+             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -120,7 +123,7 @@ public class DatabaseOps {
             
             // Set parameters for the prepared statement based on the patient object
         	// pstmt.setInt(0, patient.getPatientID()); should not really be able to change this tbh
-        	pstmt.setString(2, patient.getName());
+        	pstmt.setString(2, patient.getFName());
         	pstmt.setString(3, patient.getLName());
         	pstmt.setInt(4, patient.getAge());
         	pstmt.setString(5, patient.getAddress());
@@ -157,8 +160,205 @@ public class DatabaseOps {
             e.printStackTrace();
         }
     }
+    
+  /*  public void deletePatient2(String Fname) {
+        String sql = "DELETE FROM patients WHERE Fname = ?";
 
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
+            pstmt.setString(1, Fname);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }*/
+    
+    public ArrayList<Physician> getAllPhysicians() {
+        ArrayList<Physician> physicians = new ArrayList<>();
+        String sql = "SELECT * FROM physicians";
 
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
 
+            while (rs.next()) {
+                Physician physician = new Physician(
+                    rs.getString("firstName"),
+                    rs.getString("lastName"),
+                    rs.getInt("age"),
+                    rs.getString("gender"),
+                    rs.getString("address")
+                );
+                physician.setSpecialty(rs.getString("specialty")); // Assuming setSpecialty handles exceptions internally or they are caught here
+                physician.setUser(rs.getString("username"));
+                physician.setPass(rs.getString("password"));
+                physicians.add(physician);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (IllegalArgumentException e) {
+            System.out.println("Error setting specialty: " + e.getMessage());
+        }
+        return physicians;
+    }
+    
+    public String getPatientByPhysician(int id) {
+        StringBuilder patientInfo = new StringBuilder();
+        String sql = "SELECT * FROM patients WHERE doctor = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            
+            pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
+            
+            if (rs.next()) {
+                patientInfo.append(String.format("ID: %d, First Name: %s, Last Name: %s, Age: %d Address: %s, Gender: %s",
+                		rs.getInt("id"),
+                        rs.getString("Fname"),
+                        rs.getString("Lname"),
+                        rs.getInt("age"),
+                        rs.getString("address"),
+                		rs.getString("gender")));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return patientInfo.toString();
+    }
+
+    public ArrayList<Nurse> getAllNurses() {
+        ArrayList<Nurse> nurses = new ArrayList<>();
+        String sql = "SELECT * FROM nurses";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+
+            while (rs.next()) {
+                Nurse nurse = new Nurse(
+                    rs.getString("firstName"),
+                    rs.getString("lastName"),
+                    rs.getInt("age"),
+                    rs.getString("gender"),
+                    rs.getString("address")
+                );
+                nurse.setUser(rs.getString("username"));
+                nurse.setPass(rs.getString("password"));
+                nurses.add(nurse);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return nurses;
+    }
+    
+    public String getPatientByNurse(int id) {
+        StringBuilder patientInfo = new StringBuilder();
+        String sql = "SELECT * FROM patients WHERE nurse = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            
+            pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
+            
+            if (rs.next()) {
+                patientInfo.append(String.format("ID: %d, First Name: %s, Last Name: %s, Age: %d Address: %s, Gender: %s",
+                		rs.getInt("id"),
+                        rs.getString("Fname"),
+                        rs.getString("Lname"),
+                        rs.getInt("age"),
+                        rs.getString("address"),
+                		rs.getString("gender")));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return patientInfo.toString();
+    }
+    
+    public void addPhysician(Physician physician) {
+        String sql = "INSERT INTO physicians (id, firstName, lastName, age, gender, address, specialty, username, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, physician.getEmployeeID());
+        	pstmt.setString(2, physician.getFirstName());
+            pstmt.setString(3, physician.getLastName());
+            pstmt.setInt(4, physician.getAge());
+            pstmt.setString(5, physician.getGender());
+            pstmt.setString(6, physician.getAddress());
+            pstmt.setString(7, physician.getSpecialty());
+            pstmt.setString(8, physician.getUser()); // Assuming there's a getUser method
+            pstmt.setString(9, physician.getPass()); // Assuming there's a getPass method
+
+            pstmt.executeUpdate();
+            System.out.println("Physician added successfully.");
+
+        } catch (SQLException e) {
+            System.out.println("Error adding physician: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+    
+    public void deletePhysician(String name) {
+        String sql = "DELETE FROM physicians WHERE firstname = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, name);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void addNurse(Nurse nurse) {
+        String sql = "INSERT INTO nurses (id, firstName, lastName, age, gender, address, username, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, nurse.getEmployeeID());
+        	pstmt.setString(2, nurse.getFirstName());
+            pstmt.setString(3,nurse.getLastName());
+            pstmt.setInt(4, nurse.getAge());
+            pstmt.setString(5, nurse.getGender());
+            pstmt.setString(6, nurse.getAddress());
+            pstmt.setString(7, nurse.getUser()); // Assuming there's a getUser method
+            pstmt.setString(8, nurse.getPass()); // Assuming there's a getPass method
+
+            pstmt.executeUpdate();
+            System.out.println("Nurse added successfully.");
+
+        } catch (SQLException e) {
+            System.out.println("Error adding nurse: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+    
+    public void deleteNurse(String name) {
+        String sql = "DELETE FROM nurses WHERE firstname = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, name);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+   
+    
+    
+    
 }
+
+

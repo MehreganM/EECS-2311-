@@ -3,6 +3,7 @@ package Hospital.src.Hospital.test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import Hospital.src.Hospital.FamilyDoctor;
 import Hospital.src.Hospital.Nurse;
 import Hospital.src.Hospital.Patient;
 import Hospital.src.Hospital.StubDB;

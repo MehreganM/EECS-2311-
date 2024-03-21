@@ -169,7 +169,7 @@ public class VitalSignsGUI extends JFrame{
 
 	private void recordVitalSigns(int PatientID, double temperature, int systolicPressure, int diastolicPressure, int heartRate, int respiratoryRate) {
 		
-		database.storeVitalSigns(PatientID, temperature, systolicPressure, diastolicPressure, heartRate, respiratoryRate);
+		database.insertVitalSigns(PatientID, temperature, systolicPressure, diastolicPressure, heartRate, respiratoryRate);
 	    JOptionPane.showMessageDialog(this, "Vital signs recorded successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
 
 		System.out.println("Vital signs recorded: ");

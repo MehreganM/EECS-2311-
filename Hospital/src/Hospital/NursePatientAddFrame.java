@@ -1,7 +1,5 @@
 package Hospital.src.Hospital;
 
-//Author: Harrish Elango
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -11,8 +9,9 @@ public class NursePatientAddFrame extends JFrame {
     Nurse nurse; // The nurse to which patients will be added
     Hospital hospital;
     DatabaseOps databaseOps = new DatabaseOps();
+    
     private JTextField firstNameField, lastNameField, ageField, genderField, addressField;
-    private JTextField familyDoctorNameField, familyDoctorSpecialtyField;
+    private JTextField familyDoctorNameField, familyDoctorSpecialtyField, familyDoctorNumberField, familyDoctorEmailField;
     private JButton addButton, returnButton;
     private JCheckBox famDrConsent;
 
@@ -38,6 +37,10 @@ public class NursePatientAddFrame extends JFrame {
         addressField = new JTextField(20);
         familyDoctorNameField = new JTextField(20);
         familyDoctorSpecialtyField = new JTextField(20);
+        familyDoctorEmailField = new JTextField(20);
+        familyDoctorNumberField = new JTextField(20);
+        
+        
         
         addButton = new JButton("Add Patient");
         addButton.addActionListener(e -> {
@@ -70,7 +73,11 @@ public class NursePatientAddFrame extends JFrame {
         add(new JLabel("Family Doctor Name:"));
         add(familyDoctorNameField);
         add(new JLabel("Family Doctor Specialty:"));
-        add(familyDoctorSpecialtyField);
+        add(familyDoctorSpecialtyField);        
+        add(new JLabel("Family Doctor Email:"));
+        add(familyDoctorEmailField);
+        add(new JLabel("Family Doctor Phone Number:"));
+        add(familyDoctorNumberField);
         add(addButton);
         add(returnButton);
         
@@ -81,6 +88,8 @@ public class NursePatientAddFrame extends JFrame {
     private void toggleFamilyDoctorFields(boolean isVisible) {
         familyDoctorNameField.setVisible(isVisible);
         familyDoctorSpecialtyField.setVisible(isVisible);
+        familyDoctorNumberField.setVisible(isVisible);
+        familyDoctorEmailField.setVisible(isVisible);
         pack(); // Adjust window size after toggling visibility
     }
 
@@ -100,9 +109,11 @@ public class NursePatientAddFrame extends JFrame {
             // Add family doctor information to the patient
             String docName = familyDoctorNameField.getText();
             String docSpecialty = familyDoctorSpecialtyField.getText();
+            String docEmail = familyDoctorEmailField.getText();
+            String docNumber = familyDoctorNumberField.getText();            
             // Method to set family doctor information on newPatient
-            FamilyDoctor famdr = new FamilyDoctor(docName, docSpecialty, null, docSpecialty, docSpecialty);
-            newPatient.setFamDoc(famdr);
+            FamilyDoctor famdr = new FamilyDoctor(docName, docSpecialty, null, docEmail, docNumber);
+            newPatient.setFamilyDoctor(famdr);
             // newPatient.setFamilyDoctor(new Doctor(docName, docSpecialty));
         }
 
@@ -125,6 +136,8 @@ public class NursePatientAddFrame extends JFrame {
         addressField.setText("");
         familyDoctorNameField.setText("");
         familyDoctorSpecialtyField.setText("");
+        familyDoctorNumberField.setText("");
+        familyDoctorEmailField.setText("");
         famDrConsent.setSelected(false); // Optionally reset the checkbox
         toggleFamilyDoctorFields(false); // Hide family doctor fields again if needed
     }

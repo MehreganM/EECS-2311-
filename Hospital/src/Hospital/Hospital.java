@@ -30,8 +30,8 @@ import javax.mail.internet.*;
 
 public class Hospital {
 	private Director director;
-	private ArrayList<Physician> physicianList=new ArrayList<Physician>();
-	private ArrayList<Nurse> nurseList=new ArrayList<Nurse>();
+	ArrayList<Physician> physicianList=new ArrayList<Physician>();
+	ArrayList<Nurse> nurseList=new ArrayList<Nurse>();
 	private ArrayList<PhysicianAdministrator> adminList=new ArrayList<PhysicianAdministrator>();
 	private ArrayList<Patient> patientList=new ArrayList<Patient>();
 	public  final static Laboratory laboratory = new Laboratory();

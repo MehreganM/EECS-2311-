@@ -113,7 +113,7 @@ public class NursePatientAddFrame extends JFrame {
             String docNumber = familyDoctorNumberField.getText();            
             // Method to set family doctor information on newPatient
             FamilyDoctor famdr = new FamilyDoctor(docName, docSpecialty, null, docEmail, docNumber);
-            newPatient.setFamilyDoctor(famdr);
+            newPatient.setFamDoc(famdr);
             // newPatient.setFamilyDoctor(new Doctor(docName, docSpecialty));
         }
 

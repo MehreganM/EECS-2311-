@@ -1,4 +1,4 @@
-package Hospital;
+package Hospital.scr.Hospital;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

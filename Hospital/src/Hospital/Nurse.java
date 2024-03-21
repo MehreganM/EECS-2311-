@@ -52,7 +52,7 @@ public class Nurse extends Employee {
 	 */
 	public Patient getPatientByName(String firstName, String lastName) {
 	    for (Patient patient : patients) {
-	        if (patient.getName().equalsIgnoreCase(firstName) && patient.getLName().equalsIgnoreCase(lastName)) {
+	        if (patient.getFName().equalsIgnoreCase(firstName) && patient.getLName().equalsIgnoreCase(lastName)) {
 	            return patient;
 	        }
 	    }

@@ -1,4 +1,4 @@
-package Hospital.src.Hospital;
+package Hospital;
 import java.util.ArrayList;
 
 /**
@@ -14,9 +14,12 @@ public class Patient extends Person implements Comparable<Patient>{
 	private Physician physician;
 	private Nurse nurse;
 	private int patient;
+	private boolean consentFormSigned = false;
 	private FamilyDoctor famdr; 
 	ArrayList<String> medications = new ArrayList<String>();
 	public String labs; 
+	private VitalSigns vitalSigns;
+
 	/**
 	 * this default constructor makes  patient and gives them their patientId;
 	 */
@@ -138,6 +141,25 @@ public class Patient extends Person implements Comparable<Patient>{
 		}
 		
 	}
+	
+	 /**
+	  * @author Parmoun Khalkhali      --> Only consent form
+    * This method sets the patient's consent form status 
+    * @param consentFormSigned a boolean representing whether the patient has signed the form
+    */
+   public void setConsentFormSigned(boolean consentFormSigned) {
+       this.consentFormSigned = consentFormSigned;
+   }
+
+   /**
+    * This method returns the consent form status of the patient
+    * @return true if the consent form is signed, false otherwise
+    */
+   public boolean isConsentFormSigned() {
+       return consentFormSigned;
+   }
+
+   
 	/**
 	 * this method deletes the patients info if the patient isn't assigned a physician
 	 * and returns true if it isn't assigned a physician and false otherwise
@@ -189,6 +211,24 @@ public class Patient extends Person implements Comparable<Patient>{
 	 public void addMedication(String medication) {
 	        this.medications.add(medication);
 	    }
+
+		/**
+	 * This method is to get the Vital Signs of the patient
+	 * @return the vital sign of the patient
+	 * @author Amira Mohamed
+	 */
+	public VitalSigns getVitalSigns() {
+        return vitalSigns;
+    }
+
+	/**
+	 * This method is to set the Vital Signs of the patient
+	 * @param It takes vitalSigns as an input and set it to vitalSigns of the patient
+	 * @author Amira Mohamed
+	 */
+    public void setVitalSigns(VitalSigns vitalSigns) {
+        this.vitalSigns = vitalSigns;
+    }
 
 	
 }

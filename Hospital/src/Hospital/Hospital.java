@@ -53,6 +53,21 @@ public class Hospital {
 	public Director getHospDirector() {
 		return director;
 	}
+
+	public void InitializeEmployees() {
+		this.physicianList = dbOps.getAllPhysicians();
+        this.nurseList = dbOps.getAllNurses();
+        
+        for (int i = 0; i < this.physicianList.size(); i ++) {
+        	this.hirePhysician(this.physicianList.get(i));
+        	this.physicianList.get(i).toString();
+        	}
+        
+        for (int i = 0; i < this.nurseList.size(); i ++ ) {
+        	this.hireNurse(this.nurseList.get(i));
+        	this.nurseList.get(i).toString();
+        	}
+	}
 	/**
 	 * this method sets the hospital director to a new director 
 	 * @pre director is not null

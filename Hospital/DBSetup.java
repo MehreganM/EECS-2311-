@@ -43,11 +43,24 @@ public class DBSetup {
             "username VARCHAR(50)," +
             "password VARCHAR(50)" + 
             ");";
+    /**
+     * This is to create the vital signs table for the patient in the database
+     * @author Amira Mohamed
+     */
+    private static final String CREATE_VITALSIGNS_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS vital_signs ("
+    		+ "patient_id INT REFERENCES patients(id),"
+    		+ "temperature DOUBLE PRECISION,"
+    		+ "systolic_pressure INT,"
+    		+ "diastolic_pressure INT,"
+    		+ "heart_rate INT,"
+    		+ "respiratory_rate INT"
+    		+ ");";
 
     public static void ensureAllTablesExist() {
         ensureTableExists(CREATE_PATIENTS_TABLE_QUERY);
         ensureTableExists(CREATE_PHYSICIANS_TABLE_QUERY);
         ensureTableExists(CREATE_NURSES_TABLE_QUERY);
+        ensureTableExists(CREATE_VITALSIGNS_TABLE_QUERY);
     }
 
     private static void ensureTableExists(String creationQuery) {

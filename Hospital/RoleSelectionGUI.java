@@ -65,6 +65,14 @@ public class RoleSelectionGUI extends JFrame {
         Hospital hospital = new Hospital(new Director("John", "Smith", 58, "Male", "123 Main St"));
         // Add additional initialization as per the original LoginGUI.main method
 
+        DBSetup.ensureAllTablesExist();
+        
+        PhysicianAdministrator admin = new PhysicianAdministrator("Meg", "Mes", 40, "Female", "789 Pine St");
+        admin.setAdminSpecialtyType("Immunology");
+        hospital.addAdministrator(admin);
+        
+        hospital.InitializeEmployees();
+
         EventQueue.invokeLater(() -> {
             new RoleSelectionGUI(hospital).setVisible(true);
         });

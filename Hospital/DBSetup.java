@@ -52,6 +52,10 @@ public class DBSetup {
             "phone VARCHAR(15)" +
             ");";
 
+    /**
+     * This is to create the vital signs table for the patient in the database
+     * @author Amira Mohamed
+     */
     private static final String CREATE_VITALSIGNS_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS vital_signs ("
     		+ "patient_id INT REFERENCES patients(id),"
     		+ "temperature DOUBLE PRECISION,"

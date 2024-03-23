@@ -1,15 +1,9 @@
-<<<<<<< Updated upstream:Hospital/src/Hospital/Hospital.java
-package Hospital.src.Hospital;
-=======
 package Hospital;
 
 import Hospital.Patient;
->>>>>>> Stashed changes:Hospital/Hospital.java
 
 
-import Hospital.DatabaseOps;
-import Hospital.Nurse;
-import Hospital.Patient;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -31,13 +25,8 @@ import java.util.List;
 
 public class Hospital {
 	private Director director;
-<<<<<<< Updated upstream:Hospital/src/Hospital/Hospital.java
-	ArrayList<Physician> physicianList=new ArrayList<Physician>();
-	ArrayList<Nurse> nurseList=new ArrayList<Nurse>();
-=======
 	ArrayList<Physician> physicianList = new ArrayList<Physician>();
 	ArrayList<Nurse> nurseList = new ArrayList<Nurse>();
->>>>>>> Stashed changes:Hospital/Hospital.java
 	private ArrayList<PhysicianAdministrator> adminList=new ArrayList<PhysicianAdministrator>();
 	private ArrayList<Patient> patientList=new ArrayList<Patient>();
 	public  final static Laboratory laboratory = new Laboratory();
@@ -322,11 +311,8 @@ public class Hospital {
 			}
 			nurse=null;
 	}
-<<<<<<< Updated upstream:Hospital/src/Hospital/Hospital.java
-=======
 		
 	
->>>>>>> Stashed changes:Hospital/Hospital.java
 
 	/**
 	 * this method receives a patient and adds this patient to the first
@@ -345,10 +331,6 @@ public class Hospital {
 		
 		}
 	}
-<<<<<<< Updated upstream:Hospital/src/Hospital/Hospital.java
-	
-=======
->>>>>>> Stashed changes:Hospital/Hospital.java
 	public void nurseGone(Patient patient) {
 		//we check which physician has less than 8 patients to add this patient to
 		for(int i = 0; i<nurseList.size();i++) {
@@ -373,12 +355,6 @@ public class Hospital {
 		if(patientList.contains(patient)) {
 			//we remove the patient from hospital and physicians'patient list
 			patient.getAssignedPhysician().patients.remove(patient);
-<<<<<<< Updated upstream:Hospital/src/Hospital/Hospital.java
-			FamilyDoctor famdoctor = patient.getFamDoc();
-			sendEmail(famdoctor.getEmail(),patient.getName(),patient.medicationsToString());
-			
-=======
->>>>>>> Stashed changes:Hospital/Hospital.java
 			boolean flag= patientList.remove(patient);
 			patient=null;
 			return flag;
@@ -404,10 +380,6 @@ public class Hospital {
 	        }
 	    }
 	    return null;
-	}
-	
-	public int getNumberOfPatients() {
-		return patientList.size();
 	}
 	
 	

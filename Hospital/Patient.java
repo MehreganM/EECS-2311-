@@ -1,8 +1,4 @@
-<<<<<<< Updated upstream:Hospital/src/Hospital/Patient.java
-package Hospital.src.Hospital;
-=======
 package Hospital;
->>>>>>> Stashed changes:Hospital/Patient.java
 
 import java.util.ArrayList;
 
@@ -24,11 +20,7 @@ public class Patient extends Person implements Comparable<Patient>{
 	private FamilyDoctor FamMD;
 	ArrayList<String> medications = new ArrayList<String>();
 	public String labs;
-<<<<<<< Updated upstream:Hospital/src/Hospital/Patient.java
-	private VitalSigns vitalsigns;
-=======
 	
->>>>>>> Stashed changes:Hospital/Patient.java
 	/**
 	 * this default constructor makes  patient and gives them their patientId;
 	 */
@@ -72,11 +64,7 @@ public class Patient extends Person implements Comparable<Patient>{
 		this.nurse = nurse;		
 	}
 
-<<<<<<< Updated upstream:Hospital/src/Hospital/Patient.java
-	public void setFamDoc(FamilyDoctor FamDoc){
-=======
 	public void setFamilyDoctor(FamilyDoctor FamDoc){
->>>>>>> Stashed changes:Hospital/Patient.java
 		this.FamMD = FamDoc;
 	}
 	
@@ -233,43 +221,6 @@ public class Patient extends Person implements Comparable<Patient>{
 	public ArrayList<String> returnMedication(){
 		return this.medications;
 	}
-<<<<<<< Updated upstream:Hospital/src/Hospital/Patient.java
-	
-	public String medicationsToString() {
-        StringBuilder stringBuilder = new StringBuilder();
-        
-        stringBuilder.append("Medications:\n");
-        for (String medication : this.medications) {
-            stringBuilder.append("- ").append(medication).append("\n");
-        }
-        
-        return stringBuilder.toString();
-    }
- 
- public void addMedication(String medication) {
-        this.medications.add(medication);
-    }
-
-	/**
- * This method is to get the Vital Signs of the patient
- * @return the vital sign of the patient
- * @author Amira Mohamed
- */
-public VitalSigns getVitalSigns() {
-    return vitalsigns;
-}
-
-/**
- * This method is to set the Vital Signs of the patient
- * @param It takes vitalSigns as an input and set it to vitalSigns of the patient
- * @author Amira Mohamed
- */
-public void setVitalSigns(VitalSigns vitalSigns) {
-    this.vitalsigns = vitalSigns;
-}
-	
-=======
->>>>>>> Stashed changes:Hospital/Patient.java
 	
 	
 }

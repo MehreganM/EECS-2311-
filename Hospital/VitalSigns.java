@@ -1,8 +1,6 @@
-<<<<<<< Updated upstream:Hospital/src/Hospital/VitalSigns.java
-package Hospital.src.Hospital;
-=======
+
 package Hospital;
->>>>>>> Stashed changes:Hospital/VitalSigns.java
+
 
 /**
  * The class is vitalSigns class that is responsible for storing and retrieving the vital signs of the 

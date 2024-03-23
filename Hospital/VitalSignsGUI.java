@@ -1,8 +1,6 @@
-<<<<<<< Updated upstream:Hospital/src/Hospital/VitalSignsGUI.java
-package Hospital.src.Hospital;
-=======
+
 package Hospital;
->>>>>>> Stashed changes:Hospital/VitalSignsGUI.java
+
 
 import java.awt.*;
 import java.awt.event.ActionEvent;

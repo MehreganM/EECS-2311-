@@ -23,7 +23,7 @@ public abstract class Employee extends Person{
 		 */
 		
 		public Employee(String firstName,String lastName,int age, String gender,String address) {
-			super(firstName,lastName,age,gender,address);
+			super();
 			ID++;
 			this.employeeID=ID;
 		}

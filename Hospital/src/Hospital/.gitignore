@@ -42,3 +42,8 @@
 /VitalSignsGUI$1.class
 /VitalSignsGUI$2.class
 /AddNurseGUI.class
+/AddPhysicianGUI.class
+/AdminGUI.class
+/FireNurseGUI.class
+/FirePhysicianGUI.class
+/RoleSelectionGUI.class

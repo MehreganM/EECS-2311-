@@ -1,16 +1,3 @@
-<<<<<<< Updated upstream:Hospital/src/Hospital/Person.java
-package Hospital.src.Hospital;
-
-
-// package Hospital;
-
-public abstract class Person{
-	public String firstName;
-	public String lastName;
-	public int age;
-	public String gender;
-	public String address;
-=======
 package Hospital;
 
 public abstract class Person{
@@ -19,7 +6,6 @@ public abstract class Person{
 	protected int age;
 	protected String gender;
 	protected String address;
->>>>>>> Stashed changes:Hospital/Person.java
 	
 	String user;
 	String pass;
@@ -174,9 +160,5 @@ public abstract class Person{
 		return(this.firstName.equals(other.firstName)&&this.lastName.equals(other.lastName)&&this.age==other.age&&this.gender.equals(other.gender)&&this.address.equals(other.address));
 	}
 	
-<<<<<<< Updated upstream:Hospital/src/Hospital/Person.java
-}
-=======
 	
 }
->>>>>>> Stashed changes:Hospital/Person.java

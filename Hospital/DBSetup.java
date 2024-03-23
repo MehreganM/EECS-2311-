@@ -1,11 +1,10 @@
 package Hospital;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.*;
 
-
+//Need to run the function: DBSetup.ensureTableExists(); in the application to create the database
 
 public class DBSetup {
 
@@ -18,6 +17,7 @@ public class DBSetup {
             "gender VARCHAR(255)," +
             "doctor INT," +
             "nurse INT," +
+            "consent BOOLEAN," +
             "family_doctor VARCHAR(255)" +
             ");";
 
@@ -43,24 +43,20 @@ public class DBSetup {
             "username VARCHAR(50)," +
             "password VARCHAR(50)" + 
             ");";
-    /**
-     * This is to create the vital signs table for the patient in the database
-     * @author Amira Mohamed
-     */
-    private static final String CREATE_VITALSIGNS_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS vital_signs ("
-    		+ "patient_id INT REFERENCES patients(id),"
-    		+ "temperature DOUBLE PRECISION,"
-    		+ "systolic_pressure INT,"
-    		+ "diastolic_pressure INT,"
-    		+ "heart_rate INT,"
-    		+ "respiratory_rate INT"
-    		+ ");";
+    
+    private static final String CREATE_FAMDOC_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS famdoc (" +
+            "id SERIAL PRIMARY KEY," +
+            "name VARCHAR(100)," +
+            "specialty VARCHAR(50)," +
+            "email VARCHAR(150)," +
+            "phone VARCHAR(15)" +
+            ");";
 
     public static void ensureAllTablesExist() {
         ensureTableExists(CREATE_PATIENTS_TABLE_QUERY);
         ensureTableExists(CREATE_PHYSICIANS_TABLE_QUERY);
         ensureTableExists(CREATE_NURSES_TABLE_QUERY);
-        ensureTableExists(CREATE_VITALSIGNS_TABLE_QUERY);
+        ensureTableExists(CREATE_FAMDOC_TABLE_QUERY);
     }
 
     private static void ensureTableExists(String creationQuery) {

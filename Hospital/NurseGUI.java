@@ -2,7 +2,6 @@ package Hospital;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.List;
 
 public class NurseGUI extends JFrame {
@@ -74,14 +73,26 @@ public class NurseGUI extends JFrame {
 	        }
 	    }
 
-
+/**
+ * Parmoun Khalkhali -> Consent form user story 
+ */
 	    private void submitConsentForm(ActionEvent e) {
-	        int confirmed = JOptionPane.showConfirmDialog(NurseGUI.this, 
-	            "Do you confirm the submission of the consent form?", "Confirm",
-	            JOptionPane.YES_NO_OPTION);
+	        String patientIDStr = JOptionPane.showInputDialog(NurseGUI.this, "Enter Patient ID:", "Patient ID", JOptionPane.QUESTION_MESSAGE);
+	        try {
+	            int patientID = Integer.parseInt(patientIDStr);
+	            int confirmed = JOptionPane.showConfirmDialog(NurseGUI.this, 
+	                "Do you confirm the submission of the consent form for Patient ID: " + patientID + "?", "Confirm",
+	                JOptionPane.YES_NO_OPTION);
 
-	        if (confirmed == JOptionPane.YES_OPTION) {
-	          JOptionPane.showMessageDialog(NurseGUI.this, "Consent form submitted successfully");
+	            if (confirmed == JOptionPane.YES_OPTION) {
+	                DatabaseHelper dbHelper = new DatabaseHelper(); 
+	                dbHelper.updateConsentFormStatus(patientID, true); 
+	                JOptionPane.showMessageDialog(NurseGUI.this, "Consent form submitted successfully for Patient ID: " + patientID);
+	            }
+	        } catch (NumberFormatException ex) {
+	            JOptionPane.showMessageDialog(NurseGUI.this, "Invalid Patient ID entered", "Error", JOptionPane.ERROR_MESSAGE);
+	        } catch (Exception ex) {
+	            JOptionPane.showMessageDialog(NurseGUI.this, "Database connection error", "Error", JOptionPane.ERROR_MESSAGE);
 	        }
 	    }
 

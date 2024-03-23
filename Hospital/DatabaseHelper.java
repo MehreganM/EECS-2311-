@@ -21,11 +21,12 @@ public class DatabaseHelper {
 	private static final String USER = "postgres";
 	private static final String PASSWORD = "AmiraMohamed";
 
+	
 	public static Connection getConnection() {
         Connection conn = null;
         try {
             conn = DriverManager.getConnection(URL, USER, PASSWORD);
-          //  System.out.println("Database connection established successfully.");
+         
         } catch (SQLException e) {
             System.err.println("Failed to connect to the database: " + e.getMessage());
             e.printStackTrace();
@@ -33,6 +34,36 @@ public class DatabaseHelper {
         return conn;
     }
 	
+	public void updateConsentFormStatus(int patientID, boolean consentFormSigned) {
+	    Connection connection = null;
+	    PreparedStatement statement = null;
+	    try {
+	        connection = getConnection(); 
+	        String sql = "UPDATE patient_info SET consent_form_signed = ? WHERE patient_id = ?";
+	        statement = connection.prepareStatement(sql);
+	        statement.setBoolean(1, consentFormSigned); 
+	        statement.setInt(2, patientID);
+	        int affectedRows = statement.executeUpdate();
+	        if (affectedRows > 0) {
+	            System.out.println("Patient consent form status updated successfully for Patient ID: " + patientID);
+	        } else {
+	            System.out.println("No matching patient found for Patient ID: " + patientID);
+	        }
+	    } catch (SQLException e) {
+	        System.err.println("Error updating consent form status: " + e.getMessage());
+	        e.printStackTrace();
+	    } 
+	    finally {
+	     
+	        try {
+	            if (statement != null) statement.close();
+	            if (connection != null) connection.close();
+	        } catch (SQLException ex) {
+	            System.err.println("Error closing resources: " + ex.getMessage());
+	        }
+	    }
+	}
+
     
     /**
      * This method is to store patient information to the database

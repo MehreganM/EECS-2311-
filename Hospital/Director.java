@@ -1,4 +1,4 @@
-package Hospital.src.Hospital;
+package Hospital;
 import java.util.List;
 
 /**

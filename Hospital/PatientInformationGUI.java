@@ -1,4 +1,4 @@
-package Hospital.src.Hospital;
+package Hospital;
 
 import javax.swing.*;
 import java.awt.*;
@@ -32,8 +32,9 @@ public class PatientInformationGUI extends JFrame {
         searchField = new JTextField(20);
         searchButton = new JButton("Search");
         viewPrescriptionsButton = new JButton("View Prescriptions");
+        dischargeButton = new JButton("Discharge Patient");
+        dischargeButton.setEnabled(true);
         viewLabsButton = new JButton("View Labs");
-	dischargeButton = new JButton("Discharge Patient");
         resultArea = new JTextArea(15, 40);
         resultArea.setEditable(false);
 
@@ -42,7 +43,7 @@ public class PatientInformationGUI extends JFrame {
 
         viewPrescriptionsButton.setEnabled(false);
         viewLabsButton.setEnabled(false);
-	dischargeButton.setEnabled(false);
+        dischargeButton.setEnabled(false);
 
         panel.add(new JLabel("Search Type:"));
         panel.add(searchTypeComboBox);
@@ -52,7 +53,8 @@ public class PatientInformationGUI extends JFrame {
         panel.add(new JScrollPane(resultArea));
         panel.add(viewPrescriptionsButton);
         panel.add(viewLabsButton);
-	panel.add(dischargeButton);
+        panel.add(dischargeButton);
+      
 
         searchButton.addActionListener(e -> {
             String searchQuery = searchField.getText();
@@ -89,14 +91,13 @@ public class PatientInformationGUI extends JFrame {
                 }
             }
         });
-	    
-	dischargeButton.addActionListener(e -> {
+        
+        dischargeButton.addActionListener(e -> {
         if (hospital.dischargePatient(currentPatient) == true) {
-        	resultArea.append("\n Patient is discharged");
-        	resultArea.append("\n Sending a summary of the visit to the family doctor");
-        	
+        	resultArea.append("Patient is removed");
         }}
         );
+       
         add(panel);
     }
 
@@ -139,12 +140,13 @@ public class PatientInformationGUI extends JFrame {
         viewLabsButton.setEnabled(true);
         dischargeButton.setEnabled(true);
 
+        
     }
 
     private void disableDetailButtons() {
         viewPrescriptionsButton.setEnabled(false);
         viewLabsButton.setEnabled(false);
-	dischargeButton.setEnabled(false);
+        dischargeButton.setEnabled(false);
 
     }
 

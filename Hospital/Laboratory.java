@@ -1,10 +1,11 @@
-package Hospital.src.Hospital;
+package Hospital;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class Laboratory {
+
 
 
 		    private List<labTest> testRequests;

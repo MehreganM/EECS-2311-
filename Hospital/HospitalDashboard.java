@@ -1,4 +1,4 @@
-package Hospital.src.Hospital; // Make sure your package declaration matches your project structure
+package Hospital; // Make sure your package declaration matches your project structure
 
 import javax.swing.*;
 import java.awt.*;

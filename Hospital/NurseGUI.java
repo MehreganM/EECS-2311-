@@ -1,4 +1,4 @@
-package Hospital.src.Hospital;
+package Hospital;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -13,6 +13,7 @@ public class NurseGUI extends JFrame {
 	    private JButton assignFamilyDoctorButton;
 	    Nurse nurse; // Nurse who logged in
 	    Hospital hospital;
+	    
 	    
 	    public NurseGUI(Nurse nurse, Hospital hospital) {
 	        this.nurse = nurse;

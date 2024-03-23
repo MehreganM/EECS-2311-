@@ -1,4 +1,4 @@
-package Hospital.src.Hospital;
+package Hospital;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,8 +13,6 @@ import java.util.TreeSet;
  * @author Amira Mohamed
  *
  */
-
-
 public class Physician extends Employee {
 	
 	String specialty;

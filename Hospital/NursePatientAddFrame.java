@@ -1,6 +1,11 @@
+<<<<<<< Updated upstream:Hospital/src/Hospital/NursePatientAddFrame.java
 package Hospital.src.Hospital;
+=======
+package Hospital;
+>>>>>>> Stashed changes:Hospital/NursePatientAddFrame.java
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -113,7 +118,11 @@ public class NursePatientAddFrame extends JFrame {
             String docNumber = familyDoctorNumberField.getText();            
             // Method to set family doctor information on newPatient
             FamilyDoctor famdr = new FamilyDoctor(docName, docSpecialty, null, docEmail, docNumber);
+<<<<<<< Updated upstream:Hospital/src/Hospital/NursePatientAddFrame.java
             newPatient.setFamDoc(famdr);
+=======
+            newPatient.setFamilyDoctor(famdr);
+>>>>>>> Stashed changes:Hospital/NursePatientAddFrame.java
             // newPatient.setFamilyDoctor(new Doctor(docName, docSpecialty));
         }
 

@@ -16,37 +16,33 @@ import org.junit.jupiter.api.io.TempDir;
  * @author Amira Mohamed
  */
 public class DatabaseHelper {
-	
 
-    private static final String dbName = "patients";
-    private static final String dbUser = "postgres";
-    private static final String userPassword = "AmiraMohamed";
-    private static final String url = "jdbc:postgresql://localhost:5432/" + dbName;
+	private static final String URL = "jdbc:postgresql://localhost:5432/postgres";
+	private static final String USER = "postgres";
+	private static final String PASSWORD = "AmiraMohamed";
 
-    
-    public static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(url, dbUser, userPassword);
-    }
-
-    public static void closeConnection(Connection connection) {
-        if (connection != null) {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+	public static Connection getConnection() {
+        Connection conn = null;
+        try {
+            conn = DriverManager.getConnection(URL, USER, PASSWORD);
+          //  System.out.println("Database connection established successfully.");
+        } catch (SQLException e) {
+            System.err.println("Failed to connect to the database: " + e.getMessage());
+            e.printStackTrace();
         }
+        return conn;
     }
+	
     
     /**
-	 * This method is to store patient information to the database
-	 * @param firstName is the first name of the patient 
+     * This method is to store patient information to the database
+     * @param firstName is the first name of the patient 
      * @param lastName is the last name of the patient 
      * @param age is the age of the patient 
-     * @param gender is the the gender of the patient 
-     * @param address is the address of the patient 
-	 * @author Amira Mohamed
-	 */
+     * @param gender is the gender of the patient 
+     * @param address is the address of the patient
+     * @author Amira Mohamed
+     */
 	public void storePatientData(String firstName, String lastName, int age, String gender, String address) {
 		try( Connection connection = getConnection()){
 			String sql = "INSERT INTO patient_info(first_name, last_name, age, gender, address)" + "VALUES(?,?,?,?,?)";
@@ -64,7 +60,7 @@ public class DatabaseHelper {
 		}
 			
 		}catch (SQLException e) {
-            System.err.println("Error storing patient data: " + e.getMessage());
+			System.err.println("Error storing patient data: " + e.getMessage());
 			e.printStackTrace();
 		}
 				
@@ -110,9 +106,10 @@ public class DatabaseHelper {
 				
 		
 	}
-	
+
 	/**
-	 * This method is to store vital signs of the patient
+	 * This method is to check if there is a vital signs recorded for the patient. If there is, it will
+	 * update it to the new ones. Otherwise, it will add the vital signs as a new record.
 	 * @param patientID is the patient ID for which the vital signs will be retrieved
 	 * @param temperature is the temperature of the patient 
 	 * @param systolicPressure is the systolic pressure of the patient 
@@ -120,8 +117,41 @@ public class DatabaseHelper {
 	 * @param heartRate is the heart rate of the patient 
 	 * @param respiratoryRate is the respiratory rate of the patient 
 	 */
+	public void storeVitalSigns(int patientID, double temperature, int systolicPressure, int diastolicPressure, int heartRate, int respiratoryRate) {
+		try( Connection connection = getConnection()){
+			String checksql = "SELECT * FROM vital_signs WHERE patient_id = ?";
+			try(PreparedStatement checkstatement = connection.prepareStatement(checksql)){
+				checkstatement.setInt(1, patientID);
+				ResultSet resultset = checkstatement.executeQuery();
+				
+				// If a record exists, update it 
+				if(resultset.next()) {
+					updateVitalSigns(patientID, temperature, systolicPressure, diastolicPressure, heartRate, respiratoryRate);
+				}
+				else { 
+					// If no record exists, insert a new record
+					insertVitalSigns(patientID, temperature, systolicPressure, diastolicPressure, heartRate, respiratoryRate);
+				}
+				
+				System.out.println("Vital signs validated sucessfully");
+			
+		}
+			
+		}catch (SQLException e) {
+	        System.err.println("Error storing Vital signs: " + e.getMessage());
+			e.printStackTrace();
+		}
+	}
 
-
+	/**
+	 * This method is to add new vital signs for the patient.
+	 * @param patientID is the patient ID for which the vital signs will be retrieved
+	 * @param temperature is the temperature of the patient 
+	 * @param systolicPressure is the systolic pressure of the patient 
+	 * @param diastolicPressure is the diastolic pressure of the patient 
+	 * @param heartRate is the heart rate of the patient 
+	 * @param respiratoryRate is the respiratory rate of the patient 
+	 */
 	public void insertVitalSigns(int patientID, double temperature, int systolicPressure, int diastolicPressure, int heartRate, int respiratoryRate) {
 		try( Connection connection = getConnection()){
 			String insertsql = "INSERT INTO vital_signs (patient_id, temperature, systolic_Pressure, diastolic_Pressure, heart_Rate, respiratory_Rate)" + "VALUES(?,?,?,?,?,?)";
@@ -143,11 +173,42 @@ public class DatabaseHelper {
 			e.printStackTrace();
 		}
 	}
-
-		
-		
+	
 	/**
-	 * This method is to retrieve vital signs of the patient
+	 * This method is to update the recorded vital signs of the patient.
+	 * It replaces the old vital signs with the updated one
+	 * @param patientID is the patient ID for which the vital signs will be retrieved
+	 * @param temperature is the temperature of the patient 
+	 * @param systolicPressure is the systolic pressure of the patient 
+	 * @param diastolicPressure is the diastolic pressure of the patient 
+	 * @param heartRate is the heart rate of the patient 
+	 * @param respiratoryRate is the respiratory rate of the patient 
+	 */
+	public void updateVitalSigns(int patientID, double temperature, int systolicPressure, int diastolicPressure, int heartRate, int respiratoryRate) {
+		try( Connection connection = getConnection()){
+			String updatesql = "UPDATE  vital_signs SET temperature = ?, systolic_Pressure = ? , diastolic_Pressure = ?, heart_Rate = ?, respiratory_Rate = ? WHERE patient_id = ?";
+			try(PreparedStatement updatestatement = connection.prepareStatement(updatesql)){
+				updatestatement.setDouble(1, temperature);
+				updatestatement.setInt(2, systolicPressure);
+				updatestatement.setInt(3, diastolicPressure);
+				updatestatement.setInt(4, heartRate);
+				updatestatement.setInt(5, respiratoryRate);
+				updatestatement.setInt(6, patientID);
+
+				updatestatement.executeUpdate();
+				System.out.println("Vital signs updated sucessfully");
+			
+		}
+			
+		}catch (SQLException e) {
+	        System.err.println("Error updating Vital signs: " + e.getMessage());
+			e.printStackTrace();
+		}
+	}
+
+	
+	/**
+	 * This method is to retrieve the vital signs of the patient
 	 * @param patientID is the patient ID for which the vital signs will be retrieved
 	 */
 	public VitalSigns retrieveVitalSigns(int patientID) {
@@ -190,7 +251,5 @@ public class DatabaseHelper {
 				
 		
 	}
-	
-	
 
 }

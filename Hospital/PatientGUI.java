@@ -20,11 +20,7 @@ public class PatientGUI extends JFrame {
 	private JButton DisplayPatients, RecordVitals, RetrieveVitals, Labs_Meds;
 	
 	public PatientGUI(Hospital hospital) {
-		this.hospital = hospital;
-		}
-	
-	public PatientGUI (){
-		
+		this.hospital = hospital;		
 		  
 		// Create the database 
     	DBSetup.ensureAllTablesExist();
@@ -127,11 +123,13 @@ public class PatientGUI extends JFrame {
 		add(panel, BorderLayout.SOUTH);
 
 	}
+	
+}
 
-	public static void main(String[] args) {
+/*	public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-        	PatientGUI panel = new PatientGUI();
+        	PatientGUI panel = new PatientGUI(this.hospital);
             panel.setVisible(true);
         });
     }
-}
+}*/

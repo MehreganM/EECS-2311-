@@ -1,3 +1,4 @@
+
 package Hospital;
 
 import javax.swing.*;
@@ -53,7 +54,7 @@ public class FireNurseGUI extends JFrame {
   }
     
 
-    private void removeSelectedNurse() throws IllegalArgumentException {
+    void removeSelectedNurse() throws IllegalArgumentException {
         String selectedNurseName = (String) nurseComboBox.getSelectedItem();
         if (selectedNurseName != null && nameToNurseMap.containsKey(selectedNurseName)) {
             Nurse nurse = nameToNurseMap.get(selectedNurseName);

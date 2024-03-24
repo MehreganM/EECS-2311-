@@ -13,6 +13,7 @@ public class AdminGUI extends JFrame implements ActionListener{
 	private JButton addNurse;
 	private JButton firePhysician;
 	private JButton fireNurse;
+	private JButton backButton;
 	private Hospital hospital;
 	static DatabaseOps dbOps = new DatabaseOps();
 	
@@ -23,7 +24,7 @@ public class AdminGUI extends JFrame implements ActionListener{
     setSize(300, 150);
     setLocationRelativeTo(null);
     
-    setLayout(new GridLayout(4, 1));
+    setLayout(new GridLayout(5, 1));
     
     addPhysician = new JButton("Hire Physician");
     addPhysician.addActionListener(this);
@@ -38,11 +39,15 @@ public class AdminGUI extends JFrame implements ActionListener{
     fireNurse = new JButton("Resign Nurse");
     fireNurse.addActionListener(this);
     
+    backButton = new JButton("Sign out");
+    backButton.addActionListener(this);
+    
     
     add(addPhysician);
 	add(addNurse);
 	add(firePhysician);
 	add(fireNurse);
+	add(backButton);
 	}
 	
 	
@@ -66,10 +71,20 @@ public class AdminGUI extends JFrame implements ActionListener{
 	            FireNurseGUI fireNurseGUI = new FireNurseGUI(hospital);
 	            fireNurseGUI.setVisible(true);
 	        } 
+	        
+	        else if (source == backButton) {
+	        	
+	        	LoginGUI logingui;
+				try {
+					logingui = new LoginGUI(hospital);
+					logingui.setVisible(true);
+					this.dispose();
+				} catch (NoSpaceException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+	      
+	        }
 	    } 
 		
 }
-	
-
-	
-

@@ -1,5 +1,6 @@
 package Hospital;
 
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -27,7 +28,12 @@ public class RoleSelectionGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 EventQueue.invokeLater(() -> {
-                    new LoginGUI(hospital).setVisible(true);
+                    try {
+						new LoginGUI(hospital).setVisible(true);
+					} catch (NoSpaceException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
                 });
                 dispose(); // Close role selection window
             }
@@ -37,7 +43,12 @@ public class RoleSelectionGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 EventQueue.invokeLater(() -> {
-                    new LoginGUI(hospital).setVisible(true);
+                    try {
+						new LoginGUI(hospital).setVisible(true);
+					} catch (NoSpaceException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
                 });
                 dispose(); // Close role selection window
             }
@@ -47,7 +58,12 @@ public class RoleSelectionGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 EventQueue.invokeLater(() -> {
-                    new LoginGUI(hospital).setVisible(true);
+                    try {
+						new LoginGUI(hospital).setVisible(true);
+					} catch (NoSpaceException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
                 });
                 dispose(); // Close role selection window
             }
@@ -60,18 +76,19 @@ public class RoleSelectionGUI extends JFrame {
         add(adminRole);
     }
 
-    public static void main(String[] args) {
-        // Initialize the Hospital object and other necessary components here, similar to the provided LoginGUI main method
+    public static void main(String[] args) throws NoSpaceException {
+    	DBSetup.ensureAllTablesExist();
+    	// Initialize the Hospital object and other necessary components here, similar to the provided LoginGUI main method
         Hospital hospital = new Hospital(new Director("John", "Smith", 58, "Male", "123 Main St"));
         // Add additional initialization as per the original LoginGUI.main method
-
-        DBSetup.ensureAllTablesExist();
-        
+       // DBSetup.ensureAllTablesExist();
+    
         PhysicianAdministrator admin = new PhysicianAdministrator("Meg", "Mes", 40, "Female", "789 Pine St");
         admin.setAdminSpecialtyType("Immunology");
         hospital.addAdministrator(admin);
         
         hospital.InitializeEmployees();
+        
 
         EventQueue.invokeLater(() -> {
             new RoleSelectionGUI(hospital).setVisible(true);

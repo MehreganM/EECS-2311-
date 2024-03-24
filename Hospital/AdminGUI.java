@@ -88,3 +88,19 @@ public class AdminGUI extends JFrame implements ActionListener{
 	    } 
 		
 }
+
+
+ class AdminGUIMain {
+
+    public static void main(String[] args) {
+        // Create a Hospital object
+        Hospital hospital = new Hospital(null);
+
+        // Create an instance of AdminGUI
+        AdminGUI adminGUI = new AdminGUI(hospital);
+
+        // Make the AdminGUI visible
+        adminGUI.setVisible(true);
+    }
+}
+

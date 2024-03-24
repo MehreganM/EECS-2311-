@@ -184,7 +184,7 @@ public class PatientInformationGUI extends JFrame {
         
         Laboratory lab = new Laboratory();
         labTest test1 = new labTest(patient,"blood");
-        physician.LabReq(lab, test1);
+        physician.LabReq(lab, test1, "this is a blood test for vitamin D");
         test1.addResult("good");
         
         

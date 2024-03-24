@@ -39,7 +39,7 @@ public class DatabaseHelper {
 	    PreparedStatement statement = null;
 	    try {
 	        connection = getConnection(); 
-	        String sql = "UPDATE patient_info SET consent_form_signed = ? WHERE patient_id = ?";
+	        String sql = "UPDATE patients SET consent = ? WHERE id = ?";
 	        statement = connection.prepareStatement(sql);
 	        statement.setBoolean(1, consentFormSigned); 
 	        statement.setInt(2, patientID);
@@ -76,7 +76,7 @@ public class DatabaseHelper {
      */
 	public void storePatientData(String firstName, String lastName, int age, String gender, String address) {
 		try( Connection connection = getConnection()){
-			String sql = "INSERT INTO patient_info(first_name, last_name, age, gender, address)" + "VALUES(?,?,?,?,?)";
+			String sql = "INSERT INTO patient_info(fname, lname, age, gender, address)" + "VALUES(?,?,?,?,?)";
 			try(PreparedStatement statement = connection.prepareStatement(sql)){
 				statement.setString(1, firstName);
 				statement.setString(2, lastName);
@@ -105,15 +105,15 @@ public class DatabaseHelper {
 	 */
 	public void retievePatientData(String firstname) {
 		try( Connection connection = getConnection()){
-			String sql = "SELECT * FROM patient_info WHERE first_name = ?";
+			String sql = "SELECT * FROM patients WHERE fname = ?";
 			try(PreparedStatement statement = connection.prepareStatement(sql)){
 				statement.setString(1, firstname);
 				
 				ResultSet resultset = statement.executeQuery();
 				while(resultset.next()) {
-					int patientID = resultset.getInt("patient_id");
-					String firstName = resultset.getString("first_name");
-					String lastName = resultset.getString("last_name");
+					int patientID = resultset.getInt("id");
+					String firstName = resultset.getString("fname");
+					String lastName = resultset.getString("lname");
 					int age = resultset.getInt("age");
 					String gender = resultset.getString("gender");
 					String address = resultset.getString("address");

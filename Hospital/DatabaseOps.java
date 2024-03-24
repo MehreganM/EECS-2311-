@@ -19,17 +19,15 @@ public class DatabaseOps {
             pstmt.setString(6, patient.getGender());
            
             int physician = patient.getAssignedPhysician() != null ? patient.getAssignedPhysician().getEmployeeID() : 0;
-            pstmt.setInt(7, physician);
+            pstmt.setInt(8, physician);
             
             int nurse = patient.getNurse() != null ? patient.getNurse().getEmployeeID() : 0;
-            pstmt.setInt(8, nurse);
+            pstmt.setInt(7, nurse);
             
             String famdr = patient.getFamDoc() != null ? patient.getFamDoc().toString() : "[None]";
             pstmt.setString(9, famdr);
-
-         //   pstmt.setString(8, patient.getNurse().toString());
-         //   pstmt.setString(9, patient.getFamDoc().toString());
-            pstmt.executeUpdate();
+            
+             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -64,6 +62,32 @@ public class DatabaseOps {
     public String getPatientById(int id) {
         StringBuilder patientInfo = new StringBuilder();
         String sql = "SELECT * FROM patients WHERE id = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            
+            pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
+            
+            if (rs.next()) {
+                patientInfo.append(String.format("ID: %d, First Name: %s, Last Name: %s, Age: %d Address: %s, Gender: %s",
+                		rs.getInt("id"),
+                        rs.getString("Fname"),
+                        rs.getString("Lname"),
+                        rs.getInt("age"),
+                        rs.getString("address"),
+                		rs.getString("gender")));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return patientInfo.toString();
+    }
+    
+    public String getPatientByPhysicianId(int id) {
+        StringBuilder patientInfo = new StringBuilder();
+        String sql = "SELECT * FROM patients WHERE doctor = ?";
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -281,6 +305,32 @@ public class DatabaseOps {
         }
         
         return patientInfo.toString();
+    }
+    
+    public ArrayList<Patient> initializePatients() {
+        ArrayList<Patient> patients = new ArrayList<>();
+        String sql = "SELECT * FROM patients";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+
+            while (rs.next()) {
+                Patient patient = new Patient(
+                    rs.getString("fName"),
+                    rs.getString("lName"),
+                    rs.getInt("age"),
+                    rs.getString("gender"),
+                    rs.getString("address")
+                );
+                patients.add(patient);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (IllegalArgumentException e) {
+            System.out.println("Error setting specialty: " + e.getMessage());
+        }
+        return patients;
     }
     
     public void addPhysician(Physician physician) {

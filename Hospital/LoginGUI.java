@@ -17,8 +17,9 @@ public class LoginGUI extends JFrame implements ActionListener {
 	static DatabaseOps dbOps = new DatabaseOps();
 	private boolean isAdminLoggedIn = false;
 
-    public LoginGUI(Hospital hospital) {
+    public LoginGUI(Hospital hospital) throws NoSpaceException {
         this.hospital = hospital;
+        hospital.InitializeEmployees();
         setTitle("Hospital App Login");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(300, 150);
@@ -38,6 +39,8 @@ public class LoginGUI extends JFrame implements ActionListener {
         loginButton.addActionListener(this);
         add(new JLabel("")); 
         add(loginButton);
+        
+       // hospital.InitializeEmployees();
     }
 
     @Override
@@ -96,67 +99,4 @@ public class LoginGUI extends JFrame implements ActionListener {
     }
     
 
-
-    public static void main(String[] args) {
-    
-    	DBSetup.ensureAllTablesExist();
-    	
-   	
-		
-	
-    	Hospital hospital = new Hospital(new Director("John", "Smith", 58, "Male", "123 Main St"));
-    
-        
-        
-        PhysicianAdministrator admin = new PhysicianAdministrator("Meg", "Mes", 40, "Female", "789 Pine St");
-        admin.setAdminSpecialtyType("Immunology");
-        hospital.addAdministrator(admin);
-        
-        hospital.InitializeEmployees();
-        
-        Physician physician = new Physician("DR.AL", "kp", 35, "Male", "202 Oak St");
-        physician.setSpecialty("Immunology");
-        hospital.hirePhysician(physician);
-        
-        physician.user=("AL");
-        physician.pass=("123");
-        
-        Nurse nurse = new Nurse("Mary", "Poppins",121,"Fairy", "Your moms house");
-        hospital.hireNurse(nurse);
-        nurse.user=("Nur");
-        nurse.pass=("123");
-        
-        
-        
-        Patient patient = new Patient("John", "Smith", 30, "Male", "123 Main St");
-        Patient patient2 = new Patient("Ali", "Bakhshi", 30, "Male", "123 Main St");
-        Patient patient3 = new Patient("Sarah", "Lance", 30, "female", "123 Main St");
-        Patient patient4 = new Patient("Kim", "k", 30, "Female", "123 Main St");
-  
-        
-        try {
-        	hospital.admitPatient(patient);
-        	hospital.admitPatient(patient2);
-        	hospital.admitPatient(patient3);
-        	hospital.admitPatient(patient4);
-		} catch (NoSpaceException e) {
-			e.printStackTrace();
-		}
-       
-        
-        Laboratory lab = new Laboratory();
-        labTest test1 = new labTest(patient,"blood");
-        physician.LabReq(lab, test1);
-        test1.addResult("good");
-        
-        
-        physician.prescripe(patient, "advil");
-        physician.prescripe(patient, "codeine");
-        physician.updateLab(patient, lab);
-        
-        
-        EventQueue.invokeLater(() -> {
-            new LoginGUI(hospital).setVisible(true);
-        });
-    }
 }

@@ -7,7 +7,7 @@ import java.util.List;
  *
  */
 
-class Director extends Administrator{
+public class Director extends Administrator{
 	/**
 	 * this default constructor creates a director
 	 */

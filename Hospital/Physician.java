@@ -13,6 +13,8 @@ import java.util.TreeSet;
  * @author Amira Mohamed
  *
  */
+
+
 public class Physician extends Employee {
 	
 	String specialty;
@@ -174,10 +176,10 @@ public class Physician extends Employee {
 	 * @return boolean true if it went through and false if it didnt 
 	 * @author : Mehregan
 	 */
-	public boolean requestLabTest(Patient patient, String testType, String result,String description) {
+	public boolean requestLabTest(Patient patient, String testType, String result) {
 	    labTest newTest = new labTest(patient, testType);
 	    newTest.addResult(result);
-	    return Hospital.laboratory.addTestRequest(newTest,description);
+	    return Hospital.laboratory.addTestRequest(newTest," ");
 	}
 
 	/*
@@ -193,8 +195,8 @@ public class Physician extends Employee {
 	public void prescripe (Patient patient, String med) {
 		patient.medications.add(med);
 	}
-	public void LabReq(Laboratory lab, labTest labtest,String description) {
-		lab.addTestRequest(labtest,description);
+	public void LabReq(Laboratory lab, labTest labtest) {
+		lab.addTestRequest(labtest," ");
 	}
 	public void updateLab (Patient patient, Laboratory lab) {
 		patient.labs = lab.getAllTestsForPatientAsString(patient);

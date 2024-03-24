@@ -37,7 +37,7 @@ public class Nurse extends Employee {
 		            patient.setNurse(this);
 		            // Automatically assign a default family doctor if none is present
 		            if (patient.getFamDoc() == null) {
-		                patient.setFamilyDoctor(createOrGetDefaultFamilyDoctor());
+		                patient.setFamDoc(createOrGetDefaultFamilyDoctor());
 		            }
 		            return true;
 		        } else {
@@ -63,7 +63,7 @@ public class Nurse extends Employee {
 
 	public void assignFamilyDoctorToPatient(Patient patient, FamilyDoctor FamMD) {
 	    if (patient != null && FamMD != null) {
-	        patient.setFamilyDoctor(FamMD);
+	        patient.setFamDoc(FamMD);
 	      
 	    }
 	}

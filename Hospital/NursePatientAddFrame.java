@@ -1,7 +1,6 @@
 package Hospital;
 
 import javax.swing.*;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -104,7 +103,7 @@ public class NursePatientAddFrame extends JFrame {
         Patient newPatient = new Patient(firstName, lastName, age, gender, address);
         // Assuming these methods exist and work as intended
         hospital.admitPatient(newPatient);      
-        newPatient.setAssignedNurse(nurse);
+        newPatient.setAssignedNurse(this.nurse);
         
         if (famDrConsent.isSelected()) {
             // Add family doctor information to the patient
@@ -114,7 +113,7 @@ public class NursePatientAddFrame extends JFrame {
             String docNumber = familyDoctorNumberField.getText();            
             // Method to set family doctor information on newPatient
             FamilyDoctor famdr = new FamilyDoctor(docName, docSpecialty, null, docEmail, docNumber);
-            newPatient.setFamilyDoctor(famdr);
+            newPatient.setFamDoc(famdr);
             // newPatient.setFamilyDoctor(new Doctor(docName, docSpecialty));
         }
 

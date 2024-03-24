@@ -88,4 +88,3 @@ public class AdminGUI extends JFrame implements ActionListener{
 	    } 
 		
 }
-

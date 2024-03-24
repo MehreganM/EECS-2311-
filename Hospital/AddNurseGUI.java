@@ -79,7 +79,7 @@ public class AddNurseGUI extends JFrame {
         // Assuming you have a method in DatabaseOps to add a Physician to the database
         databaseOps.addNurse(newNurse);
         
-        JOptionPane.showMessageDialog(this, "Physician added successfully.");
+        JOptionPane.showMessageDialog(this, "Nurse added successfully.");
         clearFields();
     }
     

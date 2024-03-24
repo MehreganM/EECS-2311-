@@ -20,7 +20,7 @@ public class Patient extends Person implements Comparable<Patient>{
 	private FamilyDoctor FamMD;
 	ArrayList<String> medications = new ArrayList<String>();
 	public String labs;
-	
+	private VitalSigns vitalsigns;
 	/**
 	 * this default constructor makes  patient and gives them their patientId;
 	 */
@@ -64,7 +64,7 @@ public class Patient extends Person implements Comparable<Patient>{
 		this.nurse = nurse;		
 	}
 
-	public void setFamilyDoctor(FamilyDoctor FamDoc){
+	public void setFamDoc(FamilyDoctor FamDoc){
 		this.FamMD = FamDoc;
 	}
 	
@@ -221,6 +221,39 @@ public class Patient extends Person implements Comparable<Patient>{
 	public ArrayList<String> returnMedication(){
 		return this.medications;
 	}
+	
+	public String medicationsToString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        
+        stringBuilder.append("Medications:\n");
+        for (String medication : this.medications) {
+            stringBuilder.append("- ").append(medication).append("\n");
+        }
+        
+        return stringBuilder.toString();
+    }
+ 
+ public void addMedication(String medication) {
+        this.medications.add(medication);
+    }
+
+	/**
+ * This method is to get the Vital Signs of the patient
+ * @return the vital sign of the patient
+ * @author Amira Mohamed
+ */
+public VitalSigns getVitalSigns() {
+    return vitalsigns;
+}
+
+/**
+ * This method is to set the Vital Signs of the patient
+ * @param It takes vitalSigns as an input and set it to vitalSigns of the patient
+ * @author Amira Mohamed
+ */
+public void setVitalSigns(VitalSigns vitalSigns) {
+    this.vitalsigns = vitalSigns;
+}
 	
 	
 }

@@ -1,11 +1,12 @@
+
 package Hospital;
 
 public abstract class Person{
-	protected String firstName;
-	protected String lastName;
-	protected int age;
-	protected String gender;
-	protected String address;
+	public String firstName;
+	public String lastName;
+	public int age;
+	public String gender;
+	public String address;
 	
 	String user;
 	String pass;
@@ -159,6 +160,5 @@ public abstract class Person{
 		Employee other=(Employee) object;
 		return(this.firstName.equals(other.firstName)&&this.lastName.equals(other.lastName)&&this.age==other.age&&this.gender.equals(other.gender)&&this.address.equals(other.address));
 	}
-	
 	
 }

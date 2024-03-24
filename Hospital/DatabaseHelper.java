@@ -19,7 +19,7 @@ public class DatabaseHelper {
 
 	private static final String URL = "jdbc:postgresql://localhost:5432/postgres";
 	private static final String USER = "postgres";
-	private static final String PASSWORD = "AmiraMohamed";
+	private static final String PASSWORD = "harrish5";
 
 	
 	public static Connection getConnection() {
@@ -39,7 +39,7 @@ public class DatabaseHelper {
 	    PreparedStatement statement = null;
 	    try {
 	        connection = getConnection(); 
-	        String sql = "UPDATE patients SET consent = ? WHERE id = ?";
+	        String sql = "UPDATE patient SET consent = ? WHERE patient_id = ?";
 	        statement = connection.prepareStatement(sql);
 	        statement.setBoolean(1, consentFormSigned); 
 	        statement.setInt(2, patientID);
@@ -76,7 +76,7 @@ public class DatabaseHelper {
      */
 	public void storePatientData(String firstName, String lastName, int age, String gender, String address) {
 		try( Connection connection = getConnection()){
-			String sql = "INSERT INTO patient_info(fname, lname, age, gender, address)" + "VALUES(?,?,?,?,?)";
+			String sql = "INSERT INTO patient_info(first_name, last_name, age, gender, address)" + "VALUES(?,?,?,?,?)";
 			try(PreparedStatement statement = connection.prepareStatement(sql)){
 				statement.setString(1, firstName);
 				statement.setString(2, lastName);

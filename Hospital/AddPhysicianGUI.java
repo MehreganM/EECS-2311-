@@ -125,12 +125,4 @@ public class AddPhysicianGUI extends JFrame {
             adminGUI.setVisible(true);
         });
     }
-    public static void main(String[] args) {
-        Hospital hospital = new Hospital(null); // Assuming Hospital class exists
-        
-        // Example of creating an instance of AddPhysicianGUI
-        // Replace "hospital" with your actual Hospital instance
-        // The AddPhysicianGUI constructor might require a Hospital instance
-        AddPhysicianGUI addPhysicianGUI = new AddPhysicianGUI(hospital);
-    }
 }

@@ -1,12 +1,18 @@
+
 package Hospital;
 
+
+import Hospital.DatabaseOps;
+import Hospital.Nurse;
 import Hospital.Patient;
-
-
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Properties;
+
+import java.util.Properties;
+import javax.mail.*;
+import javax.mail.internet.*;
 
 
 
@@ -18,17 +24,17 @@ import java.util.List;
  * the assignment of physicians and physician administrator is based on specialty 
  * hospital has a director an arraylist for physicians an arraylist for
  * physician administrator and an arraylist for patients 
- * @author mehregan Mesgari
+ * @author mehregan Mesgari, Harrish Elango, Amira
  *
  */
 
 
 public class Hospital {
 	private Director director;
-	ArrayList<Physician> physicianList = new ArrayList<Physician>();
-	ArrayList<Nurse> nurseList = new ArrayList<Nurse>();
+	 ArrayList<Physician> physicianList=new ArrayList<Physician>();
+	 ArrayList<Nurse> nurseList=new ArrayList<Nurse>();
 	private ArrayList<PhysicianAdministrator> adminList=new ArrayList<PhysicianAdministrator>();
-	private ArrayList<Patient> patientList=new ArrayList<Patient>();
+	ArrayList<Patient> patientList=new ArrayList<Patient>();
 	public  final static Laboratory laboratory = new Laboratory();
 	static DatabaseOps dbOps = new DatabaseOps();
 	
@@ -44,21 +50,6 @@ public class Hospital {
 		this.director=director;
 		
 	}	
-	
-	public void InitializeEmployees() {
-		this.physicianList = dbOps.getAllPhysicians();
-        this.nurseList = dbOps.getAllNurses();
-        
-        for (int i = 0; i < this.physicianList.size(); i ++) {
-        	this.hirePhysician(this.physicianList.get(i));
-        	this.physicianList.get(i).toString();
-        	}
-        
-        for (int i = 0; i < this.nurseList.size(); i ++ ) {
-        	this.hireNurse(this.nurseList.get(i));
-        	this.nurseList.get(i).toString();
-        }
-	}
 	/**
 	 * this method returns an object of type director which is the director of the hospital
 	 * @pre the hospital already has a director and director is not null
@@ -68,11 +59,28 @@ public class Hospital {
 	public Director getHospDirector() {
 		return director;
 	}
-	
-	
-	
-	
-	
+
+	public void InitializeEmployees() throws NoSpaceException {
+		this.physicianList = dbOps.getAllPhysicians();
+        this.nurseList = dbOps.getAllNurses();
+        this.patientList = dbOps.initializePatients();
+        
+        for (int i = 0; i < this.physicianList.size(); i ++) {
+        	this.hirePhysician(this.physicianList.get(i));
+        	this.physicianList.get(i).toString();
+        	}
+        
+        for (int i = 0; i < this.nurseList.size(); i ++ ) {
+        	this.hireNurse(this.nurseList.get(i));
+        	this.nurseList.get(i).toString();
+        	}
+        
+        for (int i = 0; i < this.patientList.size(); i ++ ) {
+        	this.admitPatient(this.patientList.get(i));
+        	this.patientList.get(i).toString();
+        	}
+        
+	}
 	/**
 	 * this method sets the hospital director to a new director 
 	 * @pre director is not null
@@ -150,6 +158,10 @@ public class Hospital {
 		
 	}
 	
+
+	public ArrayList<Physician> getPhysList(){
+		return this.physicianList;
+	}
 	public boolean hireNurse(Nurse nurse) {
 		//we make sure we don't already have 70 nurses 
 		
@@ -182,7 +194,6 @@ public class Hospital {
 		else {
 			return false;
 		}
-		
 		
 	}
 	/**
@@ -297,6 +308,9 @@ public class Hospital {
 			}
 			physician=null;
 		}
+		else {
+			
+		}
 		
 	}
 	
@@ -311,8 +325,6 @@ public class Hospital {
 			}
 			nurse=null;
 	}
-		
-	
 
 	/**
 	 * this method receives a patient and adds this patient to the first
@@ -331,6 +343,7 @@ public class Hospital {
 		
 		}
 	}
+	
 	public void nurseGone(Patient patient) {
 		//we check which physician has less than 8 patients to add this patient to
 		for(int i = 0; i<nurseList.size();i++) {
@@ -355,6 +368,9 @@ public class Hospital {
 		if(patientList.contains(patient)) {
 			//we remove the patient from hospital and physicians'patient list
 			patient.getAssignedPhysician().patients.remove(patient);
+			FamilyDoctor famdoctor = patient.getFamDoc();
+			sendEmail(famdoctor.getEmail(),patient.getName(),patient.medicationsToString());
+			
 			boolean flag= patientList.remove(patient);
 			patient=null;
 			return flag;
@@ -382,6 +398,10 @@ public class Hospital {
 	    return null;
 	}
 	
+	public int getNumberOfPatients() {
+		return patientList.size();
+	}
+	
 	
 	/*
 	 * this method recieves a patient name and returns the patient if any match exists with their first name and returns null if doesnt 
@@ -392,7 +412,7 @@ public class Hospital {
 	public Patient searchPatientByName(String name) {
 		 if (this.patientList != null) { 
 		        for (Patient patient : this.patientList) { 
-		            if (patient.getFName().equals(name)) {
+		            if (patient.getFirstName().equals(name)) {
 		                return patient; 
 		            }
 		        }
@@ -400,9 +420,40 @@ public class Hospital {
 		    return null; 
 	}
 	
-	public int getNumberOfPatients() {
-		return patientList.size();
-	}
+	public static void sendEmail(String recipientEmail, String subject, String body) {
+		 String username = "50tW1tcjvD6M";
+	     String password = "fxJCwpafJjP3"; 
+	     String senderEmail = "eecshospital@gmail.com";
+
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", "smtp.mailsnag.com"); 
+        props.put("mail.smtp.port", "2525"); 
+
+        Session session = Session.getInstance(props,
+                new javax.mail.Authenticator() {
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(username, password);
+                    }
+                });
+
+        try {
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(senderEmail));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipientEmail));
+            message.setSubject(subject);
+            message.setText(body);
+
+            Transport.send(message);
+
+            System.out.println("Email sent successfully!");
+
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 	
 	
 	
@@ -460,6 +511,4 @@ class NoSpecialtyException extends Exception{
 	public NoSpecialtyException(String message){
 		super(message);
 	}
-	
-	
 }

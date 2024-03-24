@@ -39,7 +39,7 @@ public class DatabaseHelper {
 	    PreparedStatement statement = null;
 	    try {
 	        connection = getConnection(); 
-	        String sql = "UPDATE patient SET consent = ? WHERE patient_id = ?";
+	        String sql = "UPDATE patients SET consent = ? WHERE id = ?";
 	        statement = connection.prepareStatement(sql);
 	        statement.setBoolean(1, consentFormSigned); 
 	        statement.setInt(2, patientID);
@@ -54,7 +54,7 @@ public class DatabaseHelper {
 	        e.printStackTrace();
 	    } 
 	    finally {
-	     
+
 	        try {
 	            if (statement != null) statement.close();
 	            if (connection != null) connection.close();
@@ -63,8 +63,6 @@ public class DatabaseHelper {
 	        }
 	    }
 	}
-
-    
     /**
      * This method is to store patient information to the database
      * @param firstName is the first name of the patient 

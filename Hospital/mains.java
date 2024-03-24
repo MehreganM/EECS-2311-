@@ -10,7 +10,7 @@ public class mains {
        Nurse nurse = new Nurse(null, null, 0, null, null);
        hospital.hirePhysician(physician);
        
-       labTest test = new labTest(patient, "xray");
-       laboratory.updateTestResult(test, "a broken leg");
+      // labTest test = new labTest(patient, "xray");
+       laboratory.updateTestResult(patient.getPatientID(),"blood", "this is a demo");
     }
 }

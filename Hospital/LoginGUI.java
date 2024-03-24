@@ -80,7 +80,7 @@ public class LoginGUI extends JFrame implements ActionListener {
         // Decide what to do based on the type of user logged in
         if (loggedInPhysician != null ) {
             EventQueue.invokeLater(() -> {
-                PatientInformationGUI patientInfoGUI = new PatientInformationGUI(hospital);
+                PatientGUI patientInfoGUI = new PatientGUI(hospital);
                 patientInfoGUI.setVisible(true);
             });
             this.setVisible(false);

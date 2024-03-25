@@ -1,0 +1,99 @@
+package Hospital;
+import static org.junit.jupiter.api.Assertions.*;
+import java.sql.SQLException;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+public class User2test {
+
+    private DatabaseOps dbOps;
+
+    @BeforeEach
+    public void setUp() {
+        dbOps = new DatabaseOps();
+    }
+
+    @AfterEach
+    public void tearDown() {
+        // Cleaning DB
+    }
+
+
+    /**
+     * This test must fail
+     */
+    @Test
+    public void testHireNurse_DuplicateEntry() {
+        Nurse newNurse = new Nurse("Anna", "Small", 28, "Female", "123 Helendale Ave");
+        dbOps.addNurse(newNurse);
+        Exception exception = assertThrows(SQLException.class, () -> {dbOps.addNurse(newNurse);});
+        assertNotNull(exception);
+    }
+
+    /**
+     * This test must fail 
+     */
+    @Test
+    public void testHireNurse_InvalidAge() {
+        Nurse invalidNurse = new Nurse("Invalid", "User", -10, "Unknown", "44 New st");
+        Exception exception = assertThrows(SQLException.class, () -> {
+            dbOps.addNurse(invalidNurse);
+        });
+        assertNotNull(exception);
+    }
+/**
+ * This test must Fail
+ */
+    @Test
+    public void testHireNurse_EmptyName() {
+        Nurse incompleteNurse = new Nurse("", "Nil", 25, "Female", "123 Valley St");
+        Exception exception = assertThrows(SQLException.class, () -> {
+            dbOps.addNurse(incompleteNurse);
+        });
+        assertNotNull(exception);
+    }
+
+    /**
+     * This test must pass
+     */
+    @Test
+    public void testHireNurse_NullNurse() {
+        Exception exception = assertThrows(NullPointerException.class, () -> {
+            dbOps.addNurse(null);
+        });
+        assertNotNull(exception);
+    }
+    /**
+     * This test must fail
+     */
+    @Test
+    public void testHireNurse_wrongtype() {
+        Nurse longNameNurse = new Nurse("Thenameisverylongandweexpecttofail", "Franklin", 25, "Female", "123 twoway St");
+        Exception exception = assertThrows(SQLException.class, () -> {
+            dbOps.addNurse(longNameNurse);
+        });
+        assertNotNull(exception);
+    }
+    /**
+     * This test must pass
+     */
+    @Test
+    public void testHireNurse_SequentialSuccess() {
+        Nurse nurse1 = new Nurse("Alice", "Smith", 28, "Female", "33 Amazing St");
+        Nurse nurse2 = new Nurse("Bob", "Jones", 32, "Male", "7 Maplefield St");
+        dbOps.addNurse(nurse1);
+        dbOps.addNurse(nurse2);
+        assertTrue(dbOps.getAllNurses().contains(nurse1));
+        assertTrue(dbOps.getAllNurses().contains(nurse2));
+}
+    /**
+     * This test must pass
+     */
+        @Test
+        public void testHireNurse_Success() {
+            Nurse newNurse = new Nurse("Eli", "Kevin", 30, "Male", "12 Newdale St");
+            dbOps.addNurse(newNurse);
+            assertTrue(dbOps.getAllNurses().contains(newNurse));
+        }
+}

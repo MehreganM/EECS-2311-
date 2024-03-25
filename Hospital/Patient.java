@@ -104,7 +104,9 @@ public class Patient extends Person implements Comparable<Patient>{
 		return this.gender;
 	}
 	
-	
+	public void setPatientID(int id) {
+		this.patientID = id;
+	}
 	
 	@Override
 	/**

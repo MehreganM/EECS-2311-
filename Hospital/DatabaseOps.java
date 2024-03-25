@@ -85,6 +85,29 @@ public class DatabaseOps {
         return patientInfo.toString();
     }
     
+    public Patient getPatientByIds(int id) {
+        String sql = "SELECT * FROM patients WHERE ID = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                Patient patient = new Patient();
+                patient.setFirstName(rs.getString("Fname"));
+                patient.setLastName(rs.getString("Lname"));
+                patient.setAge(rs.getInt("age"));
+                patient.setAddress(rs.getString("address"));
+                patient.setGender(rs.getString("gender"));
+                // You might need to set other attributes of the patient
+                return patient;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    
     public String getPatientByPhysicianId(int id) {
         StringBuilder patientInfo = new StringBuilder();
         String sql = "SELECT * FROM patients WHERE doctor = ?";
@@ -147,8 +170,7 @@ public class DatabaseOps {
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             
-            // Set parameters for the prepared statement based on the patient object
-        	// pstmt.setInt(0, patient.getPatientID()); should not really be able to change this tbh
+
         	pstmt.setString(2, patient.getFName());
         	pstmt.setString(3, patient.getLName());
         	pstmt.setInt(4, patient.getAge());
@@ -159,10 +181,10 @@ public class DatabaseOps {
             pstmt.setString(9, patient.getFamDoc().toString());  
             
             
-            // Execute the update
+
             int affectedRows = pstmt.executeUpdate();
             
-            // Check if the update was successful
+
             if (affectedRows > 0) {
                 System.out.println("Patient updated successfully.");
             } else {
@@ -186,19 +208,7 @@ public class DatabaseOps {
             e.printStackTrace();
         }
     }
-    
-  /*  public void deletePatient2(String Fname) {
-        String sql = "DELETE FROM patients WHERE Fname = ?";
 
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-            pstmt.setString(1, Fname);
-            pstmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }*/
     
     public ArrayList<Physician> getAllPhysicians() {
         ArrayList<Physician> physicians = new ArrayList<>();
@@ -216,7 +226,7 @@ public class DatabaseOps {
                     rs.getString("gender"),
                     rs.getString("address")
                 );
-                physician.setSpecialty(rs.getString("specialty")); // Assuming setSpecialty handles exceptions internally or they are caught here
+                physician.setSpecialty(rs.getString("specialty")); 
                 physician.setUser(rs.getString("username"));
                 physician.setPass(rs.getString("password"));
                 physicians.add(physician);

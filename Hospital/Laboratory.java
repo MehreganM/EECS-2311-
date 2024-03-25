@@ -20,35 +20,45 @@ public class Laboratory {
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             
+            // Retrieve patient ID from the request
+            int patientID = request.getPatient().getPatientID();
+            
+            // Set values for the prepared statement
             pstmt.setString(1, request.getType());
             pstmt.setString(2, description);
             pstmt.setString(3, request.getResults());
-            pstmt.setInt(4, request.getPatient().getPatientID()); 
+            pstmt.setInt(4, patientID); 
             
             int affectedRows = pstmt.executeUpdate();
-            return affectedRows > 0;
+            if (affectedRows > 0) {
+                System.out.println("Lab test request added successfully for patient with ID: " + patientID);
+                return true;
+            } else {
+                System.out.println("Failed to add lab test request for patient with ID: " + patientID);
+                return false;
+            }
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
     }
+
     
     public boolean updateTestResult(int patientID, String testName, String newResult) {
-        // SQL query now includes test_name in the WHERE clause to specify which test's result should be updated
         String sql = "UPDATE laboratory SET test_result = ? WHERE patient_id = ? AND test_name = ?";
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             
-            pstmt.setString(1, newResult); // Set the new test result
-            pstmt.setInt(2, patientID); // Specify the patient ID
-            pstmt.setString(3, testName); // Specify the test name
+            pstmt.setString(1, newResult); 
+            pstmt.setInt(2, patientID); 
+            pstmt.setString(3, testName); 
             
             int affectedRows = pstmt.executeUpdate();
-            return affectedRows > 0; // Return true if the update was successful, false otherwise
+            return affectedRows > 0; 
         } catch (SQLException e) {
             e.printStackTrace();
-            return false; // Return false if an SQLException occurs
+            return false;
         }
     }
 

@@ -199,7 +199,7 @@ public class Physician extends Employee {
 		lab.addTestRequest(labtest," ");
 	}
 	public void updateLab (Patient patient, Laboratory lab) {
-		patient.labs = lab.getAllTestsForPatientAsString(patient);
+		patient.labs = lab.getAllTestsForPatientAsString(patient.getPatientID());
 	}
 
 }

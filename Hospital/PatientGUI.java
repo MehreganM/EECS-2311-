@@ -36,7 +36,7 @@ public class PatientGUI extends JFrame {
         // Create the buttons objects
         RecordVitals = new JButton("Record Vital Signs");
         RetrieveVitals = new JButton("Retrieve Vital Signs");
-        Labs_Meds = new JButton("View Labs and Meds");
+        Labs_Meds = new JButton("View Lab results");
         DisplayPatients = new JButton("Display All Patients");
 
         // Display all the patients
@@ -135,8 +135,7 @@ public class PatientGUI extends JFrame {
         Labs_Meds.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // TODO Auto-generated method stub
-                PatientInformationGUI PatientInfo = new PatientInformationGUI(hospital);
+                PatientInformationGUI PatientInfo = new PatientInformationGUI();
                 PatientInfo.setVisible(true);
             }
         });

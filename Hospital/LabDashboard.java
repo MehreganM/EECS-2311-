@@ -4,6 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class LabDashboard extends JFrame {
     private JButton retrieveRequestsButton;
@@ -24,9 +28,42 @@ public class LabDashboard extends JFrame {
         fulfillRequestsButton.setPreferredSize(new Dimension(200, 100));
 
         retrieveRequestsButton.addActionListener(e -> {
-            // Implement functionality to retrieve lab requests
-            JOptionPane.showMessageDialog(this, "Retrieve Lab Requests functionality to be implemented.");
+            // Database query to select lab requests without a result
+            String query = "SELECT test_name, patient_id FROM laboratory WHERE test_result IS NULL OR test_result = ''";
+            
+            // Use StringBuilder to accumulate the results
+            StringBuilder resultMessage = new StringBuilder("Pending Lab Requests:\n");
+            
+            // Connect to the database and execute the query
+            try (Connection conn = DatabaseConnection.getConnection();
+                 PreparedStatement pstmt = conn.prepareStatement(query);
+                 ResultSet rs = pstmt.executeQuery()) {
+                
+                boolean found = false;
+                while (rs.next()) {
+                    // Append each found record to the result message
+                    resultMessage.append("Test Name: ")
+                                 .append(rs.getString("test_name"))
+                                 .append(", Patient ID: ")
+                                 .append(rs.getInt("patient_id"))
+                                 .append("\n");
+                    found = true;
+                }
+                
+                if (!found) {
+                    resultMessage.append("No pending lab requests found.");
+                }
+                
+                // Display the result message in a dialog
+                JOptionPane.showMessageDialog(this, resultMessage.toString());
+                
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Error retrieving lab requests.", "Database Error", JOptionPane.ERROR_MESSAGE);
+            }
         });
+
+
 
         fulfillRequestsButton.addActionListener(e -> SwingUtilities.invokeLater(() -> new FulfillLabRequestsFrame().setVisible(true)));
 

@@ -1,0 +1,84 @@
+package Hospital;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import java.sql.SQLException;
+import static org.junit.jupiter.api.Assertions.*;
+
+public class User4test {
+
+    private DatabaseOps dbOps;
+
+    @BeforeEach
+    public void setUp() {
+        dbOps = new DatabaseOps();
+       // sample Nurse
+        Nurse testNurse = new Nurse("TestFirstName", "TestLastName", 30, "Female", "Test Address");
+        dbOps.addNurse(testNurse);
+    }
+
+    @AfterEach
+    public void tearDown() {
+        dbOps.deleteNurse("TestFirstName");
+    }
+
+    @Test
+    public void testResignNurse_Successful() {
+        // Before removing, ensure the nurse exists
+        assertTrue(nurseExists("TestFirstName", "TestLastName"));
+        dbOps.deleteNurse("TestFirstName");
+        // After removal, the nurse should no longer exist
+        assertFalse(nurseExists("TestFirstName", "TestLastName"));
+    }
+
+    @Test
+    public void testResignNurse_NonExisting() {
+        // Attempt to remove a non-existing nurse should not throw an error
+        assertDoesNotThrow(() -> dbOps.deleteNurse("NonExistingFirstName"));
+    }
+
+    @Test
+    public void testResignNurse_NullName() {
+        // Attempt to remove a nurse with a null name should handle the error
+        Exception exception = assertThrows(SQLException.class, () -> dbOps.deleteNurse(null));
+        assertNotNull(exception);
+    }
+    @Test
+    public void testResignNurse_Success() {
+        Nurse existingNurse = new Nurse("Existing", "Nurse", 30, "F", "123 Test St");
+        dbOps.deleteNurse(existingNurse.getFirstName());
+        assertFalse(dbOps.getAllNurses().contains(existingNurse));
+    }
+
+    @Test
+    public void testResignNurse_NotInList() {
+        Nurse nonExistentNurse = new Nurse("Nonexistent", "Nurse", 30, "F", "321 Test St");
+        dbOps.deleteNurse(nonExistentNurse.getFirstName());
+        assertFalse(dbOps.getAllNurses().contains(nonExistentNurse));
+    }
+
+ 
+    @Test
+    public void testResignNurse_AttemptToRemoveTwice() {
+        Nurse existingNurse = new Nurse("Existing", "Nurse", 30, "F", "123 Test St");
+        dbOps.deleteNurse(existingNurse.getFirstName());
+        assertThrows(SQLException.class, () -> dbOps.deleteNurse(existingNurse.getFirstName()));
+    }
+
+    @Test
+    public void testResignNurse_InvalidNurseName() {
+        assertThrows(SQLException.class, () -> dbOps.deleteNurse(""));
+    }
+
+    @Test
+    public void testResignNurse_RemoveUsingPartialName() {
+        Nurse existingNurse = new Nurse("Existing", "Nurse", 30, "F", "123 Test St");
+        assertThrows(SQLException.class, () -> dbOps.deleteNurse("Exist")); 
+    }
+
+
+    private boolean nurseExists(String firstName, String lastName) {
+        return dbOps.getAllNurses().stream()
+                .anyMatch(nurse -> nurse.getFirstName().equals(firstName) && nurse.getLastName().equals(lastName));
+    }
+}

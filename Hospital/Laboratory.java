@@ -17,7 +17,7 @@ public class Laboratory {
     }
 
     public boolean addTestRequest(labTest request, String description) {
-        String sql = "INSERT INTO laboratory (test_name, test_description, test_result, patient_id) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO laboratory (patient_id, test_name, test_description, test_result) VALUES (?, ?, ?, ?)";
         
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -26,10 +26,11 @@ public class Laboratory {
             int patientID = request.getPatient().getPatientID();
             
             // Set values for the prepared statement
-            pstmt.setString(1, request.getType());
-            pstmt.setString(2, description);
-            pstmt.setString(3, request.getResults());
-            pstmt.setInt(4, patientID); 
+            pstmt.setInt(1, patientID); 
+            pstmt.setString(2, request.getType());
+            pstmt.setString(3, description);
+            pstmt.setString(4, request.getResults());
+            
             
             int affectedRows = pstmt.executeUpdate();
             if (affectedRows > 0) {

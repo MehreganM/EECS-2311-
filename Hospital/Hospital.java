@@ -30,10 +30,10 @@ import javax.mail.internet.*;
 
 
 public class Hospital {
-	private Director director;
+	 Director director;
 	 ArrayList<Physician> physicianList=new ArrayList<Physician>();
 	 ArrayList<Nurse> nurseList=new ArrayList<Nurse>();
-	private ArrayList<PhysicianAdministrator> adminList=new ArrayList<PhysicianAdministrator>();
+	 ArrayList<PhysicianAdministrator> adminList=new ArrayList<PhysicianAdministrator>();
 	ArrayList<Patient> patientList=new ArrayList<Patient>();
 	public  final static Laboratory laboratory = new Laboratory();
 	static DatabaseOps dbOps = new DatabaseOps();
@@ -157,7 +157,6 @@ public class Hospital {
 		
 		
 	}
-	
 
 	public ArrayList<Physician> getPhysList(){
 		return this.physicianList;
@@ -425,37 +424,35 @@ public class Hospital {
 	     String password = "fxJCwpafJjP3"; 
 	     String senderEmail = "eecshospital@gmail.com";
 
-        Properties props = new Properties();
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.host", "smtp.mailsnag.com"); 
-        props.put("mail.smtp.port", "2525"); 
+       Properties props = new Properties();
+       props.put("mail.smtp.auth", "true");
+       props.put("mail.smtp.starttls.enable", "true");
+       props.put("mail.smtp.host", "smtp.mailsnag.com"); 
+       props.put("mail.smtp.port", "2525"); 
 
-        Session session = Session.getInstance(props,
-                new javax.mail.Authenticator() {
-                    protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication(username, password);
-                    }
-                });
+       Session session = Session.getInstance(props,
+               new javax.mail.Authenticator() {
+                   protected PasswordAuthentication getPasswordAuthentication() {
+                       return new PasswordAuthentication(username, password);
+                   }
+               });
 
-        try {
-            Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(senderEmail));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipientEmail));
-            message.setSubject(subject);
-            message.setText(body);
+       try {
+           Message message = new MimeMessage(session);
+           message.setFrom(new InternetAddress(senderEmail));
+           message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipientEmail));
+           message.setSubject(subject);
+           message.setText(body);
 
-            Transport.send(message);
+           Transport.send(message);
 
-            System.out.println("Email sent successfully!");
+           System.out.println("Email sent successfully!");
 
-        } catch (MessagingException e) {
-            throw new RuntimeException(e);
-        }
-    }
+       } catch (MessagingException e) {
+           throw new RuntimeException(e);
+       }
+   }
 
-	
-	
 	
 	
 }

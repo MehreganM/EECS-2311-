@@ -22,7 +22,7 @@ public class DBSetup {
             ");";
    
    private static final String CREATE_LAB_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS laboratory (" +
-		   "patient_id INT REFERENCES patients(id)," +
+		   "patient_id INT REFERENCES patients(id) ON DELETE CASCADE," +
            "test_name VARCHAR(255)," +
            "test_description VARCHAR(255)," +
            "test_result VARCHAR(255)" +
@@ -68,7 +68,7 @@ public class DBSetup {
             ");";
     
     private static final String CREATE_FAMDOC_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS famdoc (" +
-            "id INT REFERENCES patients(id)," +
+            "id INT REFERENCES patients(id) ON DELETE CASCADE," +
             "name VARCHAR(100)," +
             "specialty VARCHAR(50)," +
             "email VARCHAR(150)," +
@@ -85,7 +85,7 @@ public class DBSetup {
             ");";*/
 
     private static final String CREATE_VITALSIGNS_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS vital_signs ("
-    		+ "patient_id INT REFERENCES patients(id),"
+    		+ "patient_id INT REFERENCES patients(id) ON DELETE CASCADE,"
     		+ "temperature DOUBLE PRECISION,"
     		+ "systolic_pressure INT,"
     		+ "diastolic_pressure INT,"

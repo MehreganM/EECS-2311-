@@ -137,7 +137,7 @@ public class PatientGUI extends JFrame {
         Labs_Meds.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                PatientInformationGUI PatientInfo = new PatientInformationGUI(hospital);
+                PatientInformationGUI PatientInfo = new PatientInformationGUI();
                 PatientInfo.setVisible(true);
             }
         });

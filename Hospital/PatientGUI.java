@@ -12,7 +12,7 @@ public class PatientGUI extends JFrame {
     private Patient patient;
 
     private JTextArea patientInfoArea;
-    private JButton DisplayPatients, RecordVitals, RetrieveVitals, Labs_Meds;
+    private JButton DisplayPatients, RecordVitals, RetrieveVitals, Labs_Meds, dischargeButton;
 
     public PatientGUI(Hospital hospital) {
         this.hospital = hospital;
@@ -26,7 +26,7 @@ public class PatientGUI extends JFrame {
 
         setTitle("Patient Portal");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(800, 600); // Increased size
+        setSize(900, 600); // Increased size
 
         // Create JTextArea to display patient info
         patientInfoArea = new JTextArea(10,40);
@@ -135,10 +135,19 @@ public class PatientGUI extends JFrame {
         Labs_Meds.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                PatientInformationGUI PatientInfo = new PatientInformationGUI();
+                PatientInformationGUI PatientInfo = new PatientInformationGUI(hospital);
                 PatientInfo.setVisible(true);
             }
         });
+
+        // Discharge button to discharge the patient from the hospital
+		dischargeButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				DischargePatientGUI dischargePatient = new DischargePatientGUI(hospital);
+				dischargePatient.setVisible(true);
+			}
+		});
 
         JPanel mainPanel = new JPanel();
         JPanel panel = new JPanel();
@@ -148,6 +157,7 @@ public class PatientGUI extends JFrame {
         panel.add(RecordVitals);
         panel.add(RetrieveVitals);
         panel.add(Labs_Meds);
+        panel.add(dischargeButton);
         panel.add(requestLab);
         add(mainPanel);
         add(mainPanel, BorderLayout.NORTH);

@@ -15,10 +15,11 @@ public class NursePatientAddFrame extends JFrame {
     private JButton addButton, returnButton;
     private JCheckBox famDrConsent;
 
-    public NursePatientAddFrame(Nurse nurse, Hospital hospital) {
+    public NursePatientAddFrame(Nurse nurse, Hospital hospital) throws NoSpaceException {
         super("Add Patient to Nurse");
         this.nurse = nurse;
         this.hospital = hospital;
+        hospital.InitializeEmployees();
         setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
         
         initializeFields();

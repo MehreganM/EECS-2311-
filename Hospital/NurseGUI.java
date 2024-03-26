@@ -35,7 +35,14 @@ public class NurseGUI extends JFrame {
 	        viewPatientsButton = new JButton("View Patients");
 	        assignFamilyDoctorButton = new JButton("Assign/Find Family Doctor");
 
-	        addPatientButton.addActionListener(this::openNursePatientFrame);
+	        addPatientButton.addActionListener(e -> {
+				try {
+					openNursePatientFrame(e);
+				} catch (NoSpaceException f) {
+					// TODO Auto-generated catch block
+					f.printStackTrace();
+				}
+			});
 	        viewPatientsButton.addActionListener(this::extractAndDisplayPatientDetails);
 	        assignFamilyDoctorButton.addActionListener(this::assignOrFindFamilyDoctor);
 
@@ -96,7 +103,7 @@ public class NurseGUI extends JFrame {
 	        }
 	    }
 
-	    private void openNursePatientFrame(ActionEvent e) {
+	    private void openNursePatientFrame(ActionEvent e) throws NoSpaceException {
 	        NursePatientAddFrame addPatientFrame = new NursePatientAddFrame(nurse, hospital);
 	        addPatientFrame.setVisible(true);
 	        NurseGUI.this.setVisible(false);

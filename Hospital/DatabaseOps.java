@@ -417,7 +417,60 @@ public class DatabaseOps {
             e.printStackTrace();
         }
     }
+
+        /**
+     * This method is to get all the patient in the hospital system
+     * @return list of all the patients in the hospital
+     * @author Amira Mohamed
+     */
+    public ArrayList<Patient> getAllPatients1() {
+    	ArrayList<Patient>  patientsInfo = new ArrayList<>();
+        String sql = "SELECT * FROM patients";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql);
+        		ResultSet rs = pstmt.executeQuery()) {
+
+            while (rs.next()) {
+            	Patient patient = new Patient(
+            	//		rs.getInt("id"),
+                        rs.getString("Fname"),
+                        rs.getString("Lname"),
+                        rs.getInt("age"),
+                        rs.getString("address"),
+                		rs.getString("gender")
+                		);
+            	 	
+            	patientsInfo.add(patient);
    
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return patientsInfo;
+    }
+    /**
+     * This method is to remove a patient from the hospital system 
+     * @author Amira Mohamed
+     * @param fname is the first name of the patient
+     * @param lname is the last name of the patient
+     * @param age is the age of the patient
+     */
+    public void deletePatient(String fname, String lname, int age) {
+        String sql = "DELETE FROM patients WHERE fname = ? AND lname = ? AND age = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, fname);
+            pstmt.setString(2, lname);
+            pstmt.setInt(3, age);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
     
     
     

@@ -20,6 +20,13 @@ public class DBSetup {
             "consent BOOLEAN," +
             "family_doctor VARCHAR(255)" +
             ");";
+   
+   private static final String CREATE_LAB_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS laboratory (" +
+		   "patient_id INT REFERENCES patients(id)," +
+           "test_name VARCHAR(255)," +
+           "test_description VARCHAR(255)," +
+           "test_result VARCHAR(255)" +
+           ");";
     
  /*   private static final String CREATE_PATIENTS_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS patients (" +
             "id SERIAL PRIMARY KEY," +
@@ -92,6 +99,7 @@ public class DBSetup {
         ensureTableExists(CREATE_NURSES_TABLE_QUERY);
         ensureTableExists(CREATE_FAMDOC_TABLE_QUERY);
         ensureTableExists(CREATE_VITALSIGNS_TABLE_QUERY);
+        ensureTableExists(CREATE_LAB_TABLE_QUERY);
        // ensureTableExists(CREATE_DIRECTOR_TABLE_QUERY);
     }
 

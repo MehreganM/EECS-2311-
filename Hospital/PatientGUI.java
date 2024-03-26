@@ -38,6 +38,8 @@ public class PatientGUI extends JFrame {
         RetrieveVitals = new JButton("Retrieve Vital Signs");
         Labs_Meds = new JButton("View Lab results");
         DisplayPatients = new JButton("Display All Patients");
+	dischargeButton = new JButton("Discharge Patient");
+
 
         // Display all the patients
         DisplayPatients.addActionListener(new ActionListener() {

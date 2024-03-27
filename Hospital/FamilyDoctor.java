@@ -97,6 +97,7 @@ public class FamilyDoctor {
         return "FamilyDoctor{" +
                 "name='" + name + '\'' +
                 ", specialty='" + specialty + '\'' +
+                ", email=" + email + '\'' +
                 ", patientSummaries=" + patientSummaries +
                 '}';
     }

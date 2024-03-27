@@ -17,11 +17,15 @@ public class mains {
      
      hospital.InitializeEmployees();
      System.out.println(hospital.physicianList.size());
-     Patient patient = new Patient();
+     Patient patient = new Patient("ali", "brown",45,"male","main st");
      
      hospital.admitPatient(patient);
      patient.setAssignedPhysician(dr);
      patient.setFamDoc(new FamilyDoctor("ali", "brown",lab, "male","main st"));
      hospital.dischargePatient(patient);
-    }
+     
+     System.out.println(patient.getPatientID());
+     System.out.println(lab.getAllTestsForPatientAsString(1001));
+     
+     }
 }

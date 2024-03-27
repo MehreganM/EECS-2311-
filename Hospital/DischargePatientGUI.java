@@ -21,8 +21,9 @@ public class DischargePatientGUI extends JFrame {
 	Hospital hospital; 
 	DatabaseOps databaseOps = new DatabaseOps();
 	
-	public DischargePatientGUI(Hospital hospital) {
+	public DischargePatientGUI(Hospital hospital) throws NoSpaceException {
 		this.hospital = hospital;
+		hospital.InitializeEmployees();
 		setTitle("Discharge Patient");
 		setSize(700, 300);
 		setLocationRelativeTo(null);
@@ -58,7 +59,8 @@ public class DischargePatientGUI extends JFrame {
 		for (Patient patient : patients) {
 //			String patientsInfo = String.format("ID: %d, FirstName: %s, Last name: %s, Age: %d, Address: %s, Gender: %s ",
 
-			String patientsInfo = String.format("FirstName: %s, Last name: %s, Age: %d, Address: %s, Gender: %s ",
+			String patientsInfo = String.format("ID: %d, FirstName: %s, Last name: %s, Age: %d, Address: %s, Gender: %s ",
+					patient.getPatientID(),
 					patient.getFName(),
 					patient.getLName(),
 					patient.getAge(),
@@ -74,8 +76,15 @@ public class DischargePatientGUI extends JFrame {
 	        Hospital hospital = new Hospital(new Director("John", "Smith", 58, "Male", "123 Main St"));
 
 	        SwingUtilities.invokeLater(() -> {
-	        	DischargePatientGUI panel = new DischargePatientGUI(hospital);
-	            panel.setVisible(true);
+	        	DischargePatientGUI panel;
+				try {
+					panel = new DischargePatientGUI(hospital);
+					panel.setVisible(true);
+				} catch (NoSpaceException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+	            
 	        });
 	    
 		
@@ -89,11 +98,12 @@ public class DischargePatientGUI extends JFrame {
 			String[] parts = selectedPatient.split(", ");
 			if(parts.length >= 2) {
 				
-				String firstname = parts[0].split(": ")[1];
-				String lastname = parts[1].split(": ")[1];
-				int age = Integer.parseInt(parts[2].split(": ")[1]);
-				
+				int id = Integer.parseInt(parts[0].split(": ")[1]);
+				String firstname = parts[1].split(": ")[1];
+				String lastname = parts[2].split(": ")[1];
+				int age = Integer.parseInt(parts[3].split(": ")[1]);
 				databaseOps.deletePatient(firstname, lastname, age);
+				
 				populatePatientsComboBox();
 				JOptionPane.showMessageDialog(DischargePatientGUI.this, "Patient discharged successfully.");
 				System.out.println("Patient discharged successfully.");

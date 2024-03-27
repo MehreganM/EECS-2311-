@@ -3,6 +3,15 @@ package Hospital;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
+
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 public class DatabaseOps {
     public void addPatient(Patient patient) {
@@ -458,22 +467,173 @@ public class DatabaseOps {
      * @param age is the age of the patient
      */
     public void deletePatient(String fname, String lname, int age) {
-        String sql = "DELETE FROM patients WHERE fname = ? AND lname = ? AND age = ?";
+        Hospital hospital = new Hospital(null);
+        Laboratory laboratory = new Laboratory(); 
+        String queryDoctorAndId = "SELECT id, family_doctor FROM patients WHERE fname = ? AND lname = ? AND age = ?";
+        String sqlDelete = "DELETE FROM patients WHERE fname = ? AND lname = ? AND age = ?";
 
         try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+             PreparedStatement pstmtQuery = conn.prepareStatement(queryDoctorAndId)) {
+            pstmtQuery.setString(1, fname);
+            pstmtQuery.setString(2, lname);
+            pstmtQuery.setInt(3, age);
 
-            pstmt.setString(1, fname);
-            pstmt.setString(2, lname);
-            pstmt.setInt(3, age);
-            pstmt.executeUpdate();
+            ResultSet rs = pstmtQuery.executeQuery();
+            String doctorEmail = "dr.mark@gmail.com"; // Default email
+            int patientId = 0;
+            if (rs.next()) {
+                String familyDoctor = rs.getString("family_doctor");
+                patientId = rs.getInt("id"); // Correctly retrieve the patient ID
+                int emailStart = familyDoctor.indexOf("email=") + "email=".length();
+                int emailEnd = familyDoctor.indexOf("',", emailStart);
+                doctorEmail = familyDoctor.substring(emailStart, emailEnd); // Extract email
+            }
+
+            String allTestsForPatient = "";
+            if (patientId > 0) { // Check that patientId is greater than 0
+                allTestsForPatient = laboratory.getAllTestsForPatientAsString(patientId);
+            }
+
+            try (PreparedStatement pstmtDelete = conn.prepareStatement(sqlDelete)) {
+                hospital.sendEmail(doctorEmail, lname + " Record", "labtest " + allTestsForPatient);
+                pstmtDelete.setString(1, fname);
+                pstmtDelete.setString(2, lname);
+                pstmtDelete.setInt(3, age);
+                pstmtDelete.executeUpdate();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
+
+	public static void sendEmail(String recipientEmail, String subject, String body) {
+		 String username = "50tW1tcjvD6M";
+	     String password = "fxJCwpafJjP3"; 
+	     String senderEmail = "eecshospital@gmail.com";
+
+       Properties props = new Properties();
+       props.put("mail.smtp.auth", "true");
+       props.put("mail.smtp.starttls.enable", "true");
+       props.put("mail.smtp.host", "smtp.mailsnag.com"); 
+       props.put("mail.smtp.port", "2525"); 
+
+       Session session = Session.getInstance(props,
+               new javax.mail.Authenticator() {
+                   protected PasswordAuthentication getPasswordAuthentication() {
+                       return new PasswordAuthentication(username, password);
+                   }
+               });
+
+       try {
+           Message message = new MimeMessage(session);
+           message.setFrom(new InternetAddress(senderEmail));
+           message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipientEmail));
+           message.setSubject(subject);
+           message.setText(body);
+
+           Transport.send(message);
+
+           System.out.println("Email sent successfully!");
+
+       } catch (MessagingException e) {
+           throw new RuntimeException(e);
+       }
+   }
+    
+    public void StoreFamDoc(int patientID, String name, String specialty, String email, String phone) {
+		try( Connection connection = DatabaseConnection.getConnection()){
+			String checksql = "SELECT * FROM famdoc WHERE id = ?";
+			try(PreparedStatement checkstatement = connection.prepareStatement(checksql)){
+				checkstatement.setInt(1, patientID);
+				ResultSet resultset = checkstatement.executeQuery();
+				
+				// If a record exists, update it 
+				if(resultset.next()) {
+					updateFamDocInfo(patientID, name, specialty, email, phone);
+				}
+				else { 
+					// If no record exists, insert a new record
+					insertFamDocInfo(patientID, name, specialty, email, phone);
+				}
+				
+				System.out.println("Fam doc validated sucessfully");
+			
+		}
+			
+		}catch (SQLException e) {
+	        System.err.println("Error storing Fam doc: " + e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	public void insertFamDocInfo(int patientID, String name, String specialty, String email, String phone) {
+		try( Connection connection = DatabaseConnection.getConnection()){
+			String insertsql = "INSERT INTO famdoc (id, name, specialty, email, phone)" + "VALUES(?,?,?,?,?)";
+			try(PreparedStatement insertstatement = connection.prepareStatement(insertsql)){
+				insertstatement.setInt(1, patientID);
+				insertstatement.setString(2, name);
+				insertstatement.setString(3, specialty);
+				insertstatement.setString(4, email);
+				insertstatement.setString(5, phone);
+				
+				insertstatement.executeUpdate();
+				System.out.println("Family Doctor Updated");
+			
+		}
+			
+		}catch (SQLException e) {
+            System.err.println("Error with famdoc: " + e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	public void updateFamDocInfo(int patientID, String name, String specialty, String email, String phone) {
+		try( Connection connection = DatabaseConnection.getConnection()){
+			String updatesql = "UPDATE famdoc SET name = ?, specialty = ? , email = ?, phone = ? WHERE id = ?";
+			try(PreparedStatement updatestatement = connection.prepareStatement(updatesql)){
+				updatestatement.setString(1, name);
+				updatestatement.setString(2, specialty);
+				updatestatement.setString(3, email);
+				updatestatement.setString(4, phone);
+				
+				updatestatement.setInt(5, patientID);
+
+				updatestatement.executeUpdate();
+				System.out.println("Famdoc updated sucessfully");
+			
+		}
+			
+		}catch (SQLException e) {
+	        System.err.println("Error updating Famdoc: " + e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	public String retrieveFamDocEmail(int id) {
+        StringBuilder patientInfo = new StringBuilder();
+        String sql = "SELECT * FROM famdoc WHERE id = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            
+            pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
+            
+            if (rs.next()) {
+                patientInfo.append(String.format("Email %s",
+                		
+                		rs.getString("email")));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return patientInfo.toString();
+    }
+	
     
     
     
 }
-
 

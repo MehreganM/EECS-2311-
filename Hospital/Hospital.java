@@ -30,10 +30,10 @@ import javax.mail.internet.*;
 
 
 public class Hospital {
-	 Director director;
+	private Director director;
 	 ArrayList<Physician> physicianList=new ArrayList<Physician>();
 	 ArrayList<Nurse> nurseList=new ArrayList<Nurse>();
-	 ArrayList<PhysicianAdministrator> adminList=new ArrayList<PhysicianAdministrator>();
+	private ArrayList<PhysicianAdministrator> adminList=new ArrayList<PhysicianAdministrator>();
 	ArrayList<Patient> patientList=new ArrayList<Patient>();
 	public  final static Laboratory laboratory = new Laboratory();
 	static DatabaseOps dbOps = new DatabaseOps();
@@ -157,6 +157,7 @@ public class Hospital {
 		
 		
 	}
+	
 
 	public ArrayList<Physician> getPhysList(){
 		return this.physicianList;
@@ -367,15 +368,18 @@ public class Hospital {
 		if(patientList.contains(patient)) {
 			//we remove the patient from hospital and physicians'patient list
 			patient.getAssignedPhysician().patients.remove(patient);
-			FamilyDoctor famdoctor = patient.getFamDoc();
-			sendEmail(famdoctor.getEmail(),patient.getName(),patient.medicationsToString());
+			//FamilyDoctor famdoctor = patient.getFamDoc();
+			System.out.println(dbOps.retrieveFamDocEmail(patient.getPatientID()));
+			sendEmail(dbOps.retrieveFamDocEmail(patient.getPatientID()),patient.getName(),patient.medicationsToString());
 			
 			boolean flag= patientList.remove(patient);
 			patient=null;
 			return flag;
 		}
 		else {
+			System.out.println(" There was an issue with the dischargePatient function");
 			return false;
+			
 		}
 		
 	}
@@ -419,40 +423,42 @@ public class Hospital {
 		    return null; 
 	}
 	
-	public static void sendEmail(String recipientEmail, String subject, String body) {
+	public void sendEmail(String recipientEmail, String subject, String body) {
 		 String username = "50tW1tcjvD6M";
 	     String password = "fxJCwpafJjP3"; 
 	     String senderEmail = "eecshospital@gmail.com";
 
-       Properties props = new Properties();
-       props.put("mail.smtp.auth", "true");
-       props.put("mail.smtp.starttls.enable", "true");
-       props.put("mail.smtp.host", "smtp.mailsnag.com"); 
-       props.put("mail.smtp.port", "2525"); 
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", "smtp.mailsnag.com"); 
+        props.put("mail.smtp.port", "2525"); 
 
-       Session session = Session.getInstance(props,
-               new javax.mail.Authenticator() {
-                   protected PasswordAuthentication getPasswordAuthentication() {
-                       return new PasswordAuthentication(username, password);
-                   }
-               });
+        Session session = Session.getInstance(props,
+                new javax.mail.Authenticator() {
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(username, password);
+                    }
+                });
 
-       try {
-           Message message = new MimeMessage(session);
-           message.setFrom(new InternetAddress(senderEmail));
-           message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipientEmail));
-           message.setSubject(subject);
-           message.setText(body);
+        try {
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(senderEmail));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipientEmail));
+            message.setSubject(subject);
+            message.setText(body);
 
-           Transport.send(message);
+            Transport.send(message);
 
-           System.out.println("Email sent successfully!");
+            System.out.println("Email sent successfully!");
 
-       } catch (MessagingException e) {
-           throw new RuntimeException(e);
-       }
-   }
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
+	
+	
 	
 	
 }

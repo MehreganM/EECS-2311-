@@ -146,8 +146,15 @@ public class PatientGUI extends JFrame {
 		dischargeButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				DischargePatientGUI dischargePatient = new DischargePatientGUI(hospital);
-				dischargePatient.setVisible(true);
+				DischargePatientGUI dischargePatient;
+				try {
+					dischargePatient = new DischargePatientGUI(hospital);
+					dischargePatient.setVisible(true);
+				} catch (NoSpaceException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
 			}
 		});
 

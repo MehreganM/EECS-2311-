@@ -139,3 +139,56 @@ Attendance: All members
 - Megan: Fix the admitpatient in hospital
 
 These tasks are due on Sunday at 11:59
+
+### Meeting 9: Monday, March 11, 2024 – 9 pm to 9:30 pm
+Attendance: Amira, Harrish, Parmoun, Gaurav
+
+Task Assignments:
+-	Finalizing iteration 2 for submission. 
+-	Make sure that everyone completed their tasks. 
+-	Submit the evaluation form for ITR 2. 
+
+### Meeting 10: Friday, March 15, 2024 – 4:30 pm to 5:15 pm
+Attendance: Amira, Harrish, Parmoun, Gaurav
+
+Discussion notes: 
+-	Discussed iteration 3. 
+-	Discussed some potential user stories:
+-	Referral system to refer a patient to a specialist.
+-	Specialists can override a medication prescribed by a doctor/family doctor.
+-	Transfer a patient to the next Nurse when the shift is over. 
+-	Nurse can add notes about the patient but cannot remove doctor’s notes. 
+-	Nurses should take essential measurements such as blood pressure, blood sugar, heart rate, etc when the patient is admitted. 
+-	Patient GUI shows the patient list so that the doctor can select a patient and then have a button that shows the measurement taken for that patent. 
+-	Note: Patient Information GUI does not have a real database yet
+
+### Meeting 11: Monday, March 18, 2024- 4:30 pm to 5:30 pm
+Attendance: Amira, Harrish, Parmoun, Gaurav, Mehregan
+
+Discussion notes: 
+-	Re-defined the 15 user stories 
+-	Assigned 3 user stories for each team member. 
+
+Task Assignments:
+Harrish: Hire Nurse, resign physician, resign nurse.
+Amira: Triage patient, find patient, discharge patient.
+Gaurav: Request labs, add lab results, and retrieve lab results. 
+Parmoun: medication prescription, consent form, gather family doctor information. 
+Mehregan: Hire physician, change hospital director, send email to family doctor.
+
+
+
+### Meeting 12: Thursday, March 28, 2024- 3:30 pm to 4:30 pm
+Attendance: Amira, Harrish, Parmoun, Gaurav
+
+Discussion notes: 
+-	Discussed iteration 3. 
+-	Working on completing incomplete user stores, fixing bugs and refactoring. 
+
+Task Assignments:
+Harrish: fix the bugs reported in hiring/resigning physicians/nurses.
+Amira: refactoring and improving the code smells for recording/retrieving vital signs classes. 
+Gaurav: Complete retrieve lab results user story (connect it to the database) and fix any bugs reported in his code. 
+Parmoun: Complete the medication prescription user story and fix any bugs reported in her code.  
+
+

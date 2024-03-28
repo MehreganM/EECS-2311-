@@ -79,17 +79,24 @@ public class AddPhysicianGUI extends JFrame {
         	hospital.hireNurse(hospital.nurseList.get(i));
         	hospital.nurseList.get(i).toString();
         }
+        
+        String username = usernameField.getText().trim();
+        String password = passwordField.getText().trim();
+        
+        if (!validateUsername(username) || !validatePassword(password)) {
+            return; 
+        }
     	
     	String firstName = firstNameField.getText();
         String lastName = lastNameField.getText();
         int age = Integer.parseInt(ageField.getText());
         String gender = genderField.getText();
         String address = addressField.getText();
-        String username = usernameField.getText().trim();
-        String password = passwordField.getText().trim();
+        
         String specialty = (String) specialtyComboBox.getSelectedItem();
         
         Physician newPhysician = new Physician(firstName, lastName, age, gender, address);
+        
         newPhysician.setUser(username);
         newPhysician.setPass(password);
         try {
@@ -104,6 +111,22 @@ public class AddPhysicianGUI extends JFrame {
         
         JOptionPane.showMessageDialog(this, "Physician added successfully.");
         clearFields();
+    }
+    
+    private boolean validateUsername(String username) {
+        if (username.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter a username.", "No Username Given", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
+    }
+    
+    private boolean validatePassword(String password) {
+        if (password.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter a password.", "No Password Given", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
     }
     
     private void clearFields() {

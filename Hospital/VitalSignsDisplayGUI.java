@@ -1,49 +1,44 @@
 package Hospital;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
 import javax.swing.*;
 
 public class VitalSignsDisplayGUI extends JFrame{
 	
-	private JLabel temperatureLabel; 
-	private JLabel systolicPressureLabel; 
-	private JLabel diastolicPressureLabel; 
-	private JLabel heartRateLabel; 
-	private JLabel respiratoryRateLabel; 
+	private JLabel temperatureLabel, systolicPressureLabel, diastolicPressureLabel, heartRateLabel, respiratoryRateLabel; 
 	
+
 	public VitalSignsDisplayGUI(DatabaseHelper databaseHelper) {
 		
+		// Set up of the display
 		setTitle("Vital Signs Display");
-		setSize(300,  300);
+		setSize(400, 250);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
-		JPanel panel = new JPanel();
+		// inputPanel to enter patient id and submit button
+		JPanel inputPanel = new JPanel();
 		JLabel patientIDLabel = new JLabel("Enter Patient ID: ");
 		JTextField patientIDField = new JTextField(10);
 		JButton submitButton = new JButton("Submit");
-		
-		
 
-		
-		
-	//	panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-		
-//        String patientIdInput = JOptionPane.showInputDialog(this, "Enter Patient ID:");
-//        if(patientIdInput == null) {
-//           // JOptionPane.showMessageDialog(this, "Please enter a valid Patient ID", "Error", JOptionPane.ERROR_MESSAGE);
-//        	dispose();
-//        	return; 
-//        }
-		
+		//panel to display the vital signs
+		JPanel displayPanel = new JPanel(new GridLayout(0, 1));
+
+		// Functionality of the submit button
 		submitButton.addActionListener(e -> {
+			// Clear the panel from any previous information
+			displayPanel.removeAll();
+			
+			// get and parse the value entered for the patient id
 			String patientIdInput = patientIDField.getText();
 			try {
         	int PatientID = Integer.parseInt(patientIdInput);
         	
+        	// Call the retrieveViatlSigns method in the databaseHelper to get the vital signs of the patient
 			VitalSigns vitalsigns = databaseHelper.retrieveVitalSigns(PatientID);
 			
+			// If there are vital signs recorded for the patient, display it and print it in the console
 			if(vitalsigns != null) {
 				temperatureLabel = new JLabel("Temperature: " + vitalsigns.getTemperature() + "°C");
 				systolicPressureLabel = new JLabel("Systolic Pressure: " + vitalsigns.getSystolicPressure() + " mmHg");
@@ -51,47 +46,50 @@ public class VitalSignsDisplayGUI extends JFrame{
 				heartRateLabel = new JLabel("Heart Rate: " + vitalsigns.getHeartRate() + " bpm\n");
 				respiratoryRateLabel = new JLabel("Respiratory Rate: " + vitalsigns.getRespiratoryRate() + " breaths/min");
 				
-				panel.add(temperatureLabel);
-				panel.add(systolicPressureLabel);
-				panel.add(diastolicPressureLabel);
-				panel.add(heartRateLabel);
-				panel.add(respiratoryRateLabel);
+				displayPanel.add(temperatureLabel);
+				displayPanel.add(systolicPressureLabel);
+				displayPanel.add(diastolicPressureLabel);
+				displayPanel.add(heartRateLabel);
+				displayPanel.add(respiratoryRateLabel);
 				
-				panel.revalidate();
-	            panel.repaint();
+				displayPanel.revalidate();
+				displayPanel.repaint();
 			
 			}
 			else {
+				// If no vital signs recorded, print an informative message for the user
 				JLabel NoVitals = new JLabel("No vital signs recorded for this patient");
-				panel.add(NoVitals);
+				 NoVitals.setHorizontalAlignment(SwingConstants.CENTER);
+				 displayPanel.add(NoVitals);
 				
-				panel.revalidate();
-	            panel.repaint();
+				 displayPanel.revalidate();
+				 displayPanel.repaint();
 			}
 
-
+		// If this no/wrong input, throw an exception and display an informative message to the user
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Invalid patient ID. Please enter a valid integer.", "Error", JOptionPane.ERROR_MESSAGE);
            return;
 		}
 		});
 		
-		panel.add(patientIDLabel);
-		panel.add(patientIDField);
-		panel.add(submitButton);
-	
-		add(panel);
+		// Return button to close the window
+        JButton returnButton = new JButton("Return");
+        returnButton.addActionListener(e -> {
+            dispose(); // Close the window
+        });
+		
+		// Add patientIDLabel, patientIDField, and submitButton to the inputPanel
+		inputPanel.add(patientIDLabel);
+		inputPanel.add(patientIDField);
+		inputPanel.add(submitButton);	
+
+		// Add the inputPanel and panel to the frame
+		add(inputPanel, BorderLayout.NORTH);
+		add(displayPanel, BorderLayout.CENTER);
+		add(returnButton, BorderLayout.SOUTH);
+		
 		setLocationRelativeTo(null);
 		setVisible(true);
-		
 	}
-	public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            // Example usage:
-            DatabaseHelper databaseHelper = new DatabaseHelper();
-            new VitalSignsDisplayGUI(databaseHelper);
-        });
-	}
-	
-	
 }

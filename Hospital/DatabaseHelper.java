@@ -255,13 +255,13 @@ public class DatabaseHelper {
 					int diastolicPressure = resultset.getInt("diastolic_pressure"); 
 					int heartRate = resultset.getInt("heart_rate");
 					int RespiratoryRate = resultset.getInt("respiratory_rate");
-					
-					System.out.println("Temperature: " + Temperature );
-			        System.out.println("Systolic Pressure: " + systolicPressure);
-			        System.out.println("Diastolic Pressure: " + diastolicPressure);
-			        System.out.println("Blood Pressure: " + systolicPressure + "/" + diastolicPressure);
-			        System.out.println("Heart Rate: " + heartRate);
-			        System.out.println("Respiratory Rate: " + RespiratoryRate);
+
+					System.out.println("Temperature: " + Temperature + "°C");
+					System.out.println("Systolic Pressure: " + systolicPressure + " mmHg");
+			        	System.out.println("Diastolic Pressure: " + diastolicPressure + " mmHg");
+			        	System.out.println("Blood Pressure: " + systolicPressure + "/" + diastolicPressure + " mmHg");
+			        	System.out.println("Heart Rate: " + heartRate + " bpm\n");
+			        	System.out.println("Respiratory Rate: " + RespiratoryRate + " breaths/min");
 			        
 			        vitalsigns = new VitalSigns(Temperature, systolicPressure, diastolicPressure, heartRate, RespiratoryRate);
 				

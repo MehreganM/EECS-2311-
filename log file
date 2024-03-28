@@ -105,6 +105,27 @@ These tasks are due on Sunday at 11:59
 -	Note: Patient Information GUI does not have a real database yet.
  
 
+### Meeting 11: (Monday, March 18, 2024- 4:30 pm to 5:30 pm)
+-	Re-defined the 15 user stories 
+-	Assigned 3 user stories for each team member. 
+
+Harrish: Hire Nurse, resign physician, resign nurse.
+Amira: Triage patient, find patient, discharge patient.
+Gaurav: Request labs, add lab results, and retrieve lab results. 
+Parmoun: medication prescription, consent form, gather family doctor information. 
+Mehregan: Hire physician, change hospital director, send email to family doctor.
+
+### Meeting 12: (Thursday, March 28, 2024- 3:30 pm to 4:30 pm)
+-	Discussed iteration 3. 
+-	Working on completing incomplete user stores, fixing bugs and refactoring.
+
+Harrish: fix the bugs reported in hiring/resigning physicians/nurses.
+Amira: refactoring and improving the code smells for recording/retrieving vital signs classes. 
+Gaurav: Complete retrieve lab results user story (connect it to the database) and fix any bugs reported in his code. 
+Parmoun: Complete medication prescription user story and fix any bugs reported in her code.  
+
+
+
 ## Changes and Decisions
 
 - Decisions on project ideas and tools were based on the team’s expertise, project feasibility, and potential impact.

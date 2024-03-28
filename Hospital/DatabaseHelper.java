@@ -260,7 +260,7 @@ public class DatabaseHelper {
 					System.out.println("Systolic Pressure: " + systolicPressure + " mmHg");
 			        	System.out.println("Diastolic Pressure: " + diastolicPressure + " mmHg");
 			        	System.out.println("Blood Pressure: " + systolicPressure + "/" + diastolicPressure + " mmHg");
-			        	System.out.println("Heart Rate: " + heartRate + " bpm\n");
+			        	System.out.println("Heart Rate: " + heartRate + " bpm\min");
 			        	System.out.println("Respiratory Rate: " + RespiratoryRate + " breaths/min");
 			        
 			        vitalsigns = new VitalSigns(Temperature, systolicPressure, diastolicPressure, heartRate, RespiratoryRate);

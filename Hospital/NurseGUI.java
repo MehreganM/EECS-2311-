@@ -10,6 +10,7 @@ public class NurseGUI extends JFrame {
 	    private JLabel familyDoctorLabel;
 	    private JTextField familyDoctorField;
 	    private JButton assignFamilyDoctorButton;
+	    private JButton backButton;
 	    Nurse nurse; // Nurse who logged in
 	    Hospital hospital;
 	    
@@ -34,6 +35,7 @@ public class NurseGUI extends JFrame {
 	        addPatientButton = new JButton("Add Patient");
 	        viewPatientsButton = new JButton("View Patients");
 	        assignFamilyDoctorButton = new JButton("Assign/Find Family Doctor");
+	        backButton = new JButton("Sign Out");
 
 	        addPatientButton.addActionListener(e -> {
 				try {
@@ -45,16 +47,32 @@ public class NurseGUI extends JFrame {
 			});
 	        viewPatientsButton.addActionListener(this::extractAndDisplayPatientDetails);
 	        assignFamilyDoctorButton.addActionListener(this::assignOrFindFamilyDoctor);
+	        backButton.addActionListener(this::goBack);
 
 	        add(addPatientButton);
 	        add(viewPatientsButton);
 	        add(familyDoctorLabel);
 	        add(familyDoctorField);
 	        add(assignFamilyDoctorButton);
+	        
 
 	        JButton submitButton = new JButton("Submit Form");
 	        submitButton.addActionListener(this::submitConsentForm);
 	        add(submitButton);
+	        add(backButton);
+	        
+	    }
+	    
+	    private void goBack(ActionEvent e) {
+	    	LoginGUI logingui;
+			try {
+				logingui = new LoginGUI(hospital);
+				logingui.setVisible(true);
+				this.dispose();
+			} catch (NoSpaceException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 	    }
 
 	    private void assignOrFindFamilyDoctor(ActionEvent e) {

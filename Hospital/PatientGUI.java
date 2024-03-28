@@ -1,5 +1,6 @@
 package Hospital;
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
@@ -13,6 +14,8 @@ public class PatientGUI extends JFrame {
 
     private JTextArea patientInfoArea;
     private JButton DisplayPatients, RecordVitals, RetrieveVitals, Labs_Meds, dischargeButton;
+    private JButton backButton;
+    
 
     public PatientGUI(Hospital hospital) {
         this.hospital = hospital;
@@ -38,7 +41,10 @@ public class PatientGUI extends JFrame {
         RetrieveVitals = new JButton("Retrieve Vital Signs");
         Labs_Meds = new JButton("View Lab results");
         DisplayPatients = new JButton("Display All Patients");
-	dischargeButton = new JButton("Discharge Patient");
+        dischargeButton = new JButton("Discharge Patient");
+        
+        
+        
 
 
         // Display all the patients
@@ -157,6 +163,19 @@ public class PatientGUI extends JFrame {
 				
 			}
 		});
+		
+		backButton = new JButton("Back to Login");
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                goBackToLogin();
+            }
+        });
+		
+	
+		
+		 
+		 
 
         JPanel mainPanel = new JPanel();
         JPanel panel = new JPanel();
@@ -168,12 +187,38 @@ public class PatientGUI extends JFrame {
         panel.add(Labs_Meds);
         panel.add(dischargeButton);
         panel.add(requestLab);
+        panel.add(backButton);
+        
+        
         add(mainPanel);
         add(mainPanel, BorderLayout.NORTH);
         add(scrollPane, BorderLayout.CENTER);
         add(panel, BorderLayout.SOUTH);
 
     }
+    
+    private void goBackToLogin() {
+        // Dispose the current window
+        this.dispose();
+
+        // Open the LoginGUI window
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                LoginGUI loginGUI;
+				try {
+					loginGUI = new LoginGUI(hospital);
+					loginGUI.setVisible(true);
+				} catch (NoSpaceException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+                
+            }
+        });
+    }
+    
+    
 
    
     public static void main(String[] args) {

@@ -43,26 +43,39 @@ public class FireNurseGUI extends JFrame {
 
     private void populateNursesComboBox() {
         nurseComboBox.removeAllItems(); // Clear current items
-        nameToNurseMap.clear(); // Clear the mapping
-        ArrayList<Nurse> nurses = databaseOps.getAllNurses(); // Assume this method exists
-        for (Nurse nurse : nurses) {
-            String nurseName = nurse.getName() + " - Age: " + nurse.getAge(); 
-            nameToNurseMap.put(nurseName, nurse);
-            nurseComboBox.addItem(nurseName);
-        }
+        String nursesInfo = databaseOps.getAllNurses1();
+    	if(!nursesInfo.isEmpty()) {
+    		String[] nurseLines = nursesInfo.split("\n");
+    	
+    	
+    	System.out.println(nurseLines);
+    	
+    	// Iterate through all the nurses in the database and add it to the comboBox
+    	for (String nurse : nurseLines) {
+    		String parts [] = nurse.split(",");
+    		
+    		int nurseID = Integer.parseInt(parts[0].split(": ")[1]);
+    		String firstname = parts[1].split(": ")[1];
+    		String lastname = parts[2].split(": ")[1];
+    		int age = Integer.parseInt(parts[3].split(": ")[1]);
+     
+            String nurseList = String.format("ID: %d, FirstName: %s, Last name: %s, Age: %d", nurseID, firstname, lastname, age );
+            System.out.println(nurseList.toString());
+            nurseComboBox.addItem(nurseList);
+    		}
+    	}
+    }    
 
-  }
-    
-
-    void removeSelectedNurse() throws IllegalArgumentException {
-        String selectedNurseName = (String) nurseComboBox.getSelectedItem();
-        if (selectedNurseName != null && nameToNurseMap.containsKey(selectedNurseName)) {
-            Nurse nurse = nameToNurseMap.get(selectedNurseName);
-            databaseOps.deleteNurse(nurse.getFirstName());
-			hospital.resignNurse(nurse);				
-            populateNursesComboBox(); // Refresh list
-            // Optionally, remove the nurse from the database as well
-            
+    private void removeSelectedNurse() {
+        String selectedNurseInfo = (String) nurseComboBox.getSelectedItem();
+        if (selectedNurseInfo != null) {
+            // Extract the nurse ID from the selected item
+                int nurseID = Integer.parseInt(selectedNurseInfo.split(",")[0].split(":")[1].trim());
+                // Use the extracted ID to delete the nurse from the database
+                databaseOps.deleteNurse(nurseID);
+                JOptionPane.showMessageDialog(FireNurseGUI.this, "Nurse resigned successfully.");
+                System.out.println("Nurse resigned successfully.");
+                populateNursesComboBox();            
         }
     }
 

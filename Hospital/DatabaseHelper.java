@@ -19,7 +19,7 @@ public class DatabaseHelper {
 
 	private static final String URL = "jdbc:postgresql://localhost:5432/postgres";
 	private static final String USER = "postgres";
-	private static final String PASSWORD = "harrish5";
+	private static final String PASSWORD = "1234";
 
 	
 	public static Connection getConnection() {
@@ -74,13 +74,13 @@ public class DatabaseHelper {
      */
 	public void storePatientData(String firstName, String lastName, int age, String gender, String address) {
 		try( Connection connection = getConnection()){
-			String sql = "INSERT INTO patients(fname, lname, age, address, gender)" + "VALUES(?,?,?,?,?)";
+			String sql = "INSERT INTO patient_info(first_name, last_name, age, gender, address)" + "VALUES(?,?,?,?,?)";
 			try(PreparedStatement statement = connection.prepareStatement(sql)){
 				statement.setString(1, firstName);
 				statement.setString(2, lastName);
 				statement.setInt(3, age);
-				statement.setString(4, address);
-				statement.setString(5, gender);
+				statement.setString(4, gender);
+				statement.setString(5, address);
 				
 				statement.executeUpdate();
 				System.out.println("Patient data stored sucessfully");
@@ -113,8 +113,8 @@ public class DatabaseHelper {
 					String firstName = resultset.getString("fname");
 					String lastName = resultset.getString("lname");
 					int age = resultset.getInt("age");
-					String address = resultset.getString("address");
 					String gender = resultset.getString("gender");
+					String address = resultset.getString("address");
 					
 					
 					System.out.println("Patient ID: " + patientID);
@@ -135,46 +135,6 @@ public class DatabaseHelper {
 				
 		
 	}
-	/**
-	 * This method is to retrieve patient information from the database
-	 * @param id is the id of the patient by which the information will be retrieved
-	 * @author Amira Mohamed
-	 */
-	public void retievePatientData(int id) {
-		try( Connection connection = getConnection()){
-			String sql = "SELECT * FROM patients WHERE id = ?";
-			try(PreparedStatement statement = connection.prepareStatement(sql)){
-				statement.setInt(1, id);
-				
-				ResultSet resultset = statement.executeQuery();
-				while(resultset.next()) {
-					int patientID = resultset.getInt("id");
-					String firstName = resultset.getString("fname");
-					String lastName = resultset.getString("lname");
-					int age = resultset.getInt("age");
-					String address = resultset.getString("address");
-					String gender = resultset.getString("gender");
-
-					
-					System.out.println("Patient ID: " + patientID);
-					System.out.println("First Name:" + firstName);
-					System.out.println("Last Name: " + lastName);
-					System.out.println("Age: " + age);
-					System.out.println("Gender: " + gender);
-					System. out. println("Address: " + address);
-				}
-				
-			}
-			
-			
-		} catch (SQLException e) {
-			System.err.println("ERROR retrieving patient data: " + e.getMessage());
-			e.printStackTrace();
-		}
-				
-		
-	}
-	
 
 	/**
 	 * This method is to check if there is a vital signs recorded for the patient. If there is, it will
@@ -295,13 +255,13 @@ public class DatabaseHelper {
 					int diastolicPressure = resultset.getInt("diastolic_pressure"); 
 					int heartRate = resultset.getInt("heart_rate");
 					int RespiratoryRate = resultset.getInt("respiratory_rate");
-
-					System.out.println("Temperature: " + Temperature + "°C");
-					System.out.println("Systolic Pressure: " + systolicPressure + " mmHg");
-			        	System.out.println("Diastolic Pressure: " + diastolicPressure + " mmHg");
-			        	System.out.println("Blood Pressure: " + systolicPressure + "/" + diastolicPressure + " mmHg");
-			        	System.out.println("Heart Rate: " + heartRate + " bpm/min");
-			        	System.out.println("Respiratory Rate: " + RespiratoryRate + " breaths/min");
+					
+					System.out.println("Temperature: " + Temperature );
+			        System.out.println("Systolic Pressure: " + systolicPressure);
+			        System.out.println("Diastolic Pressure: " + diastolicPressure);
+			        System.out.println("Blood Pressure: " + systolicPressure + "/" + diastolicPressure);
+			        System.out.println("Heart Rate: " + heartRate);
+			        System.out.println("Respiratory Rate: " + RespiratoryRate);
 			        
 			        vitalsigns = new VitalSigns(Temperature, systolicPressure, diastolicPressure, heartRate, RespiratoryRate);
 				
@@ -320,5 +280,33 @@ public class DatabaseHelper {
 				
 		
 	}
+	/**
+	 * @author Parmoun
+	 * Prescription
+	 */
 
-}
+	public static boolean addPrescription(Prescription prescription) {
+	    String sql = "INSERT INTO prescriptions (patient_id, physician_name, medication_name, dosage, instructions) VALUES (?, ?, ?, ?, ?)";
+
+	    try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+	         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+	        pstmt.setInt(1, prescription.getPatientId());
+	        pstmt.setString(2, prescription.getPhysicianName());
+	        pstmt.setString(3, prescription.getMedicationName());
+	        pstmt.setString(4, prescription.getDosage());
+	        pstmt.setString(5, prescription.getInstructions());
+
+	        int affectedRows = pstmt.executeUpdate();
+	        return affectedRows > 0;
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return false;
+	    }
+	}
+	
+	}
+
+
+
+

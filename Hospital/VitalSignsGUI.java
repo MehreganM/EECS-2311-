@@ -1,14 +1,12 @@
-
 package Hospital;
 
-
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 
 import javax.swing.*;
-
 
 /**
  * This the Vital Signs GUI that stores the vital signs to the database.
@@ -17,7 +15,9 @@ import javax.swing.*;
  */
 public class VitalSignsGUI extends JFrame{
 	
+	// Connecting to database
 	DatabaseHelper database;
+	DatabaseOps dataOps;
 	
 	// GUI components for the Vital Signs
 	private JTextField temperatureField; 
@@ -27,13 +27,15 @@ public class VitalSignsGUI extends JFrame{
 	private JTextField respiratoryRateField; 	
 	
 	// GUI components for patient information
-	private JTextField patientNameField;
+//	private JTextField patientNameField;
 	private JTextField patientIdField;	
 	
 	
 	public VitalSignsGUI() {
 		database = new DatabaseHelper();
+		dataOps = new DatabaseOps();
 		
+		// Set up the frame
 		setTitle("Vital Signs Panel");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(400, 400);
@@ -73,8 +75,8 @@ public class VitalSignsGUI extends JFrame{
         respiratoryRateField = new JTextField(10);
         mainPanel.add(respiratoryRateField);
         
+        // Creating record button
         JButton recordButton = new JButton("Record Vital Signs");
-        
         recordButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -82,22 +84,29 @@ public class VitalSignsGUI extends JFrame{
             }
         });
         
-
+        // Add record button to the panel and it validate the input of the user
         mainPanel.add(recordButton);
-        
         mainPanel.addFocusListener(new FocusAdapter() {
         	@Override
         	public void focusLost(FocusEvent e) {
         		validateInput();	
         	}
 		});
+        
+     // Return button to close the window
+        JButton returnButton = new JButton("Return");
+        returnButton.addActionListener(e -> {
+            dispose(); // Close the window
+        });
 
         add(mainPanel);
+        add(returnButton, BorderLayout.SOUTH);
         pack();
         setLocationRelativeTo(null);
 
 	}
 	
+	// This method is to validate the input of the user
 	private void validateInput() {
 		try {
 			int PatientID = Integer.parseInt(patientIdField.getText());
@@ -121,15 +130,24 @@ public class VitalSignsGUI extends JFrame{
 		
 	}
 	
+	// This method validates patientID field
 	private boolean validatePatientID(int patientID) {
 		if (patientID < 0) {
-			System.out.println("Invalid Patient ID");
-			JOptionPane.showMessageDialog(VitalSignsGUI.this, "Please enter valid value for Patient ID (greater than 0)", "Invalid Patient ID", JOptionPane.ERROR_MESSAGE);
+				System.out.println("Invalid Patient ID");
+				JOptionPane.showMessageDialog(VitalSignsGUI.this, "Please enter valid value for Patient ID (greater than 0)", "Invalid Patient ID", JOptionPane.ERROR_MESSAGE);
+				return false;
+			}
+		
+		if(dataOps.getPatientByIds(patientID) == null) {
+			System.out.println("No Patient with this ID");
+			JOptionPane.showMessageDialog(VitalSignsGUI.this, "Please enter an existing Patient ID", "Invalid Patient ID", JOptionPane.ERROR_MESSAGE);
 			return false;
-		}
+	}
+			
 		return true;
 	}
-
+	
+	// This method validates temperature field
 	private boolean validateTemperatureInput(double temp) {
 		if (temp < 30 || temp > 45) {
 			System.out.println("Invalid Temperature");
@@ -140,6 +158,7 @@ public class VitalSignsGUI extends JFrame{
 		
 	}
 
+	// This method validates systolicPressure and diastolicPressure fields
 	private boolean validatePressureInput(int systolicPressure, int diastolicPressure) {
 		if (systolicPressure < 0 || systolicPressure > 200 || diastolicPressure < 0 || diastolicPressure > 200) {
 			System.out.println("Invalid Pressure");
@@ -149,6 +168,7 @@ public class VitalSignsGUI extends JFrame{
 		return true;
 	}
 
+	// This method validates heart rate field
 	private boolean validateHeartRateInput(int heartRate) {
 		if (heartRate < 0 || heartRate > 200) {
 			System.out.println("Invalid Heart Rate");
@@ -158,6 +178,7 @@ public class VitalSignsGUI extends JFrame{
 		return true;
 	}
 	
+	// This method validates respiratory rate field
 	private boolean validateRespiratoryRateInput(int respiratoryRate) {
 		if (respiratoryRate < 10 || respiratoryRate > 60) {
 			System.out.println("Invalid Respiratory Rate");
@@ -167,11 +188,14 @@ public class VitalSignsGUI extends JFrame{
 		return true;
 	}
 
+	// this method records the entered vital signs to the database
 	private void recordVitalSigns(int PatientID, double temperature, int systolicPressure, int diastolicPressure, int heartRate, int respiratoryRate) {
-		
+	    
+		// It clears the fields after being recorded and display the recorded data in the console
+		clearFields();
 		database.storeVitalSigns(PatientID, temperature, systolicPressure, diastolicPressure, heartRate, respiratoryRate);
 	    JOptionPane.showMessageDialog(this, "Vital signs recorded successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
-
+	    
 		System.out.println("Vital signs recorded: ");
 		System.out.println("Temperature: " + temperature + "°C");
 		System.out.println("Systolic Pressure: " + systolicPressure + " mmHg");
@@ -182,6 +206,17 @@ public class VitalSignsGUI extends JFrame{
 		
 				
 		}
+	
+	//This method is to clear the fields entered by the user after being recorded
+	 private void clearFields() {
+		 patientIdField.setText("");
+		 temperatureField.setText("");
+		 systolicPressureField.setText("");
+		 diastolicPressureField.setText("");
+		 heartRateField.setText("");
+		 respiratoryRateField.setText("");
+	        
+	    }
 	
 	 public static void main(String[] args) {
 	        SwingUtilities.invokeLater(() -> {

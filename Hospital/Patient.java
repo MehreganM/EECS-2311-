@@ -29,6 +29,7 @@ public class Patient extends Person implements Comparable<Patient>{
 		Id++;
 		this.patientID=Id;
 	}
+	
 	/**
 	 * this overloaded constructor initializes the given inputs to the appropriate
 	 * attributes of the Patient
@@ -73,11 +74,15 @@ public class Patient extends Person implements Comparable<Patient>{
 	        this.patientID = Id;
 	        this.familyDoctor = familyDoctor;
 	    }
-	    public FamilyDoctor getFamDoc() {
+	    public Patient(int int1, String string, String string2, int int2, String string3, String string4,
+				String string5) {
+		}
+
+		public FamilyDoctor getFamilyDoctor() {
 	        return familyDoctor;
 	    }
 
-	    public void setFamDoc(FamilyDoctor familyDoctor) {
+	    public void setFamilyDoctor(FamilyDoctor familyDoctor) {
 	        this.familyDoctor = familyDoctor;
 	    }
 	/**

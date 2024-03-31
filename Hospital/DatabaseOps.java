@@ -14,7 +14,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 public class DatabaseOps {
-	  public void addPatient(Patient patient) {
+	 public void addPatient(Patient patient) {
 	        String sql = "INSERT INTO patients (ID, Fname, Lname, age, address, gender, doctor, nurse, family_doctor) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 	        try (Connection conn = DatabaseConnection.getConnection();
@@ -33,7 +33,7 @@ public class DatabaseOps {
 	            int nurse = patient.getNurse() != null ? patient.getNurse().getEmployeeID() : 0;
 	            pstmt.setInt(7, nurse);
 	            
-	            String famdr = patient.getFamilyDoctor() != null ? patient.getFamilyDoctor().toString() : "[None]";
+	            String famdr = patient.getFamDoc() != null ? patient.getFamDoc().toString() : "[None]";
 	            pstmt.setString(9, famdr);
 	            
 	             pstmt.executeUpdate();

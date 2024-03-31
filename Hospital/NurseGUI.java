@@ -82,14 +82,9 @@ private void assignOrFindFamilyDoctor(ActionEvent e) {
 
 	private void goBack(ActionEvent e) {
 	    	RoleSelectionGUI logingui;
-			try {
-				logingui = new RoleSelectionGUI(hospital);
-				logingui.setVisible(true);
-				this.dispose();
-			} catch (NoSpaceException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			logingui = new RoleSelectionGUI(hospital);
+			logingui.setVisible(true);
+			this.dispose();
 	    }
 
 /**

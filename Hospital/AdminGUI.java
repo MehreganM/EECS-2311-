@@ -74,15 +74,9 @@ public class AdminGUI extends JFrame implements ActionListener{
 	        
 	        else if (source == backButton) {
 	        	
-	        	LoginGUI logingui;
-				try {
-					logingui = new LoginGUI(hospital);
-					logingui.setVisible(true);
-					this.dispose();
-				} catch (NoSpaceException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+	        	RoleSelectionGUI loginGUI;
+				loginGUI = new RoleSelectionGUI(hospital);
+				loginGUI.setVisible(true);
 	      
 	        }
 	    } 

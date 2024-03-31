@@ -89,9 +89,9 @@ public class RoleSelectionGUI extends JFrame {
             }
         });
 
-        add(nurseButton);
-        add(doctorButton);
         add(adminRole);
+        add(doctorButton);
+        add(nurseButton);        
         add(labButton);
     }
 

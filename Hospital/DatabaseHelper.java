@@ -12,7 +12,7 @@ import org.junit.jupiter.api.io.TempDir;
 /**
  * This is the database for the patients. It stores patient information such as first name, last name,
  * age, gender, and address. It manages storing patient information, retrieving patient information, 
- * storing vital signs, and retrieving vital signs from the databse. 
+ * storing vital signs, and retrieving vital signs from the database. 
  * @author Amira Mohamed
  */
 public class DatabaseHelper {
@@ -64,7 +64,7 @@ public class DatabaseHelper {
 	    }
 	}
     /**
-     * This method is to store patient information to the database
+     * This method is to store patient information in the database
      * @param firstName is the first name of the patient 
      * @param lastName is the last name of the patient 
      * @param age is the age of the patient 
@@ -72,15 +72,15 @@ public class DatabaseHelper {
      * @param address is the address of the patient
      * @author Amira Mohamed
      */
-	public void storePatientData(String firstName, String lastName, int age, String gender, String address) {
+	public void storePatientData(String firstName, String lastName, int age, String address, String gender) {
 		try( Connection connection = getConnection()){
-			String sql = "INSERT INTO patient_info(first_name, last_name, age, gender, address)" + "VALUES(?,?,?,?,?)";
+			String sql = "INSERT INTO patients(fname, lname, age, address, gender)" + "VALUES(?,?,?,?,?)";
 			try(PreparedStatement statement = connection.prepareStatement(sql)){
 				statement.setString(1, firstName);
 				statement.setString(2, lastName);
 				statement.setInt(3, age);
-				statement.setString(4, gender);
-				statement.setString(5, address);
+				statement.setString(4, address);
+				statement.setString(5, gender);
 				
 				statement.executeUpdate();
 				System.out.println("Patient data stored sucessfully");
@@ -105,7 +105,7 @@ public class DatabaseHelper {
 		try( Connection connection = getConnection()){
 			String sql = "SELECT * FROM patients WHERE fname = ?";
 			try(PreparedStatement statement = connection.prepareStatement(sql)){
-				statement.setString(1, firstname);
+				statement.setString(2, firstname);
 				
 				ResultSet resultset = statement.executeQuery();
 				while(resultset.next()) {
@@ -113,8 +113,8 @@ public class DatabaseHelper {
 					String firstName = resultset.getString("fname");
 					String lastName = resultset.getString("lname");
 					int age = resultset.getInt("age");
-					String gender = resultset.getString("gender");
 					String address = resultset.getString("address");
+					String gender = resultset.getString("gender");
 					
 					
 					System.out.println("Patient ID: " + patientID);
@@ -135,6 +135,47 @@ public class DatabaseHelper {
 				
 		
 	}
+
+	/**
+	 * This method is to retrieve patient information from the database
+	 * @param id is the id of the patient by which the information will be retrieved
+	 * @author Amira Mohamed
+	 */
+	public void retievePatientData(int id) {
+		try( Connection connection = getConnection()){
+			String sql = "SELECT * FROM patients WHERE id = ?";
+			try(PreparedStatement statement = connection.prepareStatement(sql)){
+				statement.setInt(1, id);
+				
+				ResultSet resultset = statement.executeQuery();
+				while(resultset.next()) {
+					int patientID = resultset.getInt("id");
+					String firstName = resultset.getString("fname");
+					String lastName = resultset.getString("lname");
+					int age = resultset.getInt("age");
+					String address = resultset.getString("address");
+					String gender = resultset.getString("gender");
+
+					
+					System.out.println("Patient ID: " + patientID);
+					System.out.println("First Name:" + firstName);
+					System.out.println("Last Name: " + lastName);
+					System.out.println("Age: " + age);
+					System.out.println("Gender: " + gender);
+					System. out. println("Address: " + address);
+				}
+				
+			}
+			
+			
+		} catch (SQLException e) {
+			System.err.println("ERROR retrieving patient data: " + e.getMessage());
+			e.printStackTrace();
+		}
+				
+		
+	}
+	
 
 	/**
 	 * This method is to check if there is a vital signs recorded for the patient. If there is, it will
@@ -256,12 +297,12 @@ public class DatabaseHelper {
 					int heartRate = resultset.getInt("heart_rate");
 					int RespiratoryRate = resultset.getInt("respiratory_rate");
 					
-					System.out.println("Temperature: " + Temperature );
-			        System.out.println("Systolic Pressure: " + systolicPressure);
-			        System.out.println("Diastolic Pressure: " + diastolicPressure);
-			        System.out.println("Blood Pressure: " + systolicPressure + "/" + diastolicPressure);
-			        System.out.println("Heart Rate: " + heartRate);
-			        System.out.println("Respiratory Rate: " + RespiratoryRate);
+					System.out.println("Temperature: " + Temperature + "°C");
+			        System.out.println("Systolic Pressure: " + systolicPressure + " mmHg");
+			        System.out.println("Diastolic Pressure: " + diastolicPressure + " mmHg");
+			        System.out.println("Blood Pressure: " + systolicPressure + "/" + diastolicPressure + " mmHg");
+			        System.out.println("Heart Rate: " + heartRate + " bpm/min");
+			        System.out.println("Respiratory Rate: " + RespiratoryRate + " breaths/min");
 			        
 			        vitalsigns = new VitalSigns(Temperature, systolicPressure, diastolicPressure, heartRate, RespiratoryRate);
 				

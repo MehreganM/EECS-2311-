@@ -187,8 +187,24 @@ Discussion notes:
 
 Task Assignments:
 Harrish: fix the bugs reported in hiring/resigning physicians/nurses.
-Amira: refactoring and improving the code smells for recording/retrieving vital signs classes. 
+Amira: work on discharge patient functionality and refactoring and improving the code smells for recording/retrieving vital signs classes. 
 Gaurav: Complete retrieve lab results user story (connect it to the database) and fix any bugs reported in his code. 
 Parmoun: Complete the medication prescription user story and fix any bugs reported in her code.  
 
+### Meeting 13: (Friday, March 29, 2024- 5:00 pm to 6:00 pm)
+Attendance: Amira, Parmoun, Gaurav, Mehregan
+
+-	Discussed iteration 3 and other ideas. 
+-	Working on completing incomplete user stores, fixing bugs and refactoring.
+
+Harrish: Add feature for nurse to assign physicians to the patient
+Amira: refactoring and improving the code smells for recording/retrieving vital signs classes. 
+Gaurav: Add a "Log in as laboratory" and a user and pass and connect it to laboratory dashboard 
+Mehregan: under send email check if there is an email, if no email discharge patient and no family doctor 
+ 
+Unassigned:
+- add a feature to show which patients are under the nurse logged in
+- Fix the issue regarding the nurse ID's and the Physician ID's 
+
+a feature for the physician to reassign to another physician - maybe if needed
 

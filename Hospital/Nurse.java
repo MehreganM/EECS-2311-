@@ -1,156 +1,99 @@
 package Hospital;
 
-//@author : Harrish 
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
-import java.util.stream.Collectors;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+public class RoleSelectionGUI extends JFrame {
+    private JButton nurseButton;
+    private JButton doctorButton;
+    private JButton adminRole;
+    private Hospital hospital;
 
-public class Nurse extends Employee {
-	
-	  public ArrayList<Patient> patients = new ArrayList<>();
+    public RoleSelectionGUI(Hospital hospital) {
+        this.hospital = hospital;
+        setTitle("Select Role");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(300, 100);
+        setLocationRelativeTo(null);
+        setLayout(new FlowLayout());
 
-	    public Nurse(String firstName, String lastName, int age, String gender, String address) {
-	        super(firstName, lastName, age, gender, address);
-	    }
+        nurseButton = new JButton("Login as Nurse");
+        doctorButton = new JButton("Login as Doctor");
+        adminRole = new JButton("Admin Login");
 
+        
+        /////////////////////////////////////
+        nurseButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                EventQueue.invokeLater(() -> {
+                    try {
+						new LoginGUI(hospital).setVisible(true);
+					} catch (NoSpaceException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+                });
+                dispose(); // Close role selection window
+            }
+        });
 
-	    public List<FamilyDoctor> searchFamilyDoctors(String searchQuery) {
-	     
-	        return DatabaseOps.findFamilyDoctorsInPatientsInfo(searchQuery);
-	    }
+        doctorButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                EventQueue.invokeLater(() -> {
+                    try {
+						new LoginGUI(hospital).setVisible(true);
+					} catch (NoSpaceException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+                });
+                dispose(); // Close role selection window
+            }
+        });
+        
+        adminRole.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                EventQueue.invokeLater(() -> {
+                    try {
+						new LoginGUI(hospital).setVisible(true);
+					} catch (NoSpaceException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+                });
+                dispose(); // Close role selection window
+            }
+        });
+        
+        
 
-	
-	    public boolean addPatient(Patient patient) {
-	        if (patients.size() < 15) {
-	            patients.add(patient);
-	            patient.setNurse(this);
-	            // Automatically assign a default family doctor if none is present
-	            if (patient.getFamilyDoctor() == null) {
-	                patient.setFamilyDoctor(createOrGetDefaultFamilyDoctor());
-	            }
-	            return true;
-	        } else {
-	            return false;
-	        }
-	    }
-	/**
-	 * @author Parmoun
-	 * @param firstName
-	 * @param lastName
-	 * @return patient's information
-	 */
-	public Patient getPatientByName(String firstName, String lastName) {
-	    for (Patient patient : patients) {
-	        if (patient.getFName().equalsIgnoreCase(firstName) && patient.getLName().equalsIgnoreCase(lastName)) {
-	            return patient;
-	        }
-	    }
-	    return null; // No patient found with the given name
-	}
+        add(nurseButton);
+        add(doctorButton);
+        add(adminRole);
+    }
 
-	 
+    public static void main(String[] args) throws NoSpaceException {
+    	DBSetup.ensureAllTablesExist();
+    	// Initialize the Hospital object and other necessary components here, similar to the provided LoginGUI main method
+        Hospital hospital = new Hospital(new Director("John", "Smith", 58, "Male", "123 Main St"));
+        // Add additional initialization as per the original LoginGUI.main method
+       // DBSetup.ensureAllTablesExist();
+    
+        PhysicianAdministrator admin = new PhysicianAdministrator("Meg", "Mes", 40, "Female", "789 Pine St");
+        admin.setAdminSpecialtyType("Immunology");
+        hospital.addAdministrator(admin);
+        
+        hospital.InitializeEmployees();
+        
 
-	public void assignFamilyDoctorToPatient(Patient patient, FamilyDoctor FamMD) {
-	    if (patient != null && FamMD != null) {
-	        patient.setFamilyDoctor(FamMD);
-	      
-	    }
-	}
-	 private FamilyDoctor createOrGetDefaultFamilyDoctor() {
-	        return new FamilyDoctor("Default Doctor", "General", null, "default@hospital.com", "000-000-0000");
-	    }
-
-
-	private Patient getSelectedPatient() {
-	
-	    return null; 
-	}
-
-
-	public List<Patient> extractPatientDetail() {
-		//we make a tree set to sort the patients because it uses compareTo
-		//we have already defined compareTo
-		Set<Patient> patientTree = new TreeSet<>();
-		for(int i = 0; i<patients.size();i++) {
-		//	String temp= physicianList.get(i).firstName+ ", "+ physicianList.get(i).lastName;
-			patientTree.add(patients.get(i));
-		}
-		//we add it to a list because we should return a list
-		List<Patient> extracted = new ArrayList<Patient>();
-		extracted.addAll(patientTree);
-		return extracted;
-	}
-	////////////////////////////////////////////////////////////////////////////////////  --> Commented out
-	/*public String currentMeds(Patient patient) {
-		return stubDB.getMeds(patient);
-		//this is temporary as we may save it as a concatenated string or we might
-		//to pull this information from a database which will require the code to change
-	} */
-	////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	public void getMDNotes(Physician phys) {
-		//this will have to be related to a database
-		//we will have to retrieve the information from said database
-	}
-	
-
-	/*
-	 * checkLabTestResults method check the result of a lab rest based on the patient name 
-	 * @return String of result 
-	 * @param patient String testType
-	 * @author : Mehregan
-	 */
-	public String checkLabTestResults(Patient patient, String testType) {
-	    return Hospital.laboratory.testResults(patient, testType);
-	}
-	
-	
-	public boolean equals(Object object) { // this way we can see if this nurse is the same as another
-		//or to see if the thing we are comparing the nurse to is of object type Nurse
-		if(this==object) {
-			return true;
-		}
-		if(object==null) {
-			return false;
-		}
-		if(getClass()!=object.getClass()) {
-			return false;
-		}
-		Nurse other=(Nurse) object;
-		if(this.compareTo(other)==0) {
-			return true;
-		}
-		return false;
-	}
-	
-	
-	public int compareTo(Nurse other) { // this is another way to compare nurses to see, likely related
-		//to hiring more nurses for the hospital or making sure that we don't have duplicates
-		
-		if(other!=null) {
-			if(this.firstName.equals(other.firstName)&&this.lastName.equals(other.lastName)&&this.age==other.age&&
-					this.gender.equals(other.gender)&&this.address.equals(other.address)) {
-				return 0;
-			}
-			else {
-				return this.getName().compareTo(other.getName());
-			}			
-		}
-		else {
-			return 2;
-		}
-	}
-
-	public String toString() {
-		return "Nurse [firstName=" + firstName + ", lastName=" + lastName + ", age=" + age + ", gender=" + gender + ","
-				+ " address=" + address + ", employeeID=" + employeeID + "]";
-	}
-	
-	public void fulfilMed (Patient patient, String med) {
-		patient.medications.remove(med);
-	}
-
+        EventQueue.invokeLater(() -> {
+            new RoleSelectionGUI(hospital).setVisible(true);
+        });
+    }
 }

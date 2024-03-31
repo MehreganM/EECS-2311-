@@ -51,7 +51,7 @@ public class LoginGUI extends JFrame implements ActionListener {
         if ("lab".equals(user) && "Lab2024!".equals(pass)) {
             loginSuccessful = true;
             EventQueue.invokeLater(() -> {
-                LabDashboard labDashboard = new LabDashboard();
+                LabDashboard labDashboard = new LabDashboard(hospital);
                 labDashboard.setVisible(true);
             });
             this.dispose();

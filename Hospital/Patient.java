@@ -73,11 +73,11 @@ public class Patient extends Person implements Comparable<Patient>{
 	        this.patientID = Id;
 	        this.familyDoctor = familyDoctor;
 	    }
-	    public FamilyDoctor getFamilyDoctor() {
+	    public FamilyDoctor getFamDoc() {
 	        return familyDoctor;
 	    }
 
-	    public void setFamilyDoctor(FamilyDoctor familyDoctor) {
+	    public void setFamDoc(FamilyDoctor familyDoctor) {
 	        this.familyDoctor = familyDoctor;
 	    }
 	/**

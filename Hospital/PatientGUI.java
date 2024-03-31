@@ -13,6 +13,7 @@ public class PatientGUI extends JFrame {
 
     private JTextArea patientInfoArea;
     private JButton DisplayPatients, RecordVitals, RetrieveVitals, Labs_Meds, dischargeButton, Prescription;
+	private JButton backButton;
    
 	protected DatabaseOps dbOps;
 	protected DatabaseOps dbOps2;
@@ -202,6 +203,14 @@ Prescription = new JButton("Prescription");
 			}
 		});
 
+	    backButton = new JButton("Sign Out");
+		backButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				goBackToLogin();
+			}
+		});
+
         JPanel mainPanel = new JPanel();
         JPanel panel = new JPanel();
         mainPanel.add(DisplayPatients);
@@ -212,6 +221,7 @@ Prescription = new JButton("Prescription");
         panel.add(Labs_Meds);
         panel.add(dischargeButton);
         panel.add(requestLab);
+	    panel.add(backButton);
         add(mainPanel);
         add(mainPanel, BorderLayout.NORTH);
         add(scrollPane, BorderLayout.CENTER);
@@ -225,7 +235,26 @@ Prescription = new JButton("Prescription");
         setSize(900, 600); 
     }
     
-  
+  private void goBackToLogin() {
+		// Dispose the current window
+		this.dispose();
+
+		// Open the LoginGUI window
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				RoleSelectionGUI loginGUI;
+				try {
+					loginGUI = new RoleSelectionGUI(hospital);
+					loginGUI.setVisible(true);
+				} catch (NoSpaceException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+					
+			}
+		});
+	}
    
 
   

@@ -5,12 +5,11 @@ import java.awt.event.ActionEvent;
 import java.util.List;
 
 public class NurseGUI extends JFrame {
-	    private JButton addPatientButton;
+	 private JButton addPatientButton;
 	    private JButton viewPatientsButton;
 	    private JLabel familyDoctorLabel;
 	    private JTextField familyDoctorField;
 	    private JButton assignFamilyDoctorButton;
-	    private JButton backButton;
 	    Nurse nurse; // Nurse who logged in
 	    Hospital hospital;
 	    
@@ -21,21 +20,21 @@ public class NurseGUI extends JFrame {
 	        initializeUI();
 	    }
 
-	    private void initializeUI() {
+ private void initializeUI() {
+	    	
 	        setTitle("Nurse Dashboard");
 	        setSize(300, 200); 
 	        setLocationRelativeTo(null);
 	        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	        setLayout(new FlowLayout());
 
-	        familyDoctorLabel = new JLabel("Family Doctor:");
-	        familyDoctorField = new JTextField(20);
-	        familyDoctorField.setEditable(false);
+///////////////////////
+	        familyDoctorLabel = new JLabel();
+	////////////////////////////        
 
 	        addPatientButton = new JButton("Add Patient");
 	        viewPatientsButton = new JButton("View Patients");
-	        assignFamilyDoctorButton = new JButton("Assign/Find Family Doctor");
-	        backButton = new JButton("Sign Out");
+	        assignFamilyDoctorButton = new JButton("Find patient's Family Doctor");
 
 	        addPatientButton.addActionListener(e -> {
 				try {
@@ -47,56 +46,32 @@ public class NurseGUI extends JFrame {
 			});
 	        viewPatientsButton.addActionListener(this::extractAndDisplayPatientDetails);
 	        assignFamilyDoctorButton.addActionListener(this::assignOrFindFamilyDoctor);
-	        backButton.addActionListener(this::goBack);
 
 	        add(addPatientButton);
 	        add(viewPatientsButton);
 	        add(familyDoctorLabel);
-	        add(familyDoctorField);
 	        add(assignFamilyDoctorButton);
-	        
+
 
 	        JButton submitButton = new JButton("Submit Form");
 	        submitButton.addActionListener(this::submitConsentForm);
 	        add(submitButton);
-	        add(backButton);
-	        
-	    }
-	    
-	    private void goBack(ActionEvent e) {
-	    	LoginGUI logingui;
-			try {
-				logingui = new LoginGUI(hospital);
-				logingui.setVisible(true);
-				this.dispose();
-			} catch (NoSpaceException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
 	    }
 
-	    private void assignOrFindFamilyDoctor(ActionEvent e) {
-	        String searchQuery = JOptionPane.showInputDialog(NurseGUI.this, "Enter Doctor's name, email, or phone number:");
-	        List<FamilyDoctor> foundDoctors = nurse.searchFamilyDoctors(searchQuery);
 
-	        if (!foundDoctors.isEmpty()) {
-	            String[] options = new String[foundDoctors.size()];
-	            for (int i = 0; i < foundDoctors.size(); i++) {
-	                options[i] = foundDoctors.get(i).getName() + " - " + foundDoctors.get(i).getEmail();
-	            }
-	            int selected = JOptionPane.showOptionDialog(null, "Select a Family Doctor", 
-	                    "Choose Doctor", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, 
-	                    null, options, options[0]);
+private void assignOrFindFamilyDoctor(ActionEvent e) {
+	String searchQuery = JOptionPane.showInputDialog(this, "Enter Family Doctor's name or identifier:");
 
-	            if (selected >= 0) {
-	                FamilyDoctor selectedDoctor = foundDoctors.get(selected);
-	                familyDoctorField.setText(selectedDoctor.getName());
-	            }
-	        } else {
-	            JOptionPane.showMessageDialog(NurseGUI.this, "No matching family doctors found. Assigning default.", "Info", JOptionPane.INFORMATION_MESSAGE);
-	            // Proceed to assign default doctor or handle differently
-	        }
-	    }
+ boolean isFound = DatabaseOps.searchFamilyDoctor(searchQuery);
+
+ if (isFound) {
+     JOptionPane.showMessageDialog(this, "Family doctor found in the system.", "Info", JOptionPane.INFORMATION_MESSAGE);
+ } else {
+     JOptionPane.showMessageDialog(this, "Not found.", "Info", JOptionPane.INFORMATION_MESSAGE);
+     
+ }
+
+}
 
 /**
  * Parmoun Khalkhali -> Consent form user story 

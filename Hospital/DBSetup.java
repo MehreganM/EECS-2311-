@@ -1,25 +1,22 @@
 package Hospital;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.sql.*;
 
 //Need to run the function: DBSetup.ensureTableExists(); in the application to create the database
 
 public class DBSetup {
 
-   private static final String CREATE_PATIENTS_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS patients (" +
-            "id SERIAL PRIMARY KEY," +
-            "Fname VARCHAR(255)," +
-            "Lname VARCHAR(255)," +
-            "age INT," +
-            "address VARCHAR(255)," +
-            "gender VARCHAR(255)," +
-            "doctor INT," +
-            "nurse INT," +
-            "consent BOOLEAN," +
-            "family_doctor VARCHAR(255)" +
-            ");";
+	private static final String CREATE_PATIENTS_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS patients (" +
+	        "id SERIAL PRIMARY KEY," +
+	        "Fname VARCHAR(255)," +
+	        "Lname VARCHAR(255)," +
+	        "age INT," +
+	        "address VARCHAR(255)," +
+	        "gender VARCHAR(255)," +
+	        "doctor INT," +
+	        "nurse INT," +
+	        "consent BOOLEAN," +
+	        "phone VARCHAR(255)" + 
+	        ");";
    
    private static final String CREATE_LAB_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS laboratory (" +
 		   "patient_id INT REFERENCES patients(id) ON DELETE CASCADE," +
@@ -42,6 +39,18 @@ public class DBSetup {
             "FOREIGN KEY (doctor) REFERENCES physicians(id)," +
             "FOREIGN KEY (nurse) REFERENCES nurses(id)" +
             ");"; */
+   /**
+    * @author Parmoun
+    * Prescription 
+    */
+   private static final String CREATE_PRESCRIPTIONS_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS prescriptions (" +
+           "prescription_id SERIAL PRIMARY KEY," +
+           "patient_id INT REFERENCES patients(id) ON DELETE CASCADE," +
+           "physician_name VARCHAR(255)," +
+           "medication_name VARCHAR(255)," +
+           "dosage VARCHAR(255)," +
+           "instructions TEXT" +
+           ");";
 
 
     private static final String CREATE_PHYSICIANS_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS physicians (" +
@@ -67,13 +76,7 @@ public class DBSetup {
             "password VARCHAR(50)" + 
             ");";
     
-    private static final String CREATE_FAMDOC_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS famdoc (" +
-            "id INT REFERENCES patients(id) ON DELETE CASCADE," +
-            "name VARCHAR(100)," +
-            "specialty VARCHAR(50)," +
-            "email VARCHAR(150)," +
-            "phone VARCHAR(15)" +
-            ");";
+   
     
   /*  private static final String CREATE_DIRECTOR_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS director (" +
     		"id SERIAL PRIMARY KEY," +
@@ -97,10 +100,9 @@ public class DBSetup {
         ensureTableExists(CREATE_PATIENTS_TABLE_QUERY);
         ensureTableExists(CREATE_PHYSICIANS_TABLE_QUERY);
         ensureTableExists(CREATE_NURSES_TABLE_QUERY);
-        ensureTableExists(CREATE_FAMDOC_TABLE_QUERY);
         ensureTableExists(CREATE_VITALSIGNS_TABLE_QUERY);
         ensureTableExists(CREATE_LAB_TABLE_QUERY);
-       // ensureTableExists(CREATE_DIRECTOR_TABLE_QUERY);
+        ensureTableExists(CREATE_PRESCRIPTIONS_TABLE_QUERY);
     }
 
     private static void ensureTableExists(String creationQuery) {

@@ -14,33 +14,34 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 public class DatabaseOps {
-	 public void addPatient(Patient patient) {
-	        String sql = "INSERT INTO patients (ID, Fname, Lname, age, address, gender, doctor, nurse, family_doctor) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	 public void addPatient(Patient patient, int nurse, int physician) {
+        String sql = "INSERT INTO patients (ID, Fname, Lname, age, address, gender, doctor, nurse, family_doctor) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-	        try (Connection conn = DatabaseConnection.getConnection();
-	             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-	        	pstmt.setInt(1, patient.getPatientID());
-	        	pstmt.setString(2, patient.getFName());
-	        	pstmt.setString(3, patient.getLName());
-	        	pstmt.setInt(4, patient.getAge());
-	            pstmt.setString(5, patient.getAddress());
-	            pstmt.setString(6, patient.getGender());
-	           
-	            int physician = patient.getAssignedPhysician() != null ? patient.getAssignedPhysician().getEmployeeID() : 0;
-	            pstmt.setInt(8, physician);
-	            
-	            int nurse = patient.getNurse() != null ? patient.getNurse().getEmployeeID() : 0;
-	            pstmt.setInt(7, nurse);
-	            
-	            String famdr = patient.getFamDoc() != null ? patient.getFamDoc().toString() : "[None]";
-	            pstmt.setString(9, famdr);
-	            
-	             pstmt.executeUpdate();
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	        }
-	    }
+        	pstmt.setInt(1, patient.getPatientID());
+        	pstmt.setString(2, patient.getFName());
+        	pstmt.setString(3, patient.getLName());
+        	pstmt.setInt(4, patient.getAge());
+            pstmt.setString(5, patient.getAddress());
+            pstmt.setString(6, patient.getGender());
+           
+         //   int physician1 = patient.getAssignedPhysician() != null ? patient.getAssignedPhysician().getEmployeeID() : 0;
+            pstmt.setInt(7, physician);
+            
+           // int nurse1 = nurse.getEmployeeID();
+            		//patient.getNurse() != null ? patient.getNurse().getEmployeeID() : 0;
+            pstmt.setInt(8, nurse);
+            
+            String famdr = patient.getFamDoc() != null ? patient.getFamDoc().toString() : "[None]";
+            pstmt.setString(9, famdr);
+            
+             pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
 
     public String getAllPatients() {

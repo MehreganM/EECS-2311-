@@ -12,6 +12,7 @@ public class NurseGUI extends JFrame {
 	    private JButton assignFamilyDoctorButton;
 	    Nurse nurse; // Nurse who logged in
 	    Hospital hospital;
+	  private JButton backButton;
 	    
 	    
 	    public NurseGUI(Nurse nurse, Hospital hospital) {
@@ -35,6 +36,7 @@ public class NurseGUI extends JFrame {
 	        addPatientButton = new JButton("Add Patient");
 	        viewPatientsButton = new JButton("View Patients");
 	        assignFamilyDoctorButton = new JButton("Find patient's Family Doctor");
+	 backButton = new JButton("Sign Out");
 
 	        addPatientButton.addActionListener(e -> {
 				try {
@@ -46,11 +48,13 @@ public class NurseGUI extends JFrame {
 			});
 	        viewPatientsButton.addActionListener(this::extractAndDisplayPatientDetails);
 	        assignFamilyDoctorButton.addActionListener(this::assignOrFindFamilyDoctor);
+		 backButton.addActionListener(this::goBack);
 
 	        add(addPatientButton);
 	        add(viewPatientsButton);
 	        add(familyDoctorLabel);
 	        add(assignFamilyDoctorButton);
+	 add(backButton);
 
 
 	        JButton submitButton = new JButton("Submit Form");
@@ -72,6 +76,18 @@ private void assignOrFindFamilyDoctor(ActionEvent e) {
  }
 
 }
+
+	private void goBack(ActionEvent e) {
+	    	RoleSelectionGUI logingui;
+			try {
+				logingui = new RoleSelectionGUI(hospital);
+				logingui.setVisible(true);
+				this.dispose();
+			} catch (NoSpaceException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+	    }
 
 /**
  * Parmoun Khalkhali -> Consent form user story 

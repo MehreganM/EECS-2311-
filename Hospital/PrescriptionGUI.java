@@ -66,8 +66,8 @@ public class PrescriptionGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 PrescriptionGUI.this.dispose(); 
-                PatientGUI patientGUI = new PatientGUI(loggedInPhysician, hospital);
-                patientGUI.setVisible(true); 
+               // PatientGUI patientGUI = new PatientGUI(loggedInPhysician, hospital);
+              //  patientGUI.setVisible(true); 
             }
         });
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

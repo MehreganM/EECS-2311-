@@ -14,6 +14,7 @@ public class NursePatientAddFrame extends JFrame {
     private JTextField familyDoctorNameField, familyDoctorSpecialtyField, familyDoctorNumberField, familyDoctorEmailField;
     private JButton addButton, returnButton;
     private JCheckBox famDrConsent;
+    private JComboBox physicianComboBox;
 
     public NursePatientAddFrame(Nurse nurse, Hospital hospital) throws NoSpaceException {
         super("Add Patient to Nurse");
@@ -55,6 +56,9 @@ public class NursePatientAddFrame extends JFrame {
         returnButton = new JButton("Return to Dashboard");
         returnButton.addActionListener(e -> returnToDashboard());
 
+        physicianComboBox = new JComboBox<>();
+        populatePhysiciansComboBox();
+
         famDrConsent = new JCheckBox("Add Family Doctor Information");
         famDrConsent.addActionListener(e -> toggleFamilyDoctorFields(famDrConsent.isSelected()));
     }
@@ -70,6 +74,8 @@ public class NursePatientAddFrame extends JFrame {
         add(genderField);
         add(new JLabel("Address:"));
         add(addressField);
+        add(new JLabel("Assign Physician"));
+        add(physicianComboBox);
         add(famDrConsent);
         add(new JLabel("Family Doctor Name:"));
         add(familyDoctorNameField);
@@ -119,6 +125,8 @@ public class NursePatientAddFrame extends JFrame {
 
         
         boolean added = nurse.addPatient(newPatient);
+        int nurseID = databaseOps.getNurseIdByName(nurse.getFirstName(), nurse.getLastName());
+        databaseOps.addPatient(newPatient, nurseID, getSelectedPhysicianID());
         if (added) {
            
             databaseOps.addPatient(newPatient);
@@ -142,6 +150,55 @@ public class NursePatientAddFrame extends JFrame {
         familyDoctorEmailField.setText("");
         famDrConsent.setSelected(false); // Optionally reset the checkbox
         toggleFamilyDoctorFields(false); 
+    }
+
+    private void populatePhysiciansComboBox() {
+        physicianComboBox.removeAllItems(); // Clear current items
+        String physiciansInfo = databaseOps.getAllPhysicians1();
+    	if(!physiciansInfo.isEmpty()) {
+    		String[] physicianLines = physiciansInfo.split("\n");
+    	
+    	
+    	System.out.println(physicianLines);
+    	
+    	// Iterate through all the physicians in the database and add it to the comboBox
+    	for (String physician : physicianLines) {
+    		String parts [] = physician.split(",");
+    		
+    		int physicianID = Integer.parseInt(parts[0].split(": ")[1]);
+    		String firstname = parts[1].split(": ")[1];
+    		String lastname = parts[2].split(": ")[1];
+    		int age = Integer.parseInt(parts[3].split(": ")[1]);
+     
+            String physicianList = String.format("ID: %d, FirstName: %s, Last name: %s, Age: %d", physicianID, firstname, lastname, age );
+            System.out.println(physicianList.toString());
+            physicianComboBox.addItem(physicianList);
+    		}
+    	}
+    }
+    
+    private int getSelectedPhysicianID() {
+        String selectedPhysicianInfo = (String) physicianComboBox.getSelectedItem();
+        if (selectedPhysicianInfo != null && !selectedPhysicianInfo.isEmpty()) {
+            try {
+                // Assuming the format "ID: <physicianID>, FirstName: <name>, Last name: <name>, Age: <age>"
+                String[] parts = selectedPhysicianInfo.split(",");
+                if (parts.length > 0) {
+                    // Further splitting the first part to extract the ID value
+                    String idPart = parts[0].split(":")[1].trim();
+                    int physicianID = Integer.parseInt(idPart);
+                    
+                    populatePhysiciansComboBox();
+
+                    return physicianID; // Return the successfully extracted and used physician ID
+                }
+            } catch (NumberFormatException e) {
+                // Handle parsing errors gracefully
+                System.err.println("Error parsing physician ID: " + e.getMessage());
+            }
+        }
+        // Return a value indicating failure to extract a valid physician ID
+        return -1;
     }
     
     private void returnToDashboard() {

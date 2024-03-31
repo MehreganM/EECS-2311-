@@ -4,52 +4,61 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
-/**
- * This class is the patient portal page where you can display all the patients, get patients by their id, get patients 
- * by their name, record vital signs, retrieve vital signs, request labs, view lab results, and discharge patients
- * @author Amira Mohamed
- */
 public class PatientGUI extends JFrame {
- 
-	// Declare local variables
+
     private Hospital hospital;
     private DatabaseHelper database;
     private DatabaseOps dataOps;
     private Patient patient;
 
     private JTextArea patientInfoArea;
-    private JButton DisplayPatients, RecordVitals, RetrieveVitals, Labs_Meds, dischargeButton, backButton;
-
-    protected DatabaseOps dbOps;
+    private JButton DisplayPatients, RecordVitals, RetrieveVitals, Labs_Meds, dischargeButton, Prescription;
+   
+	protected DatabaseOps dbOps;
 	protected DatabaseOps dbOps2;
-	
-	 //other attributes
+	 // ... other attributes ...
+
     private Physician loggedInPhysician; 
     private Physician loggedInPhysician2;
     private JButton prescribeMedicationButton; 
-    
-    
-    /**
-     * @author Parmoun
-     * @param loggedInPhysician2
-     * @param dbOps2
-     * Note: While copying, add parameters as well
-     */
-       public PatientGUI(Physician loggedInPhysician2, DatabaseOps dbOps2) {
-   		this.loggedInPhysician2 = loggedInPhysician2;
-   		this.dbOps2 = dbOps2;
-   	}
-       
-  //  public PatientGUI(Hospital hospital) {
-       public PatientGUI(Physician loggedInPhysician, Hospital hospital) {
-    	   this.loggedInPhysician = loggedInPhysician; 
 
-   	  
-   	    
-   	    patientInfoArea = new JTextArea(10, 40);
-   	    patientInfoArea.setEditable(false);
-   	    JScrollPane scrollPane = new JScrollPane(patientInfoArea);
+   
+ /**
+  * @author Parmoun
+  * @param loggedInPhysician2
+  * @param dbOps2
+  * Note: While copying, add parameters as well
+  */
+    public PatientGUI(Physician loggedInPhysician2, DatabaseOps dbOps2) {
+		this.loggedInPhysician2 = loggedInPhysician2;
+		this.dbOps2 = dbOps2;
+	}
 
+    public PatientGUI(Physician loggedInPhysician,Hospital hospital) {
+    	  this.hospital = hospital;
+    	    this.loggedInPhysician = loggedInPhysician; 
+
+    	    prescribeMedicationButton = new JButton("Prescribe Medication");
+    	    prescribeMedicationButton.addActionListener(new ActionListener() {
+    	        public void actionPerformed(ActionEvent e) {
+    	            PrescriptionGUI prescriptionGUI = new PrescriptionGUI(loggedInPhysician, dbOps);
+    	            prescriptionGUI.setVisible(true);
+    	        }
+    	    });
+    	    
+    	    patientInfoArea = new JTextArea(10, 40);
+    	    patientInfoArea.setEditable(false);
+    	    JScrollPane scrollPane = new JScrollPane(patientInfoArea);
+
+    	 
+    	    
+    	   prescribeMedicationButton = new JButton("Prescribe Medication");
+           prescribeMedicationButton.addActionListener(new ActionListener() {
+               public void actionPerformed(ActionEvent e) {
+                   PrescriptionGUI prescriptionGUI = new PrescriptionGUI(loggedInPhysician, dbOps);
+                   prescriptionGUI.setVisible(true);
+               }
+           });
         this.hospital = hospital;
 
         // Create the database 
@@ -59,23 +68,15 @@ public class PatientGUI extends JFrame {
         dataOps = new DatabaseOps();
         patient = new Patient();
 
-        // Set up the display
-        setTitle("Patient Portal");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(900, 600); // Increased size
-
-        // Create JTextArea to display patient info
-        patientInfoArea = new JTextArea(10,40);
-        patientInfoArea.setEditable(false);
-        JScrollPane scrollPane1 = new JScrollPane(patientInfoArea);
-
+       
+      
         // Create the buttons objects
         RecordVitals = new JButton("Record Vital Signs");
         RetrieveVitals = new JButton("Retrieve Vital Signs");
         Labs_Meds = new JButton("View Lab results");
         DisplayPatients = new JButton("Display All Patients");
-		dischargeButton = new JButton("Discharge Patient");
-
+	dischargeButton = new JButton("Discharge Patient");
+Prescription = new JButton("Prescription");
 
         // Display all the patients
         DisplayPatients.addActionListener(new ActionListener() {
@@ -96,7 +97,6 @@ public class PatientGUI extends JFrame {
                 patientInfoArea.append(dataOps.getPatientById(patientId));                
             }
         });
-      
 
         // Display patient by their name
         JButton getPatientByName = new JButton("Get patient by their Name");
@@ -108,8 +108,6 @@ public class PatientGUI extends JFrame {
                 patientInfoArea.append(dataOps.searchPatientsByName(name));                
             }
         });
-        
-        //Prescribe medication button
         prescribeMedicationButton = new JButton("Prescribe Medication");
         prescribeMedicationButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -117,9 +115,7 @@ public class PatientGUI extends JFrame {
                 prescriptionGUI.setVisible(true);
             }
         });
-       
 
-        // Request labs for the patient
         JButton requestLab = new JButton("Request Lab");
         requestLab.addActionListener(new ActionListener() {
             @Override
@@ -174,7 +170,6 @@ public class PatientGUI extends JFrame {
                 NewVitals.setVisible(true);
             }
         });
-        
         // Create a button to retrieve vital signs
         RetrieveVitals.addActionListener(new ActionListener() {
             @Override
@@ -183,8 +178,6 @@ public class PatientGUI extends JFrame {
                 RetrieveVitals.setVisible(true);
             }
         });        
-        
-        // Create a button to retrieve labs and medications
         Labs_Meds.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -192,91 +185,56 @@ public class PatientGUI extends JFrame {
                 PatientInfo.setVisible(true);
             }
         });
-        
+
         // Discharge button to discharge the patient from the hospital
-        dischargeButton.addActionListener(new ActionListener() {
- 			@Override
- 			public void actionPerformed(ActionEvent e) {
- 				DischargePatientGUI dischargePatient;
- 				if(dataOps.getAllPatients1().isEmpty()) {
- 					JOptionPane.showMessageDialog(PatientGUI.this, "No patients in the hospital to discharge.");
- 				}
- 			else {
- 				try {
- 					dischargePatient = new DischargePatientGUI(hospital);
- 					dischargePatient.setVisible(true);
+		dischargeButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				DischargePatientGUI dischargePatient;
+				try {
+					dischargePatient = new DischargePatientGUI(hospital);
+					dischargePatient.setVisible(true);
+				} catch (NoSpaceException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+			}
+		});
 
- 				} catch (NoSpaceException e1) {
- 					// TODO Auto-generated catch block
- 					e1.printStackTrace();
- 				}
- 			}	
- 			}
- 		});
-        
-        
-        // BackButton to sign out and return back to the login page --> Harrish
-        backButton = new JButton("Sign out");
-        backButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                goBackToLogin();
-            }
-        });
-     		
-
-        // main panel to display patient information and search for patient by name and id 
-        // panel to display the functionalities (record vital signs, retrieve vital signs, request labs, 
-        // view lab results, and discharge patients)
         JPanel mainPanel = new JPanel();
         JPanel panel = new JPanel();
-        
-        // Add DisplayPatients, getPatientByName, and getPatientByID to the mainPanel
         mainPanel.add(DisplayPatients);
         mainPanel.add(getPatientByName);
         mainPanel.add(getPatientByID);
-        
-        // Add RecordVitals, RetrieveVitals, Labs_Meds, dischargeButton, requestLab, and backButton to the panel
         panel.add(RecordVitals);
         panel.add(RetrieveVitals);
         panel.add(Labs_Meds);
-        panel.add(prescribeMedicationButton);
-        panel.add(requestLab);
         panel.add(dischargeButton);
-        panel.add(backButton);
-
-        // Add main panel and panel to the frame 
+        panel.add(requestLab);
         add(mainPanel);
         add(mainPanel, BorderLayout.NORTH);
-        add(scrollPane1, BorderLayout.CENTER);
+        add(scrollPane, BorderLayout.CENTER);
         add(panel, BorderLayout.SOUTH);
+        panel.add(prescribeMedicationButton);
+        setLayout(new BorderLayout());
+        add(scrollPane, BorderLayout.CENTER);
+        add(panel, BorderLayout.SOUTH);
+        setTitle("Patient Portal");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(900, 600); 
+    }
+    
+  
+   
+
   
 
-    }
 
-    // This method is to sign out and return back to the login page --> Harrish
-    private void goBackToLogin() {
-        // Dispose the current window
-        this.dispose();
 
-        // Open the LoginGUI window
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                LoginGUI loginGUI;
-				try {
-					loginGUI = new LoginGUI(hospital);
-					loginGUI.setVisible(true);
-				} catch (NoSpaceException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-                
-            }
-        });
-    }
-   
-    public static void main(String[] args) {
+
+
+	public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {

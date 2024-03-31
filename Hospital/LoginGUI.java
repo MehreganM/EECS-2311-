@@ -80,24 +80,26 @@ public class LoginGUI extends JFrame implements ActionListener {
         } else
         
 
-        // Decide what to do based on the type of user logged in
-        if (loggedInPhysician != null ) {
-            EventQueue.invokeLater(() -> {
-                PatientGUI patientInfoGUI = new PatientGUI(hospital);
-                patientInfoGUI.setVisible(true);
-            });
-            this.setVisible(false);
-        } else if (loggedInNurse != null) {
-        	EventQueue.invokeLater(() -> {
-        		NurseGUI nurseDashboard = new NurseGUI(loggedInNurse,hospital); // loggedInNurse is the Nurse object that logged in
-        	    nurseDashboard.setVisible(true);
-        	});
-        	this.setVisible(false);
-        } else {
-            JOptionPane.showMessageDialog(this, "Invalid username or password", "Login Failed", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-    
+      
+        	 /**
+             * @author Parmoun
+             */
+              if (loggedInPhysician != null ) {
+                  EventQueue.invokeLater(() -> {
+                      PatientGUI patientInfoGUI = new PatientGUI(loggedInPhysician, hospital);
+                      patientInfoGUI.setVisible(true);
+                  });
+                  this.setVisible(false);
+              } else if (loggedInNurse != null) {
+              	EventQueue.invokeLater(() -> {
+              		NurseGUI nurseDashboard = new NurseGUI(loggedInNurse,hospital); // loggedInNurse is the Nurse object that logged in
+              	    nurseDashboard.setVisible(true);
+              	});
+              	this.setVisible(false);
+              } else {
+                  JOptionPane.showMessageDialog(this, "Invalid username or password", "Login Failed", JOptionPane.ERROR_MESSAGE);
+              }
+          }
 
 }
 

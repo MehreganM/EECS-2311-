@@ -61,19 +61,14 @@ public class AddNurseGUI extends JFrame {
     }
     
     private void addNurse() {
-        String username = usernameField.getText().trim();
-        String password = passwordField.getText().trim();
-    	
-        if (!validateUsername(username) || !validatePassword(password)) {
-            return; 
-        }
-    	
-    	String firstName = firstNameField.getText();
+        String firstName = firstNameField.getText();
         String lastName = lastNameField.getText();
         int age = Integer.parseInt(ageField.getText());
         String gender = genderField.getText();
         String address = addressField.getText();
- 
+        String username = usernameField.getText();
+        String password = passwordField.getText();
+
         
         Nurse newNurse = new Nurse(firstName, lastName, age, gender, address);
         newNurse.setUser(username);
@@ -97,22 +92,6 @@ public class AddNurseGUI extends JFrame {
         usernameField.setText("");
         passwordField.setText("");
         
-    }
-    
-    private boolean validateUsername(String username) {
-        if (username.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please enter a username.", "No Username Given", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        return true;
-    }
-    
-    private boolean validatePassword(String password) {
-        if (password.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please enter a password.", "No Password Given", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        return true;
     }
     
     private void returnToDashboard() {

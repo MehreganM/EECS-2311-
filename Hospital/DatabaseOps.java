@@ -506,7 +506,7 @@ public class DatabaseOps {
      */
     public void deletePatient(String fname, String lname, int age) {
         Hospital hospital = new Hospital(null);
-        Laboratory laboratory = new Laboratory(); 
+        Laboratory laboratory = new Laboratory();
         String queryDoctorAndId = "SELECT id, family_doctor FROM patients WHERE fname = ? AND lname = ? AND age = ?";
         String sqlDelete = "DELETE FROM patients WHERE fname = ? AND lname = ? AND age = ?";
 
@@ -517,23 +517,31 @@ public class DatabaseOps {
             pstmtQuery.setInt(3, age);
 
             ResultSet rs = pstmtQuery.executeQuery();
-            String doctorEmail = "dr.mark@gmail.com"; // Default email
+            String doctorEmail = null; // Set to null initially
             int patientId = 0;
             if (rs.next()) {
                 String familyDoctor = rs.getString("family_doctor");
-                patientId = rs.getInt("id"); // Correctly retrieve the patient ID
-                int emailStart = familyDoctor.indexOf("email=") + "email=".length();
-                int emailEnd = familyDoctor.indexOf("',", emailStart);
-                doctorEmail = familyDoctor.substring(emailStart, emailEnd); // Extract email
+                if (familyDoctor != null && !familyDoctor.isEmpty()) {
+                    int emailStart = familyDoctor.indexOf("email=") + "email=".length();
+                    int emailEnd = familyDoctor.indexOf("',", emailStart);
+                    doctorEmail = familyDoctor.substring(emailStart, emailEnd);
+                }
+                patientId = rs.getInt("id");
             }
 
-            String allTestsForPatient = "";
-            if (patientId > 0) { // Check that patientId is greater than 0
-                allTestsForPatient = laboratory.getAllTestsForPatientAsString(patientId);
+            if (doctorEmail == null || doctorEmail.isEmpty()) {
+                // Print the message if no family doctor email exists
+                System.out.println("No family doctor exists for the patient: " + fname + " " + lname);
+            } else {
+                // Proceed with sending an email if a doctor's email is found
+                String allTestsForPatient = "";
+                if (patientId > 0) {
+                    allTestsForPatient = laboratory.getAllTestsForPatientAsString(patientId);
+                }
+                hospital.sendEmail(doctorEmail, lname + " Record", "labtest " + allTestsForPatient);
             }
 
             try (PreparedStatement pstmtDelete = conn.prepareStatement(sqlDelete)) {
-                hospital.sendEmail(doctorEmail, lname + " Record", "labtest " + allTestsForPatient);
                 pstmtDelete.setString(1, fname);
                 pstmtDelete.setString(2, lname);
                 pstmtDelete.setInt(3, age);

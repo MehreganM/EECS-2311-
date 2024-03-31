@@ -2,7 +2,6 @@
 package Hospital;
 
 
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
@@ -10,7 +9,6 @@ import java.awt.event.FocusEvent;
 
 import javax.swing.*;
 
-import org.junit.jupiter.api.io.TempDir;
 
 /**
  * This the Vital Signs GUI that stores the vital signs to the database.

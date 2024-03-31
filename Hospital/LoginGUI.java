@@ -4,18 +4,16 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList; // Import statement for ArrayList
-import java.util.List;
 
 public class LoginGUI extends JFrame implements ActionListener {
     private JTextField userField;
     private JPasswordField passField;
     private JButton loginButton;
     private Hospital hospital;
-	private Nurse loggedInNurse;
-	private Physician loggedInPhysician;
-	static DatabaseOps dbOps = new DatabaseOps();
-	private boolean isAdminLoggedIn = false;
+    private Nurse loggedInNurse;
+    private Physician loggedInPhysician;
+    static DatabaseOps dbOps = new DatabaseOps();
+    //private String role = ""; // Role for the user logging in
 
     public LoginGUI(Hospital hospital) throws NoSpaceException {
         this.hospital = hospital;
@@ -24,7 +22,6 @@ public class LoginGUI extends JFrame implements ActionListener {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(300, 150);
         setLocationRelativeTo(null);
-
         setLayout(new GridLayout(3, 2));
 
         add(new JLabel("User:"));
@@ -37,69 +34,70 @@ public class LoginGUI extends JFrame implements ActionListener {
 
         loginButton = new JButton("Login");
         loginButton.addActionListener(this);
-        add(new JLabel("")); 
+        add(new JLabel(""));
         add(loginButton);
-        
-       // hospital.InitializeEmployees();
     }
+
+//    public void setRole(String role) {
+//        this.role = role;
+//    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         String user = userField.getText().trim();
         String pass = new String(passField.getPassword());
-      /*  Object loggedInUser = null; // To store the logged-in user, either Physician or Nurse
-        Physician loggedInPhysician = null;
-        Nurse loggedInNurse = null; */
+        boolean loginSuccessful = false;
 
-        if ("admin".equals(user) && "pass".equals(pass)) {
-            isAdminLoggedIn = true;
+        if ("lab".equals(user) && "Lab2024!".equals(pass)) {
+            loginSuccessful = true;
+            EventQueue.invokeLater(() -> {
+                LabDashboard labDashboard = new LabDashboard();
+                labDashboard.setVisible(true);
+            });
+            this.dispose();
+        } else if ("admin".equals(user) && "pass".equals(pass)) {
+            loginSuccessful = true;
+            EventQueue.invokeLater(() -> {
+                AdminGUI adminGUI = new AdminGUI(hospital);
+                adminGUI.setVisible(true);
+            });
+            this.dispose();
         } else {
-            // Existing checks for Physician and Nurse
             for (Physician physician : hospital.extractAllPhysicianDetails()) {
                 if (user.equals(physician.getUser()) && pass.equals(physician.getPass())) {
                     loggedInPhysician = physician;
+                    loginSuccessful = true;
                     break;
                 }
             }
-            if (loggedInPhysician == null) { // Check for Nurse if no Physician found
+            if (!loginSuccessful) {
                 for (Nurse nurse : hospital.extractAllNurseDetails()) {
                     if (user.equals(nurse.getUser()) && pass.equals(nurse.getPass())) {
                         loggedInNurse = nurse;
+                        loginSuccessful = true;
                         break;
                     }
                 }
             }
         }
-        
-        if (isAdminLoggedIn) {
+
+        if (loggedInPhysician != null) {
             EventQueue.invokeLater(() -> {
-                AdminGUI adminGUI = new AdminGUI(hospital); // Assuming AdminGUI exists
-                adminGUI.setVisible(true);
+                PatientGUI patientInfoGUI = new PatientGUI(loggedInPhysician, hospital);
+                patientInfoGUI.setVisible(true);
             });
-            this.setVisible(false); // Hide the login screen
-        } else
-        
+            this.dispose();
+        } else if (loggedInNurse != null) {
+            EventQueue.invokeLater(() -> {
+                NurseGUI nurseDashboard = new NurseGUI(loggedInNurse, hospital);
+                nurseDashboard.setVisible(true);
+            });
+            this.dispose();
+        }
 
-      
-        	 /**
-             * @author Parmoun
-             */
-              if (loggedInPhysician != null ) {
-                  EventQueue.invokeLater(() -> {
-                      PatientGUI patientInfoGUI = new PatientGUI(loggedInPhysician, hospital);
-                      patientInfoGUI.setVisible(true);
-                  });
-                  this.setVisible(false);
-              } else if (loggedInNurse != null) {
-              	EventQueue.invokeLater(() -> {
-              		NurseGUI nurseDashboard = new NurseGUI(loggedInNurse,hospital); // loggedInNurse is the Nurse object that logged in
-              	    nurseDashboard.setVisible(true);
-              	});
-              	this.setVisible(false);
-              } else {
-                  JOptionPane.showMessageDialog(this, "Invalid username or password", "Login Failed", JOptionPane.ERROR_MESSAGE);
-              }
-          }
-
+        if (!loginSuccessful) {
+            JOptionPane.showMessageDialog(this, "Invalid username or password", "Login Failed",
+                JOptionPane.ERROR_MESSAGE);
+        }
+    }
 }
-

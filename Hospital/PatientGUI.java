@@ -235,7 +235,7 @@ Prescription = new JButton("Prescription");
         setSize(900, 600); 
     }
     
-  private void goBackToLogin() {
+ private void goBackToLogin() {
 		// Dispose the current window
 		this.dispose();
 
@@ -244,13 +244,8 @@ Prescription = new JButton("Prescription");
 			@Override
 			public void run() {
 				RoleSelectionGUI loginGUI;
-				try {
-					loginGUI = new RoleSelectionGUI(hospital);
-					loginGUI.setVisible(true);
-				} catch (NoSpaceException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				loginGUI = new RoleSelectionGUI(hospital);
+				loginGUI.setVisible(true);
 					
 			}
 		});

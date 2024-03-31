@@ -177,19 +177,24 @@ public class PatientGUI extends JFrame {
 
         // Discharge button to discharge the patient from the hospital
 		dischargeButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				DischargePatientGUI dischargePatient;
-				try {
-					dischargePatient = new DischargePatientGUI(hospital, loggedInPhysician);
-					dischargePatient.setVisible(true);
-				} catch (NoSpaceException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				
-			}
-		});
+ 			@Override
+ 			public void actionPerformed(ActionEvent e) {
+ 				DischargePatientGUI dischargePatient;
+ 				if(dataOps.getPatientByPhysicianId(dataOps.getPhysicianIdByName(loggedInPhysician.getFirstName(), loggedInPhysician.getLastName())).isEmpty()) {
+ 					JOptionPane.showMessageDialog(PatientGUI.this, "No patients in the hospital to discharge.");
+ 				}
+ 			else {
+ 				try {
+ 					dischargePatient = new DischargePatientGUI(hospital, loggedInPhysician);
+ 					dischargePatient.setVisible(true);
+
+ 				} catch (NoSpaceException e1) {
+ 					// TODO Auto-generated catch block
+ 					e1.printStackTrace();
+ 				}
+ 			}	
+ 			}
+ 		});
 
 	    backButton = new JButton("Sign Out");
 		backButton.addActionListener(new ActionListener() {

@@ -61,22 +61,51 @@ public class AddNurseGUI extends JFrame {
     }
     
     private void addNurse() {
-        String firstName = firstNameField.getText();
-        String lastName = lastNameField.getText();
-        int age = Integer.parseInt(ageField.getText());
-        String gender = genderField.getText();
-        String address = addressField.getText();
-        String username = usernameField.getText();
-        String password = passwordField.getText();
+        String firstName = firstNameField.getText().trim();
+        String lastName = lastNameField.getText().trim();
+        String ageText = ageField.getText().trim();
+        String gender = genderField.getText().trim();
+        String address = addressField.getText().trim();
+        String username = usernameField.getText().trim();
+        String password = passwordField.getText().trim();
 
-        
+        // Check if any fields are empty
+        if (firstName.isEmpty() || lastName.isEmpty() || ageText.isEmpty() || gender.isEmpty() || address.isEmpty()
+                || username.isEmpty() || password.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please fill in all fields.", "Incomplete Information",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Validate first name and last name to ensure they contain only letters
+        if (!firstName.matches("[a-zA-Z-' ]+") || !lastName.matches("[a-zA-Z-' ]+")) {
+            JOptionPane.showMessageDialog(this, "First name and last name must contain only letters.", "Input Error",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Validate gender field to ensure it is either "Male" or "Female"
+        if (!(gender.equalsIgnoreCase("Male") || gender.equalsIgnoreCase("Female"))) {
+            JOptionPane.showMessageDialog(this, "Gender must be either 'Male' or 'Female'.", "Input Error",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Parse the age field
+        int age;
+        try {
+            age = Integer.parseInt(ageText);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Invalid age. Please enter a valid number.", "Input Error",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
         Nurse newNurse = new Nurse(firstName, lastName, age, gender, address);
         newNurse.setUser(username);
         newNurse.setPass(password);
         
-        // Assuming you have a method in Hospital to add a Physician
         hospital.hireNurse(newNurse);
-        // Assuming you have a method in DatabaseOps to add a Physician to the database
         databaseOps.addNurse(newNurse);
         
         JOptionPane.showMessageDialog(this, "Nurse added successfully.");
@@ -91,7 +120,6 @@ public class AddNurseGUI extends JFrame {
         addressField.setText("");
         usernameField.setText("");
         passwordField.setText("");
-        
     }
     
     private void returnToDashboard() {

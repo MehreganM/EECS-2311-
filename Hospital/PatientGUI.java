@@ -181,7 +181,7 @@ public class PatientGUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				DischargePatientGUI dischargePatient;
 				try {
-					dischargePatient = new DischargePatientGUI(hospital);
+					dischargePatient = new DischargePatientGUI(hospital, loggedInPhysician);
 					dischargePatient.setVisible(true);
 				} catch (NoSpaceException e1) {
 					// TODO Auto-generated catch block

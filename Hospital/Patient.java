@@ -17,10 +17,10 @@ public class Patient extends Person implements Comparable<Patient>{
 	private int patientID;
 	private boolean consentFormSigned = false;
 	private Nurse nurse = null;
-	private FamilyDoctor FamMD;
 	ArrayList<String> medications = new ArrayList<String>();
 	public String labs;
 	private VitalSigns vitalsigns;
+	 private FamilyDoctor familyDoctor;
 	/**
 	 * this default constructor makes  patient and gives them their patientId;
 	 */
@@ -56,6 +56,36 @@ public class Patient extends Person implements Comparable<Patient>{
 	 * @param physician is an object of type Physician which we want to assign as 
 	 * the patient's physician
 	 */
+	 public boolean isConsent() {
+	        return this.consentFormSigned;
+	    }
+
+	    /**
+	     * This method sets the consent form status for the patient.
+	     * @param consentFormSigned a boolean representing the new consent form status.
+	     */
+	    public void setConsent(boolean consentFormSigned) {
+	        this.consentFormSigned = consentFormSigned;
+	    }
+	    public Patient(String firstName, String lastName, int age, String gender, String address, FamilyDoctor familyDoctor) {
+	        super(firstName, lastName, age, gender, address);
+	        Id++;
+	        this.patientID = Id;
+	        this.familyDoctor = familyDoctor;
+	    }
+	    public FamilyDoctor getFamilyDoctor() {
+	        return familyDoctor;
+	    }
+
+	    public void setFamilyDoctor(FamilyDoctor familyDoctor) {
+	        this.familyDoctor = familyDoctor;
+	    }
+	/**
+	 * this method sets the patient's physician to the physician it receives
+	 * @pre physician isn't null
+	 * @param physician is an object of type Physician which we want to assign as 
+	 * the patient's physician
+	 */
 	public void setPhysician(Physician physician) {
 		this.physician=physician;
 	}
@@ -64,10 +94,6 @@ public class Patient extends Person implements Comparable<Patient>{
 		this.nurse = nurse;		
 	}
 
-	public void setFamDoc(FamilyDoctor FamDoc){
-		this.FamMD = FamDoc;
-	}
-	
 	/**
 	 * this method returns the physician the patient is assigned to
 	 * @return an object of type Physician
@@ -82,11 +108,6 @@ public class Patient extends Person implements Comparable<Patient>{
 		return this.nurse;
 	}
 
-	
-	
-	public FamilyDoctor getFamDoc(){
-		return this.FamMD;
-	}
 	
 	public String getFName() {
 		return this.firstName;

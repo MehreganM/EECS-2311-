@@ -18,13 +18,15 @@ public class DischargePatientGUI extends JFrame {
 	JComboBox<String> patientsList;
 	JButton dischargeButton;
 	Hospital hospital; 
+	Physician physician;
 	
 	// DatabaseOps object to connect to database and its operations
 	DatabaseOps databaseOps = new DatabaseOps();
 	
-	public DischargePatientGUI(Hospital hospital) throws NoSpaceException{
+	public DischargePatientGUI(Hospital hospital, Physician physician) throws NoSpaceException{
 		// Initializing the hospital and the database
 		this.hospital = hospital;
+		this.physician = physician;
 		hospital.InitializeEmployees();
 		
 		// Set up of the display
@@ -68,7 +70,7 @@ public class DischargePatientGUI extends JFrame {
 	
 	// Go to database and extract all the patients and add them to the ComBox 
 	// (to get the updated ones after the discharge process). 
-	String patientsInfo = databaseOps.getAllPatients();
+	String patientsInfo = databaseOps.getPatientByPhysicianId2(databaseOps.getPhysicianIdByName(physician.getFirstName(), physician.getLastName()));
 	if(!patientsInfo.isEmpty()) {
 		String[] patientLines = patientsInfo.split("\n"); 
 		

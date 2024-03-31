@@ -120,7 +120,7 @@ Mehregan: Hire physician, change hospital director, send email to family doctor.
 -	Working on completing incomplete user stores, fixing bugs and refactoring.
 
 Harrish: fix the bugs reported in hiring/resigning physicians/nurses.
-Amira: refactoring and improving the code smells for recording/retrieving vital signs classes. 
+Amira: work on discharge patient functionality and refactoring and improving the code smells for recording/retrieving vital signs classes. 
 Gaurav: Complete retrieve lab results user story (connect it to the database) and fix any bugs reported in his code. 
 Parmoun: Complete medication prescription user story and fix any bugs reported in her code.  
 

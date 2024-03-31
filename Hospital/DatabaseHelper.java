@@ -12,7 +12,7 @@ import org.junit.jupiter.api.io.TempDir;
 /**
  * This is the database for the patients. It stores patient information such as first name, last name,
  * age, gender, and address. It manages storing patient information, retrieving patient information, 
- * storing vital signs, and retrieving vital signs from the databse. 
+ * storing vital signs, and retrieving vital signs from the database. 
  * @author Amira Mohamed
  */
 public class DatabaseHelper {
@@ -74,13 +74,13 @@ public class DatabaseHelper {
      */
 	public void storePatientData(String firstName, String lastName, int age, String gender, String address) {
 		try( Connection connection = getConnection()){
-			String sql = "INSERT INTO patient_info(first_name, last_name, age, gender, address)" + "VALUES(?,?,?,?,?)";
+			String sql = "INSERT INTO patients(fname, lname, age, address, gender)" + "VALUES(?,?,?,?,?)";
 			try(PreparedStatement statement = connection.prepareStatement(sql)){
 				statement.setString(1, firstName);
 				statement.setString(2, lastName);
 				statement.setInt(3, age);
-				statement.setString(4, gender);
-				statement.setString(5, address);
+				statement.setString(4, address);
+				statement.setString(5, gender);
 				
 				statement.executeUpdate();
 				System.out.println("Patient data stored sucessfully");
@@ -113,9 +113,9 @@ public class DatabaseHelper {
 					String firstName = resultset.getString("fname");
 					String lastName = resultset.getString("lname");
 					int age = resultset.getInt("age");
-					String gender = resultset.getString("gender");
 					String address = resultset.getString("address");
-					
+					String gender = resultset.getString("gender");
+
 					
 					System.out.println("Patient ID: " + patientID);
 					System.out.println("First Name:" + firstName);
@@ -256,12 +256,12 @@ public class DatabaseHelper {
 					int heartRate = resultset.getInt("heart_rate");
 					int RespiratoryRate = resultset.getInt("respiratory_rate");
 					
-					System.out.println("Temperature: " + Temperature );
-			        System.out.println("Systolic Pressure: " + systolicPressure);
-			        System.out.println("Diastolic Pressure: " + diastolicPressure);
-			        System.out.println("Blood Pressure: " + systolicPressure + "/" + diastolicPressure);
-			        System.out.println("Heart Rate: " + heartRate);
-			        System.out.println("Respiratory Rate: " + RespiratoryRate);
+					System.out.println("Temperature: " + Temperature + "°C");
+			        System.out.println("Systolic Pressure: " + systolicPressure + " mmHg");
+			        System.out.println("Diastolic Pressure: " + diastolicPressure + " mmHg");
+			        System.out.println("Blood Pressure: " + systolicPressure + "/" + diastolicPressure + " mmHg");
+			        System.out.println("Heart Rate: " + heartRate + " beats/min");
+			        System.out.println("Respiratory Rate: " + RespiratoryRate + " breaths/min");
 			        
 			        vitalsigns = new VitalSigns(Temperature, systolicPressure, diastolicPressure, heartRate, RespiratoryRate);
 				

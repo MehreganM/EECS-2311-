@@ -11,42 +11,22 @@ import java.util.*;
 public class FamilyDoctor {
     private String name;
     private String specialty;
-    private Map<Integer, List<String>> patientSummaries;
     private Laboratory laboratory; 
     String email; 
     String telephoneNumber;
 
-    // Updated constructor to include email and telephoneNumber
+    
     public FamilyDoctor(String name, String specialty, Laboratory laboratory, String email, String telephoneNumber) {
         this.name = name;
         this.email = email;
         this.telephoneNumber = telephoneNumber;
         this.specialty = specialty;
         this.laboratory = laboratory;
-        this.patientSummaries = new HashMap<>();
+       
       
     }
 
-    /**
-     * Adds summary notes for a patient.
-     * @param patientId The ID of the patient.
-     * @param summary The visit summary of the patient.
-     */
-    public void addPatientSummary(int patientId, String summary) {
-        if (!patientSummaries.containsKey(patientId)) {
-            patientSummaries.put(patientId, new ArrayList<>());
-        }
-        patientSummaries.get(patientId).add(summary);
-    }
-
-    /**
-     * Retrieves the list of summaries for a given patient.
-     * @param patientId The ID of the patient.
-     * @return A list of summaries for the patient, or an empty list if no summaries are present.
-     */
-    public List<String> getPatientSummaries(int patientId) {
-        return patientSummaries.getOrDefault(patientId, new ArrayList<>());
-    }
+   
 
     /**
      * Retrieves lab test results for a specific patient and test type.
@@ -97,8 +77,8 @@ public class FamilyDoctor {
         return "FamilyDoctor{" +
                 "name='" + name + '\'' +
                 ", specialty='" + specialty + '\'' +
-                ", email=" + email + '\'' +
-                ", patientSummaries=" + patientSummaries +
+                ", email='" + email + '\'' +
+                ", phone='" + telephoneNumber + '\'' + 
                 '}';
     }
     

@@ -14,33 +14,34 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 public class DatabaseOps {
-    public void addPatient(Patient patient) {
-        String sql = "INSERT INTO patients (ID, Fname, Lname, age, address, gender, doctor, nurse, family_doctor) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	  public void addPatient(Patient patient) {
+	        String sql = "INSERT INTO patients (ID, Fname, Lname, age, address, gender, doctor, nurse, family_doctor) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+	        try (Connection conn = DatabaseConnection.getConnection();
+	             PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-        	pstmt.setInt(1, patient.getPatientID());
-        	pstmt.setString(2, patient.getFName());
-        	pstmt.setString(3, patient.getLName());
-        	pstmt.setInt(4, patient.getAge());
-            pstmt.setString(5, patient.getAddress());
-            pstmt.setString(6, patient.getGender());
-           
-            int physician = patient.getAssignedPhysician() != null ? patient.getAssignedPhysician().getEmployeeID() : 0;
-            pstmt.setInt(8, physician);
-            
-            int nurse = patient.getNurse() != null ? patient.getNurse().getEmployeeID() : 0;
-            pstmt.setInt(7, nurse);
-            
-            String famdr = patient.getFamDoc() != null ? patient.getFamDoc().toString() : "[None]";
-            pstmt.setString(9, famdr);
-            
-             pstmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+	        	pstmt.setInt(1, patient.getPatientID());
+	        	pstmt.setString(2, patient.getFName());
+	        	pstmt.setString(3, patient.getLName());
+	        	pstmt.setInt(4, patient.getAge());
+	            pstmt.setString(5, patient.getAddress());
+	            pstmt.setString(6, patient.getGender());
+	           
+	            int physician = patient.getAssignedPhysician() != null ? patient.getAssignedPhysician().getEmployeeID() : 0;
+	            pstmt.setInt(8, physician);
+	            
+	            int nurse = patient.getNurse() != null ? patient.getNurse().getEmployeeID() : 0;
+	            pstmt.setInt(7, nurse);
+	            
+	            String famdr = patient.getFamilyDoctor() != null ? patient.getFamilyDoctor().toString() : "[None]";
+	            pstmt.setString(9, famdr);
+	            
+	             pstmt.executeUpdate();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+
 
     public String getAllPatients() {
         StringBuilder patientsInfo = new StringBuilder();
@@ -51,7 +52,7 @@ public class DatabaseOps {
              ResultSet rs = stmt.executeQuery(sql)) {
 
             while (rs.next()) {
-                String patientInfo = String.format("ID: %d, First Name: %s, Last Name: %s, Age: %d Address: %s, Gender: %s\n",
+                String patientInfo = String.format("ID: %d, First Name: %s, Last Name: %s, Age: %d, Address: %s, Gender: %s\n",
                         rs.getInt("id"),
                         rs.getString("Fname"),
                         rs.getString("Lname"),
@@ -67,6 +68,30 @@ public class DatabaseOps {
         return patientsInfo.toString();
     }
 
+    public String getAllNurses1() {
+        StringBuilder nursesInfo = new StringBuilder();
+        String sql = "SELECT * FROM nurses";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+
+            while (rs.next()) {
+                String patientInfo = String.format("ID: %d, First Name: %s, Last Name: %s, Age: %d, Address: %s, Gender: %s\n",
+                        rs.getInt("id"),
+                        rs.getString("firstname"),
+                        rs.getString("lastname"),
+                        rs.getInt("age"),
+                        rs.getString("gender"),
+                		rs.getString("address"));
+                nursesInfo.append(patientInfo);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return nursesInfo.toString();
+    }
     
     public String getPatientById(int id) {
         StringBuilder patientInfo = new StringBuilder();
@@ -174,20 +199,20 @@ public class DatabaseOps {
 
 
     public void updatePatient(Patient patient) {
-        String sql = "UPDATE patients SET Fname = ?, LName = ?, address = ?, doctor = ?, nurse = ?, family_doctor = ? WHERE id = ?";
+    	 String sql = "UPDATE patients SET Fname = ?, LName = ?, address = ?, doctor = ?, nurse = ?, family_doctor = ? WHERE id = ?";
 
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            
+         try (Connection conn = DatabaseConnection.getConnection();
+              PreparedStatement pstmt = conn.prepareStatement(sql)) {
+             
 
-        	pstmt.setString(2, patient.getFName());
-        	pstmt.setString(3, patient.getLName());
-        	pstmt.setInt(4, patient.getAge());
-        	pstmt.setString(5, patient.getAddress());
-        	pstmt.setString(6, patient.getGender());
-            pstmt.setString(7, patient.getAssignedPhysician().toString());
-            pstmt.setString(8, patient.getNurse().toString());
-            pstmt.setString(9, patient.getFamDoc().toString());  
+            	pstmt.setString(2, patient.getFName());
+            	pstmt.setString(3, patient.getLName());
+            	pstmt.setInt(4, patient.getAge());
+            	pstmt.setString(5, patient.getAddress());
+            	pstmt.setString(6, patient.getGender());
+                pstmt.setString(7, patient.getAssignedPhysician().toString());
+                pstmt.setString(8, patient.getNurse().toString());
+                pstmt.setString(9, patient.getFamilyDoctor().toString());  
             
             
 
@@ -218,6 +243,19 @@ public class DatabaseOps {
         }
     }
 
+    public boolean deletePatientB(int id) {
+        String sql = "DELETE FROM patients WHERE id = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, id);
+            pstmt.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
     
     public ArrayList<Physician> getAllPhysicians() {
         ArrayList<Physician> physicians = new ArrayList<>();
@@ -541,78 +579,82 @@ public class DatabaseOps {
        }
    }
     
-    public void StoreFamDoc(int patientID, String name, String specialty, String email, String phone) {
-		try( Connection connection = DatabaseConnection.getConnection()){
-			String checksql = "SELECT * FROM famdoc WHERE id = ?";
-			try(PreparedStatement checkstatement = connection.prepareStatement(checksql)){
-				checkstatement.setInt(1, patientID);
-				ResultSet resultset = checkstatement.executeQuery();
-				
-				// If a record exists, update it 
-				if(resultset.next()) {
-					updateFamDocInfo(patientID, name, specialty, email, phone);
-				}
-				else { 
-					// If no record exists, insert a new record
-					insertFamDocInfo(patientID, name, specialty, email, phone);
-				}
-				
-				System.out.println("Fam doc validated sucessfully");
-			
-		}
-			
-		}catch (SQLException e) {
-	        System.err.println("Error storing Fam doc: " + e.getMessage());
-			e.printStackTrace();
-		}
-	}
-	
-	public void insertFamDocInfo(int patientID, String name, String specialty, String email, String phone) {
-		try( Connection connection = DatabaseConnection.getConnection()){
-			String insertsql = "INSERT INTO famdoc (id, name, specialty, email, phone)" + "VALUES(?,?,?,?,?)";
-			try(PreparedStatement insertstatement = connection.prepareStatement(insertsql)){
-				insertstatement.setInt(1, patientID);
-				insertstatement.setString(2, name);
-				insertstatement.setString(3, specialty);
-				insertstatement.setString(4, email);
-				insertstatement.setString(5, phone);
-				
-				insertstatement.executeUpdate();
-				System.out.println("Family Doctor Updated");
-			
-		}
-			
-		}catch (SQLException e) {
-            System.err.println("Error with famdoc: " + e.getMessage());
-			e.printStackTrace();
-		}
-	}
-	
-	public void updateFamDocInfo(int patientID, String name, String specialty, String email, String phone) {
-		try( Connection connection = DatabaseConnection.getConnection()){
-			String updatesql = "UPDATE famdoc SET name = ?, specialty = ? , email = ?, phone = ? WHERE id = ?";
-			try(PreparedStatement updatestatement = connection.prepareStatement(updatesql)){
-				updatestatement.setString(1, name);
-				updatestatement.setString(2, specialty);
-				updatestatement.setString(3, email);
-				updatestatement.setString(4, phone);
-				
-				updatestatement.setInt(5, patientID);
+	/**
+	 * @author Parmoun
+	 * @param searchQuery
+	 * // Logic to search for a family doctor in the 'patients' table
+	 */
+	 
+	 public static boolean searchFamilyDoctor(String searchQuery) {
+	       
+	        String sql = "SELECT * FROM patients WHERE family_doctor LIKE ?";
+	        try (Connection conn = DatabaseConnection.getConnection();
+	             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+	             
+	            pstmt.setString(1, "%" + searchQuery + "%");
+	            ResultSet rs = pstmt.executeQuery();
 
-				updatestatement.executeUpdate();
-				System.out.println("Famdoc updated sucessfully");
-			
-		}
-			
-		}catch (SQLException e) {
-	        System.err.println("Error updating Famdoc: " + e.getMessage());
-			e.printStackTrace();
-		}
-	}
+	            if (rs.next()) {
+	                return true;
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	           
+	        }
+	        // No family doctor found
+	        return false;
+	    }
 	
-	public String retrieveFamDocEmail(int id) {
+	 public static List<FamilyDoctor> findFamilyDoctorsInPatientsInfo(String searchQuery) {
+	        List<FamilyDoctor> foundDoctors = new ArrayList<>();
+	        String sql = "SELECT * FROM patients WHERE family_doctor LIKE ?";
+	        try (Connection conn = DatabaseConnection.getConnection();
+	             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+	             
+	            pstmt.setString(1, "%" + searchQuery + "%");
+	            ResultSet rs = pstmt.executeQuery();
+	            
+	            while (rs.next()) {
+	                String doctorInfo = rs.getString("family_doctor");
+	               
+	                FamilyDoctor doctor = new FamilyDoctor(doctorInfo, "", null, "", ""); 
+	                foundDoctors.add(doctor);
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	           
+	        }
+	        return foundDoctors;
+	    }
+
+/**
+ * @author Parmoun
+ * @param prescription
+ * @return
+ */
+public boolean savePrescription(Prescription prescription) {
+    String sql = "INSERT INTO prescriptions (patient_id, physician_name, medication_name, dosage, instructions) VALUES (?, ?, ?, ?, ?)";
+    
+    try (Connection conn = DatabaseConnection.getConnection(); 
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        
+        pstmt.setInt(1, prescription.getPatientId());
+        pstmt.setString(2, prescription.getPhysicianName());
+        pstmt.setString(3, prescription.getMedicationName());
+        pstmt.setString(4, prescription.getDosage());
+        pstmt.setString(5, prescription.getInstructions());
+        
+        int affectedRows = pstmt.executeUpdate();
+        
+        return affectedRows > 0;
+    } catch (SQLException e) {
+        System.out.println(e.getMessage());
+        return false;
+    }
+}
+public String retrieveFamDocEmail(int id) {
         StringBuilder patientInfo = new StringBuilder();
-        String sql = "SELECT * FROM famdoc WHERE id = ?";
+        String sql = "SELECT * FROM patients WHERE id = ?";
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -631,9 +673,5 @@ public class DatabaseOps {
         
         return patientInfo.toString();
     }
-	
-    
-    
-    
-}
 
+}

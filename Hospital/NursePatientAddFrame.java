@@ -104,42 +104,71 @@ public class NursePatientAddFrame extends JFrame {
     }
 
     private void addPatientToNurse() throws NoSpaceException {
-        String firstName = firstNameField.getText();
-        String lastName = lastNameField.getText();
-        int age = Integer.parseInt(ageField.getText());
-        String gender = genderField.getText();
-        String address = addressField.getText();
+        String firstName = firstNameField.getText().trim();
+        String lastName = lastNameField.getText().trim();
+        String ageText = ageField.getText().trim();
+        String gender = genderField.getText().trim();
+        String address = addressField.getText().trim();
 
+        // Check if any fields are empty
+        if (firstName.isEmpty() || lastName.isEmpty() || ageText.isEmpty() || gender.isEmpty() || address.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please fill in all fields.", "Incomplete Information",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
+        // Validate first name and last name to ensure they contain only letters
+        if (!firstName.matches("[a-zA-Z-' ]+") || !lastName.matches("[a-zA-Z-' ]+")) {
+            JOptionPane.showMessageDialog(this, "First name and last name must contain only letters.", "Input Error",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Validate gender field to ensure it is either "Male" or "Female"
+        if (!(gender.equalsIgnoreCase("Male") || gender.equalsIgnoreCase("Female"))) {
+            JOptionPane.showMessageDialog(this, "Gender must be either 'Male' or 'Female'.", "Input Error",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Parse the age field
+        int age;
+        try {
+            age = Integer.parseInt(ageText);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Invalid age. Please enter a valid number.", "Input Error",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Family doctor information fields are considered optional, thus not included in the mandatory checks
         Patient newPatient = new Patient(firstName, lastName, age, gender, address);
-
         
         if (famDrConsent.isSelected() && !familyDoctorNameField.getText().isEmpty() && 
             !familyDoctorSpecialtyField.getText().isEmpty() && !familyDoctorEmailField.getText().isEmpty()) {
             
             FamilyDoctor familyDoctor = new FamilyDoctor(
-                familyDoctorNameField.getText(), 
-                familyDoctorSpecialtyField.getText(), 
+                familyDoctorNameField.getText().trim(), 
+                familyDoctorSpecialtyField.getText().trim(), 
                 null, 
-                familyDoctorEmailField.getText(), 
-                familyDoctorNumberField.getText()
+                familyDoctorEmailField.getText().trim(), 
+                familyDoctorNumberField.getText().trim()
             );
             newPatient.setFamilyDoctor(familyDoctor);
         }
 
-      
         boolean added = nurse.addPatient(newPatient);
-        int nurseID = databaseOps.getNurseIdByName(nurse.getFirstName(), nurse.getLastName());
-        
         if (added) {
-           
-        	databaseOps.addPatient(newPatient, nurseID, getSelectedPhysicianID());
+            // Assuming there's a method in DatabaseOps to add a patient along with the nurse ID and selected physician ID
+            int nurseID = databaseOps.getNurseIdByName(nurse.getFirstName(), nurse.getLastName());
+            databaseOps.addPatient(newPatient, nurseID, getSelectedPhysicianID());
             JOptionPane.showMessageDialog(this, "Patient added successfully.");
             clearFields();
         } else {
             throw new NoSpaceException("Nurse's patient list is full.");
         }
     }
+
     
     private void clearFields() {
         firstNameField.setText("");
@@ -213,7 +242,3 @@ public class NursePatientAddFrame extends JFrame {
         });
     }
 }
-
-
-
-

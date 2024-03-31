@@ -297,7 +297,7 @@ public class DatabaseOps {
             	pstmt.setString(6, patient.getGender());
                 pstmt.setString(7, patient.getAssignedPhysician().toString());
                 pstmt.setString(8, patient.getNurse().toString());
-                pstmt.setString(9, patient.getFamilyDoctor().toString());  
+                pstmt.setString(9, patient.getFamDoc().toString());  
             
             
 

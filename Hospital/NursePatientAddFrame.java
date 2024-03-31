@@ -15,6 +15,8 @@ public class NursePatientAddFrame extends JFrame {
     private JButton addButton, returnButton;
     private JCheckBox famDrConsent;
     private JComboBox physicianComboBox;
+  
+    
 
     public NursePatientAddFrame(Nurse nurse, Hospital hospital) throws NoSpaceException {
         super("Add Patient to Nurse");
@@ -31,6 +33,7 @@ public class NursePatientAddFrame extends JFrame {
         setVisible(true);
     }
     
+   
     private void initializeFields() {
         firstNameField = new JTextField(20);
         lastNameField = new JTextField(20);
@@ -107,6 +110,7 @@ public class NursePatientAddFrame extends JFrame {
         String gender = genderField.getText();
         String address = addressField.getText();
 
+
         Patient newPatient = new Patient(firstName, lastName, age, gender, address);
 
         
@@ -123,20 +127,19 @@ public class NursePatientAddFrame extends JFrame {
             newPatient.setFamilyDoctor(familyDoctor);
         }
 
-        
+      
         boolean added = nurse.addPatient(newPatient);
         int nurseID = databaseOps.getNurseIdByName(nurse.getFirstName(), nurse.getLastName());
         databaseOps.addPatient(newPatient, nurseID, getSelectedPhysicianID());
         if (added) {
            
-            databaseOps.addPatient(newPatient);
+            databaseOps.addPatient(newPatient, nurseID, nurseID);
             JOptionPane.showMessageDialog(this, "Patient added successfully.");
             clearFields();
         } else {
             throw new NoSpaceException("Nurse's patient list is full.");
         }
     }
-
     
     private void clearFields() {
         firstNameField.setText("");
@@ -151,6 +154,7 @@ public class NursePatientAddFrame extends JFrame {
         famDrConsent.setSelected(false); // Optionally reset the checkbox
         toggleFamilyDoctorFields(false); 
     }
+    
 
     private void populatePhysiciansComboBox() {
         physicianComboBox.removeAllItems(); // Clear current items
@@ -200,13 +204,16 @@ public class NursePatientAddFrame extends JFrame {
         // Return a value indicating failure to extract a valid physician ID
         return -1;
     }
-    
     private void returnToDashboard() {
         dispose();
         EventQueue.invokeLater(() -> {
-            // Assuming NurseGUI constructor accepts a Nurse and Hospital object
+            
             NurseGUI nurseGUI = new NurseGUI(nurse, hospital);
             nurseGUI.setVisible(true);
         });
     }
 }
+
+
+
+

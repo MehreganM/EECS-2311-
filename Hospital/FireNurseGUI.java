@@ -6,7 +6,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 public class FireNurseGUI extends JFrame {
@@ -14,8 +13,7 @@ public class FireNurseGUI extends JFrame {
     private JButton removeButton;
     private Hospital hospital;
     private DatabaseOps databaseOps = new DatabaseOps();
-    private Map<String, Nurse> nameToNurseMap = new HashMap<>();
-
+    
     public FireNurseGUI(Hospital hospital) {
         this.hospital = hospital;
         setTitle("Remove Nurse");

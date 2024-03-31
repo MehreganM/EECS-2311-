@@ -192,14 +192,26 @@ public class Physician extends Employee {
 	    return Hospital.laboratory.testResults(patient, testType);
 	}
 	
-	public void prescripe (Patient patient, String med) {
-		patient.medications.add(med);
-	}
 	public void LabReq(Laboratory lab, labTest labtest) {
 		lab.addTestRequest(labtest," ");
 	}
 	public void updateLab (Patient patient, Laboratory lab) {
 		patient.labs = lab.getAllTestsForPatientAsString(patient.getPatientID());
 	}
+	/**
+	 * @author Parmoun
+	 * Medicine Prescription 
+	 */
+	public void prescripe (Patient patient, String med) {
+		patient.medications.add(med);
+	}
+	  public boolean prescribeMedication(int patientId, String medicationName, String dosage, String instructions) {
+	        Prescription prescription = new Prescription(patientId, this.getFullName(), medicationName, dosage, instructions);
+	        return DatabaseHelper.addPrescription(prescription);
+	    }
 
+	    private String getFullName() {
+	        return this.firstName + " " + this.lastName;
+	    }
+	 
 }

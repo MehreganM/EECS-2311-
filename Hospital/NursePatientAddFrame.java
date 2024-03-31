@@ -130,10 +130,10 @@ public class NursePatientAddFrame extends JFrame {
       
         boolean added = nurse.addPatient(newPatient);
         int nurseID = databaseOps.getNurseIdByName(nurse.getFirstName(), nurse.getLastName());
-        databaseOps.addPatient(newPatient, nurseID, getSelectedPhysicianID());
+        
         if (added) {
            
-            databaseOps.addPatient(newPatient, nurseID, nurseID);
+        	databaseOps.addPatient(newPatient, nurseID, getSelectedPhysicianID());
             JOptionPane.showMessageDialog(this, "Patient added successfully.");
             clearFields();
         } else {

@@ -12,20 +12,32 @@ import java.sql.SQLException;
 public class LabDashboard extends JFrame {
     private JButton retrieveRequestsButton;
     private JButton fulfillRequestsButton;
+    private JButton backButton;
+    Hospital hospital;
 
-    public LabDashboard() {
+    public LabDashboard(Hospital hospital) {
+    	this.hospital = hospital;
+    
         setTitle("Laboratory Dashboard");
         setSize(600, 200);
         setLocationRelativeTo(null);
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new GridLayout(2, 1, 10, 10));
+        setLayout(new GridLayout(3, 1, 20, 20));
 
         retrieveRequestsButton = new JButton("Retrieve Lab Requests");
         fulfillRequestsButton = new JButton("Fulfill Lab Requests");
+        backButton = new JButton("Sign Out");
+        
 
         retrieveRequestsButton.setPreferredSize(new Dimension(200, 100));
         fulfillRequestsButton.setPreferredSize(new Dimension(200, 100));
+        backButton.setPreferredSize(new Dimension(200, 100));
+        
+        
+        
+        
+    	
 
         retrieveRequestsButton.addActionListener(e -> {
             // Database query to select lab requests without a result
@@ -62,6 +74,13 @@ public class LabDashboard extends JFrame {
                 JOptionPane.showMessageDialog(this, "Error retrieving lab requests.", "Database Error", JOptionPane.ERROR_MESSAGE);
             }
         });
+        
+        backButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				goBackToLogin();
+			}
+		});
 
 
 
@@ -69,11 +88,25 @@ public class LabDashboard extends JFrame {
 
         add(retrieveRequestsButton);
         add(fulfillRequestsButton);
+        add(backButton);
     }
+    
+    private void goBackToLogin() {
+		// Dispose the current window
+		this.dispose();
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new LabDashboard().setVisible(true));
-    }
+		// Open the LoginGUI window
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				RoleSelectionGUI loginGUI;
+				loginGUI = new RoleSelectionGUI(hospital);
+				loginGUI.setVisible(true);
+					
+			}
+		});
+
+ 
 }
 
  class FulfillLabRequestsFrame extends JFrame {
@@ -168,7 +201,6 @@ public class LabDashboard extends JFrame {
         });
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new FulfillLabRequestsFrame().setVisible(true));
-    }
+    
+ }
 }

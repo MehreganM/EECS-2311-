@@ -20,7 +20,36 @@ public class PatientGUI extends JFrame {
     private JTextArea patientInfoArea;
     private JButton DisplayPatients, RecordVitals, RetrieveVitals, Labs_Meds, dischargeButton, backButton;
 
-    public PatientGUI(Hospital hospital) {
+    protected DatabaseOps dbOps;
+	protected DatabaseOps dbOps2;
+	
+	 //other attributes
+    private Physician loggedInPhysician; 
+    private Physician loggedInPhysician2;
+    private JButton prescribeMedicationButton; 
+    
+    
+    /**
+     * @author Parmoun
+     * @param loggedInPhysician2
+     * @param dbOps2
+     * Note: While copying, add parameters as well
+     */
+       public PatientGUI(Physician loggedInPhysician2, DatabaseOps dbOps2) {
+   		this.loggedInPhysician2 = loggedInPhysician2;
+   		this.dbOps2 = dbOps2;
+   	}
+       
+  //  public PatientGUI(Hospital hospital) {
+       public PatientGUI(Physician loggedInPhysician, Hospital hospital) {
+    	   this.loggedInPhysician = loggedInPhysician; 
+
+   	  
+   	    
+   	    patientInfoArea = new JTextArea(10, 40);
+   	    patientInfoArea.setEditable(false);
+   	    JScrollPane scrollPane = new JScrollPane(patientInfoArea);
+
         this.hospital = hospital;
 
         // Create the database 
@@ -38,7 +67,7 @@ public class PatientGUI extends JFrame {
         // Create JTextArea to display patient info
         patientInfoArea = new JTextArea(10,40);
         patientInfoArea.setEditable(false);
-        JScrollPane scrollPane = new JScrollPane(patientInfoArea);
+        JScrollPane scrollPane1 = new JScrollPane(patientInfoArea);
 
         // Create the buttons objects
         RecordVitals = new JButton("Record Vital Signs");
@@ -67,6 +96,7 @@ public class PatientGUI extends JFrame {
                 patientInfoArea.append(dataOps.getPatientById(patientId));                
             }
         });
+      
 
         // Display patient by their name
         JButton getPatientByName = new JButton("Get patient by their Name");
@@ -78,6 +108,16 @@ public class PatientGUI extends JFrame {
                 patientInfoArea.append(dataOps.searchPatientsByName(name));                
             }
         });
+        
+        //Prescribe medication button
+        prescribeMedicationButton = new JButton("Prescribe Medication");
+        prescribeMedicationButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                PrescriptionGUI prescriptionGUI = new PrescriptionGUI(loggedInPhysician, dbOps);
+                prescriptionGUI.setVisible(true);
+            }
+        });
+       
 
         // Request labs for the patient
         JButton requestLab = new JButton("Request Lab");
@@ -200,14 +240,15 @@ public class PatientGUI extends JFrame {
         panel.add(RecordVitals);
         panel.add(RetrieveVitals);
         panel.add(Labs_Meds);
-        panel.add(dischargeButton);
+        panel.add(prescribeMedicationButton);
         panel.add(requestLab);
+        panel.add(dischargeButton);
         panel.add(backButton);
 
         // Add main panel and panel to the frame 
         add(mainPanel);
         add(mainPanel, BorderLayout.NORTH);
-        add(scrollPane, BorderLayout.CENTER);
+        add(scrollPane1, BorderLayout.CENTER);
         add(panel, BorderLayout.SOUTH);
   
 
@@ -240,7 +281,7 @@ public class PatientGUI extends JFrame {
             @Override
             public void run() {
                 Hospital hospital = new Hospital(null); 
-                PatientGUI patientGUI = new PatientGUI(hospital);
+                PatientGUI patientGUI = new PatientGUI(null, hospital);
                 patientGUI.setVisible(true);
             }
         });

@@ -18,13 +18,15 @@ public class PrescriptionGUI extends JFrame {
     private JButton submitButton;
     private Physician loggedInPhysician;
     private DatabaseOps dbOps;
+    Hospital hospital;
  
   
  
 
-    public PrescriptionGUI(Physician loggedInPhysician, DatabaseOps dbOps) {
+    public PrescriptionGUI(Physician loggedInPhysician, Hospital hospital) {
         this.loggedInPhysician = loggedInPhysician;
-        this.dbOps = dbOps;
+        this.hospital = hospital;
+        dbOps = new DatabaseOps();
         setTitle("Prescribe Medication");
         setSize(400, 300);
         setLayout(new GridLayout(6, 2));
@@ -64,7 +66,7 @@ public class PrescriptionGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 PrescriptionGUI.this.dispose(); 
-                PatientGUI patientGUI = new PatientGUI(loggedInPhysician, dbOps);
+                PatientGUI patientGUI = new PatientGUI(loggedInPhysician, hospital);
                 patientGUI.setVisible(true); 
             }
         });

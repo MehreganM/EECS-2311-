@@ -100,34 +100,35 @@ public class NursePatientAddFrame extends JFrame {
         int age = Integer.parseInt(ageField.getText());
         String gender = genderField.getText();
         String address = addressField.getText();
-        
+
         Patient newPatient = new Patient(firstName, lastName, age, gender, address);
-        // Assuming these methods exist and work as intended
-        hospital.admitPatient(newPatient);      
-        newPatient.setAssignedNurse(this.nurse);
+
         
-        if (famDrConsent.isSelected()) {
-            // Add family doctor information to the patient
-            String docName = familyDoctorNameField.getText();
-            String docSpecialty = familyDoctorSpecialtyField.getText();
-            String docEmail = familyDoctorEmailField.getText();
-            String docNumber = familyDoctorNumberField.getText();            
-            // Method to set family doctor information on newPatient
-            FamilyDoctor famdr = new FamilyDoctor(docName, docSpecialty, null, docEmail, docNumber);
-            newPatient.setFamDoc(famdr);
-            // newPatient.setFamilyDoctor(new Doctor(docName, docSpecialty));
+        if (famDrConsent.isSelected() && !familyDoctorNameField.getText().isEmpty() && 
+            !familyDoctorSpecialtyField.getText().isEmpty() && !familyDoctorEmailField.getText().isEmpty()) {
+            
+            FamilyDoctor familyDoctor = new FamilyDoctor(
+                familyDoctorNameField.getText(), 
+                familyDoctorSpecialtyField.getText(), 
+                null, 
+                familyDoctorEmailField.getText(), 
+                familyDoctorNumberField.getText()
+            );
+            newPatient.setFamilyDoctor(familyDoctor);
         }
 
-        boolean added = nurse.addPatient(newPatient);
-        databaseOps.addPatient(newPatient); // Make sure this method handles the family doctor details if necessary
         
+        boolean added = nurse.addPatient(newPatient);
         if (added) {
+           
+            databaseOps.addPatient(newPatient);
             JOptionPane.showMessageDialog(this, "Patient added successfully.");
             clearFields();
         } else {
-            JOptionPane.showMessageDialog(this, "Failed to add patient. Nurse's list may be full.");
+            throw new NoSpaceException("Nurse's patient list is full.");
         }
     }
+
     
     private void clearFields() {
         firstNameField.setText("");
@@ -140,7 +141,7 @@ public class NursePatientAddFrame extends JFrame {
         familyDoctorNumberField.setText("");
         familyDoctorEmailField.setText("");
         famDrConsent.setSelected(false); // Optionally reset the checkbox
-        toggleFamilyDoctorFields(false); // Hide family doctor fields again if needed
+        toggleFamilyDoctorFields(false); 
     }
     
     private void returnToDashboard() {

@@ -16,9 +16,9 @@ public class RoleSelectionGUI extends JFrame {
         this.hospital = hospital;
         setTitle("Select Role");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(300, 100);
+        setSize(500, 200);
         setLocationRelativeTo(null);
-        setLayout(new GridLayout(5, 1));
+        setLayout(new GridLayout(4, 1));
 
         nurseButton = new JButton("Login as Nurse");
         doctorButton = new JButton("Login as Doctor");

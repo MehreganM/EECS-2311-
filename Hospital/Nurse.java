@@ -11,39 +11,32 @@ import java.util.stream.Collectors;
 
 public class Nurse extends Employee {
 	
-	public ArrayList<Patient> patients= new ArrayList<Patient>();
-	private StubDB stubDB;
+	  public ArrayList<Patient> patients = new ArrayList<>();
 
-	public Nurse(String firstName, String lastName, int age, String gender, String address) {
-		super(firstName, lastName, age, gender, address);
-		
-	}
-	 public List<FamilyDoctor> searchFamilyDoctors(String searchQuery) {
-	        List<FamilyDoctor> allDoctors = stubDB.getAllFamilyDoctors(); 
-	        return allDoctors.stream().filter(doctor ->
-	                doctor.getName().toLowerCase().contains(searchQuery.toLowerCase()) ||
-	                doctor.getEmail().toLowerCase().contains(searchQuery.toLowerCase()) ||
-	                doctor.getTelephoneNumber().contains(searchQuery)
-	        ).collect(Collectors.toList());
+	    public Nurse(String firstName, String lastName, int age, String gender, String address) {
+	        super(firstName, lastName, age, gender, address);
 	    }
 
-	public void setPatientDB(StubDB stub) {
-		this.stubDB = stub;
-	}
+
+	    public List<FamilyDoctor> searchFamilyDoctors(String searchQuery) {
+	     
+	        return DatabaseOps.findFamilyDoctorsInPatientsInfo(searchQuery);
+	    }
+
 	
-	public boolean addPatient(Patient patient) {
-		        if (patients.size() < 15) {
-		            patients.add(patient);
-		            patient.setNurse(this);
-		            // Automatically assign a default family doctor if none is present
-		            if (patient.getFamDoc() == null) {
-		                patient.setFamDoc(createOrGetDefaultFamilyDoctor());
-		            }
-		            return true;
-		        } else {
-		            return false;
-		        }
-		    }
+	    public boolean addPatient(Patient patient) {
+	        if (patients.size() < 15) {
+	            patients.add(patient);
+	            patient.setNurse(this);
+	            // Automatically assign a default family doctor if none is present
+	            if (patient.getFamilyDoctor() == null) {
+	                patient.setFamilyDoctor(createOrGetDefaultFamilyDoctor());
+	            }
+	            return true;
+	        } else {
+	            return false;
+	        }
+	    }
 	/**
 	 * @author Parmoun
 	 * @param firstName
@@ -63,13 +56,14 @@ public class Nurse extends Employee {
 
 	public void assignFamilyDoctorToPatient(Patient patient, FamilyDoctor FamMD) {
 	    if (patient != null && FamMD != null) {
-	        patient.setFamDoc(FamMD);
+	        patient.setFamilyDoctor(FamMD);
 	      
 	    }
 	}
 	 private FamilyDoctor createOrGetDefaultFamilyDoctor() {
 	        return new FamilyDoctor("Default Doctor", "General", null, "default@hospital.com", "000-000-0000");
 	    }
+
 
 	private Patient getSelectedPatient() {
 	
@@ -90,13 +84,13 @@ public class Nurse extends Employee {
 		extracted.addAll(patientTree);
 		return extracted;
 	}
-	
-	public String currentMeds(Patient patient) {
+	////////////////////////////////////////////////////////////////////////////////////  --> Commented out
+	/*public String currentMeds(Patient patient) {
 		return stubDB.getMeds(patient);
 		//this is temporary as we may save it as a concatenated string or we might
 		//to pull this information from a database which will require the code to change
-	}
-	
+	} */
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	public void getMDNotes(Physician phys) {
 		//this will have to be related to a database
 		//we will have to retrieve the information from said database

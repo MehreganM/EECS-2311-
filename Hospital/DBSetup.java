@@ -5,18 +5,18 @@ import java.sql.*;
 
 public class DBSetup {
 
-	private static final String CREATE_PATIENTS_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS patients (" +
-	        "id SERIAL PRIMARY KEY," +
-	        "Fname VARCHAR(255)," +
-	        "Lname VARCHAR(255)," +
-	        "age INT," +
-	        "address VARCHAR(255)," +
-	        "gender VARCHAR(255)," +
-	        "doctor INT," +
-	        "nurse INT," +
-	        "consent BOOLEAN," +
-	        "phone VARCHAR(255)" + 
-	        ");";
+	// private static final String CREATE_PATIENTS_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS patients (" +
+	//         "id SERIAL PRIMARY KEY," +
+	//         "Fname VARCHAR(255)," +
+	//         "Lname VARCHAR(255)," +
+	//         "age INT," +
+	//         "address VARCHAR(255)," +
+	//         "gender VARCHAR(255)," +
+	//         "doctor INT," +
+	//         "nurse INT," +
+	//         "consent BOOLEAN," +
+	//         "phone VARCHAR(255)" + 
+	//         ");";
    
    private static final String CREATE_LAB_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS laboratory (" +
 		   "patient_id INT REFERENCES patients(id) ON DELETE CASCADE," +
@@ -25,7 +25,7 @@ public class DBSetup {
            "test_result VARCHAR(255)" +
            ");";
     
- /*   private static final String CREATE_PATIENTS_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS patients (" +
+    private static final String CREATE_PATIENTS_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS patients (" +
             "id SERIAL PRIMARY KEY," +
             "Fname VARCHAR(255)," +
             "Lname VARCHAR(255)," +
@@ -38,7 +38,7 @@ public class DBSetup {
             "family_doctor VARCHAR(255)," +
             "FOREIGN KEY (doctor) REFERENCES physicians(id)," +
             "FOREIGN KEY (nurse) REFERENCES nurses(id)" +
-            ");"; */
+            ");"; 
    /**
     * @author Parmoun
     * Prescription 

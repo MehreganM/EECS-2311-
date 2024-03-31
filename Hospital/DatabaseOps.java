@@ -14,34 +14,33 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 public class DatabaseOps {
-	  public void addPatient(Patient patient, int nurse, int physician) {
-        String sql = "INSERT INTO patients (ID, Fname, Lname, age, address, gender, doctor, nurse, family_doctor) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	  public void addPatient(Patient patient) {
+	        String sql = "INSERT INTO patients (ID, Fname, Lname, age, address, gender, doctor, nurse, family_doctor) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+	        try (Connection conn = DatabaseConnection.getConnection();
+	             PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-        	pstmt.setInt(1, patient.getPatientID());
-        	pstmt.setString(2, patient.getFName());
-        	pstmt.setString(3, patient.getLName());
-        	pstmt.setInt(4, patient.getAge());
-            pstmt.setString(5, patient.getAddress());
-            pstmt.setString(6, patient.getGender());
-           
-         //   int physician1 = patient.getAssignedPhysician() != null ? patient.getAssignedPhysician().getEmployeeID() : 0;
-            pstmt.setInt(7, physician);
-            
-           // int nurse1 = nurse.getEmployeeID();
-            		//patient.getNurse() != null ? patient.getNurse().getEmployeeID() : 0;
-            pstmt.setInt(8, nurse);
-            
-            String famdr = patient.getFamDoc() != null ? patient.getFamDoc().toString() : "[None]";
-            pstmt.setString(9, famdr);
-            
-             pstmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-	  }
+	        	pstmt.setInt(1, patient.getPatientID());
+	        	pstmt.setString(2, patient.getFName());
+	        	pstmt.setString(3, patient.getLName());
+	        	pstmt.setInt(4, patient.getAge());
+	            pstmt.setString(5, patient.getAddress());
+	            pstmt.setString(6, patient.getGender());
+	           
+	            int physician = patient.getAssignedPhysician() != null ? patient.getAssignedPhysician().getEmployeeID() : 0;
+	            pstmt.setInt(8, physician);
+	            
+	            int nurse = patient.getNurse() != null ? patient.getNurse().getEmployeeID() : 0;
+	            pstmt.setInt(7, nurse);
+	            
+	            String famdr = patient.getFamilyDoctor() != null ? patient.getFamilyDoctor().toString() : "[None]";
+	            pstmt.setString(9, famdr);
+	            
+	             pstmt.executeUpdate();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
 
 
     public String getAllPatients() {
@@ -687,100 +686,103 @@ public class DatabaseOps {
            throw new RuntimeException(e);
        }
    }
-    
-	/**
-	 * @author Parmoun
-	 * @param searchQuery
-	 * // Logic to search for a family doctor in the 'patients' table
-	 */
-	 
-	 public static boolean searchFamilyDoctor(String searchQuery) {
-	       
-	        String sql = "SELECT * FROM patients WHERE family_doctor LIKE ?";
-	        try (Connection conn = DatabaseConnection.getConnection();
-	             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-	             
-	            pstmt.setString(1, "%" + searchQuery + "%");
-	            ResultSet rs = pstmt.executeQuery();
-
-	            if (rs.next()) {
-	                return true;
-	            }
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	           
-	        }
-	        // No family doctor found
-	        return false;
-	    }
 	
-	 public static List<FamilyDoctor> findFamilyDoctorsInPatientsInfo(String searchQuery) {
-	        List<FamilyDoctor> foundDoctors = new ArrayList<>();
-	        String sql = "SELECT * FROM patients WHERE family_doctor LIKE ?";
-	        try (Connection conn = DatabaseConnection.getConnection();
-	             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-	             
-	            pstmt.setString(1, "%" + searchQuery + "%");
-	            ResultSet rs = pstmt.executeQuery();
-	            
-	            while (rs.next()) {
-	                String doctorInfo = rs.getString("family_doctor");
-	               
-	                FamilyDoctor doctor = new FamilyDoctor(doctorInfo, "", null, "", ""); 
-	                foundDoctors.add(doctor);
-	            }
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	           
-	        }
-	        return foundDoctors;
-	    }
 
-/**
- * @author Parmoun
- * @param prescription
- * @return
- */
-public boolean savePrescription(Prescription prescription) {
-    String sql = "INSERT INTO prescriptions (patient_id, physician_name, medication_name, dosage, instructions) VALUES (?, ?, ?, ?, ?)";
-    
-    try (Connection conn = DatabaseConnection.getConnection(); 
-         PreparedStatement pstmt = conn.prepareStatement(sql)) {
-        
-        pstmt.setInt(1, prescription.getPatientId());
-        pstmt.setString(2, prescription.getPhysicianName());
-        pstmt.setString(3, prescription.getMedicationName());
-        pstmt.setString(4, prescription.getDosage());
-        pstmt.setString(5, prescription.getInstructions());
-        
-        int affectedRows = pstmt.executeUpdate();
-        
-        return affectedRows > 0;
-    } catch (SQLException e) {
-        System.out.println(e.getMessage());
-        return false;
-    }
-}
-public String retrieveFamDocEmail(int id) {
-        StringBuilder patientInfo = new StringBuilder();
-        String sql = "SELECT * FROM patients WHERE id = ?";
+        /**
+    	 * @author Parmoun
+    	 * @param searchQuery
+    	 * // Logic to search for a family doctor in the 'patients' table
+    	 */
+    	 
+    	 public static boolean searchFamilyDoctor(String searchQuery) {
+    	       
+    	        String sql = "SELECT * FROM patients WHERE family_doctor LIKE ?";
+    	        try (Connection conn = DatabaseConnection.getConnection();
+    	             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+    	             
+    	            pstmt.setString(1, "%" + searchQuery + "%");
+    	            ResultSet rs = pstmt.executeQuery();
 
-        try (Connection conn = DatabaseConnection.getConnection();
+    	            if (rs.next()) {
+    	                return true;
+    	            }
+    	        } catch (SQLException e) {
+    	            e.printStackTrace();
+    	           
+    	        }
+    	        // No family doctor found
+    	        return false;
+    	    }
+    	
+    	 public static List<FamilyDoctor> findFamilyDoctorsInPatientsInfo(String searchQuery) {
+    	        List<FamilyDoctor> foundDoctors = new ArrayList<>();
+    	        String sql = "SELECT * FROM patients WHERE family_doctor LIKE ?";
+    	        try (Connection conn = DatabaseConnection.getConnection();
+    	             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+    	             
+    	            pstmt.setString(1, "%" + searchQuery + "%");
+    	            ResultSet rs = pstmt.executeQuery();
+    	            
+    	            while (rs.next()) {
+    	                String doctorInfo = rs.getString("family_doctor");
+    	               
+    	                FamilyDoctor doctor = new FamilyDoctor(doctorInfo, "", null, "", ""); 
+    	                foundDoctors.add(doctor);
+    	            }
+    	        } catch (SQLException e) {
+    	            e.printStackTrace();
+    	           
+    	        }
+    	        return foundDoctors;
+    	    }
+
+    /**
+     * @author Parmoun
+     * @param prescription
+     * @return
+     */
+    	 
+    public boolean savePrescription(Prescription prescription) {
+        String sql = "INSERT INTO prescriptions (patient_id, physician_name, medication_name, dosage, instructions) VALUES (?, ?, ?, ?, ?)";
+        
+        try (Connection conn = DatabaseConnection.getConnection(); 
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             
-            pstmt.setInt(1, id);
-            ResultSet rs = pstmt.executeQuery();
+            pstmt.setInt(1, prescription.getPatientId());
+            pstmt.setString(2, prescription.getPhysicianName());
+            pstmt.setString(3, prescription.getMedicationName());
+            pstmt.setString(4, prescription.getDosage());
+            pstmt.setString(5, prescription.getInstructions());
             
-            if (rs.next()) {
-                patientInfo.append(String.format("Email %s",
-                		
-                		rs.getString("email")));
-            }
+            int affectedRows = pstmt.executeUpdate();
+            
+            return affectedRows > 0;
         } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        
-        return patientInfo.toString();
+            System.out.println(e.getMessage());
+            return false;
+        }        }
+    
+    public String retrieveFamDocEmail(int id) {
+            StringBuilder patientInfo = new StringBuilder();
+            String sql = "SELECT * FROM patients WHERE id = ?";
+
+            try (Connection conn = DatabaseConnection.getConnection();
+                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                
+                pstmt.setInt(1, id);
+                ResultSet rs = pstmt.executeQuery();
+                
+                if (rs.next()) {
+                    patientInfo.append(String.format("Email %s",
+                    		
+                    		rs.getString("email")));
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            
+            return patientInfo.toString();
+
     }
 
 }

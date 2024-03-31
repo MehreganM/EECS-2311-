@@ -46,7 +46,10 @@ public class NurseGUI extends JFrame {
 					f.printStackTrace();
 				}
 			});
-	        viewPatientsButton.addActionListener(this::extractAndDisplayPatientDetails);
+	        viewPatientsButton.addActionListener(e -> {
+			    ViewPatientsGUI viewPatientsGUI = new ViewPatientsGUI(nurse, hospital);
+			    viewPatientsGUI.setVisible(true);
+			});
 	        assignFamilyDoctorButton.addActionListener(this::assignOrFindFamilyDoctor);
 		 backButton.addActionListener(this::goBack);
 

@@ -15,7 +15,7 @@ import javax.mail.internet.MimeMessage;
 
 public class DatabaseOps {
 	
-    public void addPatient(Patient patient, int nurse, int physician) {
+	public void addPatient(Patient patient, int nurse, int physician) {
         String sql = "INSERT INTO patients (ID, Fname, Lname, age, address, gender, doctor, nurse, family_doctor) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = DatabaseConnection.getConnection();
@@ -28,11 +28,12 @@ public class DatabaseOps {
             pstmt.setString(5, patient.getAddress());
             pstmt.setString(6, patient.getGender());
            
-            int physician1 = patient.getAssignedPhysician() != null ? patient.getAssignedPhysician().getEmployeeID() : 0;
-            pstmt.setInt(8, physician1);
+         //   int physician1 = patient.getAssignedPhysician() != null ? patient.getAssignedPhysician().getEmployeeID() : 0;
+            pstmt.setInt(7, physician);
             
-            int nurse1 = patient.getNurse() != null ? patient.getNurse().getEmployeeID() : 0;
-            pstmt.setInt(7, nurse1);
+           // int nurse1 = nurse.getEmployeeID();
+            		//patient.getNurse() != null ? patient.getNurse().getEmployeeID() : 0;
+            pstmt.setInt(8, nurse);
             
             String famdr = patient.getFamilyDoctor() != null ? patient.getFamilyDoctor().toString() : "[None]";
             pstmt.setString(9, famdr);
@@ -41,6 +42,62 @@ public class DatabaseOps {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+	
+	public String searchPhysPatientsByName(String name, int id) {
+        StringBuilder patientsInfo = new StringBuilder();
+        String sql = "SELECT * FROM patients WHERE (Fname LIKE ? OR Lname LIKE ?) AND doctor = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            
+            pstmt.setString(1, "%" + name + "%");
+            pstmt.setString(2, "%" + name + "%");
+			pstmt.setInt(3, id);
+            ResultSet rs = pstmt.executeQuery();
+            
+            while (rs.next()) {
+                String patientInfo = String.format("ID: %d, First Name: %s, Last Name: %s, Age: %d Address: %s, Gender: %s\n",
+                		rs.getInt("id"),
+                        rs.getString("Fname"),
+                        rs.getString("Lname"),
+                        rs.getInt("age"),
+                        rs.getString("address"),
+                		rs.getString("gender"));
+                patientsInfo.append(patientInfo);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return patientsInfo.toString();
+    }
+	
+	public String getPhysPatientById(int id, int doc) {
+        StringBuilder patientInfo = new StringBuilder();
+        String sql = "SELECT * FROM patients WHERE id = ? AND doctor = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            
+            pstmt.setInt(1, id);
+			pstmt.setInt(2, doc);
+            ResultSet rs = pstmt.executeQuery();
+            
+            if (rs.next()) {
+                patientInfo.append(String.format("ID: %d, First Name: %s, Last Name: %s, Age: %d Address: %s, Gender: %s",
+                		rs.getInt("id"),
+                        rs.getString("Fname"),
+                        rs.getString("Lname"),
+                        rs.getInt("age"),
+                        rs.getString("address"),
+                		rs.getString("gender")));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return patientInfo.toString();
     }
     
 

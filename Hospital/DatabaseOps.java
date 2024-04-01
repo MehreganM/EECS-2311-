@@ -43,6 +43,35 @@ public class DatabaseOps {
             e.printStackTrace();
         }
     }
+
+	 public String getPatientByPhysicianId2(int docId) {
+        StringBuilder patientInfo = new StringBuilder();
+        // Keep the filtering by physician ID to maintain the intended functionality
+        String query = "SELECT * FROM patients WHERE doctor = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            
+            pstmt.setInt(1, docId);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                // This formatting block is now identical to the one in getAllPatients, ensuring consistency
+                String patientInfoString = String.format("ID: %d, First Name: %s, Last Name: %s, Age: %d, Address: %s, Gender: %s\n",
+                        rs.getInt("id"),
+                        rs.getString("Fname"),
+                        rs.getString("Lname"),
+                        rs.getInt("age"),
+                        rs.getString("address"),
+                        rs.getString("gender"));
+                patientInfo.append(patientInfoString);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return patientInfo.toString();
+    }
 	
 	public String searchPhysPatientsByName(String name, int id) {
         StringBuilder patientsInfo = new StringBuilder();

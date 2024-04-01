@@ -92,14 +92,17 @@ public class AddNurseGUI extends JFrame {
         }
 
         // Parse the age field
-        int age;
-        try {
-            age = Integer.parseInt(ageText);
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Invalid age. Please enter a valid number.", "Input Error",
-                    JOptionPane.ERROR_MESSAGE);
-            return;
+       int age;
+    try {
+        age = Integer.parseInt(ageText);
+        if (age <= 0) { // Check if age is positive
+            throw new NumberFormatException("Age must be a positive number.");
         }
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Invalid age. Please enter a positive number.", "Input Error",
+                JOptionPane.ERROR_MESSAGE);
+        return;
+    }
 
         Nurse newNurse = new Nurse(firstName, lastName, age, gender, address);
         newNurse.setUser(username);

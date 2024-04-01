@@ -200,7 +200,16 @@ Attendance: Amira, Parmoun, Gaurav, Mehregan
 Harrish: Add feature for nurse to assign physicians to the patient
 Amira: refactoring and improving the code smells for recording/retrieving vital signs classes. 
 Gaurav: Add a "Log in as laboratory" and a user and pass and connect it to laboratory dashboard 
-Mehregan: under send email check if there is an email, if no email discharge patient and no family doctor 
+Mehregan: under send email check if there is an email, if no email discharge patient and no family doctor.
+
+### Meeting 14: (Sunday, March 31, 2024 - 3:00 pm to 11:30 pm)
+Attended: Amira, Harrish, Gaurav, Parmoun
+- Doing integration testing
+- Ensuring all user stories working fine. 
+- Complete the Planning document.
+- Complete the Bug configuration file. 
+- Complete Wiki/User stories file. 
+- Complete the log file.
  
 Unassigned:
 - add a feature to show which patients are under the nurse logged in

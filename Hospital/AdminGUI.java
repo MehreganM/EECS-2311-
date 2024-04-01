@@ -77,6 +77,7 @@ public class AdminGUI extends JFrame implements ActionListener{
 	        	RoleSelectionGUI loginGUI;
 				loginGUI = new RoleSelectionGUI(hospital);
 				loginGUI.setVisible(true);
+			this.dispose();
 	      
 	        }
 	    } 

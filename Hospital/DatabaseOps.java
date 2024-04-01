@@ -716,7 +716,7 @@ public class DatabaseOps {
      */
     public void deletePatient(String fname, String lname, int age) {
         Hospital hospital = new Hospital(null);
-        Laboratory laboratory = new Laboratory(); 
+        Laboratory laboratory = new Laboratory();
         String queryDoctorAndId = "SELECT id, family_doctor FROM patients WHERE fname = ? AND lname = ? AND age = ?";
         String sqlDelete = "DELETE FROM patients WHERE fname = ? AND lname = ? AND age = ?";
 
@@ -727,28 +727,52 @@ public class DatabaseOps {
             pstmtQuery.setInt(3, age);
 
             ResultSet rs = pstmtQuery.executeQuery();
-            String doctorEmail = "dr.mark@gmail.com"; // Default email
+            String doctorEmail = null;
             int patientId = 0;
             if (rs.next()) {
                 String familyDoctor = rs.getString("family_doctor");
-                patientId = rs.getInt("id"); // Correctly retrieve the patient ID
-                int emailStart = familyDoctor.indexOf("email=") + "email=".length();
-                int emailEnd = familyDoctor.indexOf("',", emailStart);
-                doctorEmail = familyDoctor.substring(emailStart, emailEnd); // Extract email
+                if (familyDoctor != null && !familyDoctor.isEmpty()) {
+                    int emailStart = familyDoctor.indexOf("email=") + "email=".length();
+                    int emailEnd = familyDoctor.indexOf("',", emailStart);
+                    if (emailEnd > emailStart) {
+                        doctorEmail = familyDoctor.substring(emailStart, emailEnd);
+                    }
+                }
+                patientId = rs.getInt("id");
             }
 
-            String allTestsForPatient = "";
-            if (patientId > 0) { // Check that patientId is greater than 0
-                allTestsForPatient = laboratory.getAllTestsForPatientAsString(patientId);
-            }
-
-            try (PreparedStatement pstmtDelete = conn.prepareStatement(sqlDelete)) {
+            if (doctorEmail == null || doctorEmail.isEmpty()) {
+                System.out.println("No family doctor exists for the patient: " + fname + " " + lname);
+            } else {
+                String allTestsForPatient = laboratory.getAllTestsForPatientAsString(patientId);
+                System.out.println(allTestsForPatient);
                 hospital.sendEmail(doctorEmail, lname + " Record", "labtest " + allTestsForPatient);
-                pstmtDelete.setString(1, fname);
-                pstmtDelete.setString(2, lname);
-                pstmtDelete.setInt(3, age);
-                pstmtDelete.executeUpdate();
+                if (patientId > 0) {
+                    deleteRelatedLabTests(patientId); 
+                    
+                }
             }
+
+            if (patientId > 0) {
+                try (PreparedStatement pstmtDelete = conn.prepareStatement(sqlDelete)) {
+                    pstmtDelete.setString(1, fname);
+                    pstmtDelete.setString(2, lname);
+                    pstmtDelete.setInt(3, age);
+                    pstmtDelete.executeUpdate();
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void deleteRelatedLabTests(int patientId) {
+        String sql = "DELETE FROM laboratory WHERE patient_id = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, patientId);
+            pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }

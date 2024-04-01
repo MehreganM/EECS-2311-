@@ -133,13 +133,16 @@ public class NursePatientAddFrame extends JFrame {
 
         // Parse the age field
         int age;
-        try {
-            age = Integer.parseInt(ageText);
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Invalid age. Please enter a valid number.", "Input Error",
-                    JOptionPane.ERROR_MESSAGE);
-            return;
+    try {
+        age = Integer.parseInt(ageText);
+        if (age <= 0) { // Check if age is positive
+            throw new NumberFormatException("Age must be a positive number.");
         }
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Invalid age. Please enter a positive number.", "Input Error",
+                JOptionPane.ERROR_MESSAGE);
+        return;
+    }
 
         // Family doctor information fields are considered optional, thus not included in the mandatory checks
         Patient newPatient = new Patient(firstName, lastName, age, gender, address);

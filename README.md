@@ -43,10 +43,12 @@ The HIS project aims to streamline hospital operations by providing specific fun
   - Creation of acceptance tests to validate the functionality against user requirements.
   - Preparation for the final release of the project.
  
-    # Healthcare Information System (HIS) - User Stories Update for ITR3
+    # Healthcare Information System (HIS) - User Stories Update for ITR3 The complete version of user stories and how to recreate them is uploaded in a pdf file "Wiki User stories update for ITR3". Please check this document for detailed version.
 
 The HIS is developed around multiple distinct user stories, each targeting specific functionalities within the system. Below, we provide summaries for each user story, elaborating on the process overviews, testing strategies, and verification steps involved.
-##The complete version of user stories and how to recreate them is uploaded in a pdf file "Wiki User stories update for ITR3". Please check this document for detailed version.
+
+**The complete version of user stories and how to recreate them is uploaded in a pdf file "Wiki User stories update for ITR3". Please check this document for detailed version.**
+
 ## Table of Contents
 - [1. Parmoun Khalkhali Sharifi](#1-parmoun-khalkhali-sharifi)
   - [1.1 Family Doctor Assignment](#11-family-doctor-assignment)

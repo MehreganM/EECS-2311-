@@ -3,6 +3,14 @@ The Hospital Information System (HIS) is a project developed by the EECS2311 gro
 
 ## Project Overview
 The HIS project aims to streamline hospital operations by providing specific functionalities tailored to different user roles within the hospital environment. 
+## Setup
+Hello, please just follow the following steps to do the setup. Generally, no specific setup is needed and only downloading the src files and connecting to DB would be enough, but here are the general steps if you want to create new roles and see functionalities:
+1- Download all files in src into the eclipseIDE (JavaSE-17).
+2- In the databaseConnection class, modify the following line and choose your own password to connect to the database in SQL: private static final String PASSWORD = "choose your password";
+3-  Run roleSelectionGUI.java, to see the starter GUI on your EclipseIDE.
+4-  Select your role and create your log-in information
+5 - If you log into the role admin, you will be able to create other roles with your specified information.
+6 - You will be able to log in as a role you have created with its specific username and password afterward.
 
 ## Key features include:
 - User authentication and role-based access control for doctors, nurses, volunteers, and administrators.
